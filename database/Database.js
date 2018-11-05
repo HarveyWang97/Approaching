@@ -79,9 +79,8 @@ class Database {
   remove(schema, primaryKey, object, callback = () => {}) {
     const conditions = {};
     conditions[primaryKey] = object[primaryKey];
-    console.log("wulalalla");
     schema.findOneAndDelete(conditions, (err, doc) => {
-      if (err) {
+      if (err || !doc) {
         callback(this._response());
       } else {
         callback(this._response(doc._id));
