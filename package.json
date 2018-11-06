@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=dev DEBUG='server:*' node ./bin/www"
+    "server": "NODE_ENV=dev DEBUG='server:*' node ./bin/www",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "concurrently": "^4.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",

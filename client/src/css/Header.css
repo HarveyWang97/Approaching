@@ -1,0 +1,20 @@
+.header{
+    background-color:darkgray;
+    padding-left: 100px;
+    padding-right:100px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.icon{
+    float:right;
+    font-size:22px;
+}
+
+.login{
+    margin-top:70px;
+    left:50% !important;
+    margin-left:-119px !important ;
+    position: relative !important; 
+}
+
