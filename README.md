@@ -6,8 +6,7 @@ UCLA CS130 Project
 ```
 git clone https://github.com/VincentD97/Approaching.git
 cd Approaching
-npm install
-cd client/ && npm i && cd ..
+npm run setup
 npm run dev
 ```
 
