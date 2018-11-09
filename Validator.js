@@ -43,6 +43,11 @@ class Validator {
   static isUsersRemoveQuery(query) {
     return this._hasExactParams(query, [ config.User.primaryKey ]);
   }
+
+  static isEventsInsertQuery(query) {
+    //////// name, description, location, time
+    
+  }
 }
 
 module.exports = Validator;

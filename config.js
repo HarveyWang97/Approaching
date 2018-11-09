@@ -21,6 +21,34 @@ module.exports = {
       primaryKey: 'facebookId',
       required: [ 'facebookId', 'name', 'email' ],
       updatable: [ 'email' ]
+    },
+    Event: {
+      collection: 'Events',
+      fields: {
+        id: {
+          type: String,
+          required: true
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        time: {
+          type: Date,
+          required: true
+        },
+        location: {
+          type: String,
+          required: false
+        },
+        description :{
+          type: String,
+          required: false
+        }
+      },
+      primaryKey: 'id',
+      required: [ 'name', 'time', 'location', 'description' ],
+      updatable: [ 'name', 'time', 'location', 'description' ]
     }
   }
 }

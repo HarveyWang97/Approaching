@@ -7,7 +7,8 @@ UCLA CS130 Project
 git clone https://github.com/VincentD97/Approaching.git
 cd Approaching
 npm install
-npm start
+cd client/ && npm i && cd ..
+npm run dev
 ```
 
 ## API

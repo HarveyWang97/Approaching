@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "setup": "npm i && cd client/ && npm i && cd ..",    
     "server": "NODE_ENV=dev DEBUG='server:*' node ./bin/www",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run client\" \"npm run server\""
