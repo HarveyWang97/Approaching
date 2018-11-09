@@ -14,19 +14,26 @@ class LoginButton extends Component{
             name:response.name,
             email:response.email
         });
+        console.log("here");
         const url = 
         `http://localhost:3000/users/insert?facebookId=${response.userID}&name=${response.name}&email=${response.email}`;
         axios.get(url)
         .then((response) => {
-            console.log(response);
+            console.log("res", response);
+            console.log("state ", this.state, "  props ", this.props);
         }); // insert into database
         this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
-        
+        this.props.history.push('/dashboard');
     };
 
-
+    
 
     render(){
+        let content;
+        if(this.props.user != null && this.props.user != null){
+            content = this.props.user.email;
+        }
+
         return (
             <div className="login">
                 <FacebookLogin
@@ -35,6 +42,7 @@ class LoginButton extends Component{
                     fields="name,email,picture"
                     callback={this.responseFacebook}
                 />
+                {content}
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import '../css/Header.css';
 import { Navbar} from 'reactstrap';
-import LoginButton from './LoginButton';
+
 
 class Header extends Component{
     constructor(props){
