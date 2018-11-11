@@ -47,6 +47,14 @@
      font-size: 20px;
  }
 
+ .events{
+   position:fixed;
+   top:65px;
+   width:100%;
+   overflow:auto;
+   bottom:50px;
+ }
+
   
   /* If you want the content centered horizontally and vertically */
   /*.centered {
