@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Validator = require('../validators/UsersQueryValidator');
+const Validator = require('../validators/ItemsQueryValidator');
 const Database = require('../database/Database');
+const Utils = require('../Utils');
 
 router.get('/insert', (req, res, next) => {
   if (Validator.isInsert(req.query)) {
-    Database.insertUser(req.query, response => res.send(response));
+    const item = Utils.getDetails(req.query);
+    item.owner = req.query.facebookId;
+    Database.insertItem(Utils.getAuth(req.query),
+      item, response => res.send(response));
   } else {
     res.status(400);
     res.send({ success: false, message: 'invalid parameters' });
@@ -14,7 +18,8 @@ router.get('/insert', (req, res, next) => {
 
 router.get('/update', (req, res, next) => {
   if (Validator.isUpdate(req.query)) {
-    Database.updateUser(req.query, response => res.send(response));
+    Database.updateItem(Utils.getAuth(req.query),
+      Utils.getDetails(req.query), response => res.send(response));
   } else {
     res.status(400);
     res.send({ success: false, message: 'invalid parameters' });
@@ -23,7 +28,8 @@ router.get('/update', (req, res, next) => {
 
 router.get('/remove', (req, res, next) => {
   if (Validator.isRemove(req.query)) {
-    Database.removeUser(req.query, response => res.send(response));
+    Database.removeItem(Utils.getAuth(req.query),
+      Utils.getDetails(req.query), response => res.send(response));
   } else {
     res.status(400);
     res.send({ success: false, message: 'invalid parameters' });

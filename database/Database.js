@@ -2,6 +2,10 @@ const debug = require('debug')('server:database');
 const mongoose = require('mongoose');
 const models = require('./models');
 const config = require('../config');
+const userConfig = config.databaseModels.User;
+const itemConfig = config.databaseModels.Item;
+const eventConfig = config.databaseModels.Event;
+const utils = require('./DatabaseUtils');
 
 class Database {
   constructor() {
@@ -22,109 +26,67 @@ class Database {
     });
   }
 
-  _response(id) {
-    return {
-      success: (id !== undefined),
-      id: id
-    };
-  }
-
-  _save(doc, callback) {
-    doc.save((err, doc) => {
+  fetchData(callback = () => {}) {
+    models.User.find({}, function(err, users) {
       if (err) {
-        callback(this._response());
+        callback({ success: false });
       } else {
-        callback(this._response(doc._id));
-      }
-    });
-  }
-
-  insert(schema, object, callback = () => {}) {
-    const doc = new schema(object);
-    this._save(doc, callback);
-  }
-
-  insertIfNotExisting(schema, primaryKey, object, callback = () => {}) {
-    const conditions = {};
-    conditions[primaryKey] = object[primaryKey];
-    schema.findOne(conditions, (err, doc) => {
-      if (err) {
-        callback(this._response());
-      }
-      if (doc) {
-        callback(this._response(doc._id));
-      } else {
-        this.insert(schema, object, callback);
-      }
-    });
-  }
-
-  update(schema, primaryKey, object, callback = () => {}) {
-    const conditions = {};
-    conditions[primaryKey] = object[primaryKey];
-    schema.findOne(conditions, (err, doc) => {
-      if (err || !doc) {
-        callback(this._response());
-      } else {
-        for (let field in object) {
-          if (object.hasOwnProperty(field)) {
-            doc[field] = object[field];
-          }
-        }
-        this._save(doc, callback);
-      }
-    });
-  }
-
-  remove(schema, primaryKey, object, callback = () => {}) {
-    const conditions = {};
-    conditions[primaryKey] = object[primaryKey];
-    schema.findOneAndDelete(conditions, (err, doc) => {
-      if (err || !doc) {
-        callback(this._response());
-      } else {
-        callback(this._response(doc._id));
+        callback({
+          success: true,
+          users: users
+        });
       }
     });
   }
 
   insertUser(user, callback = () => {}) {
-    this.insertIfNotExisting(models.User, 
-      config.databaseModels.User.primaryKey, user, callback);
+    utils.insertIfNotExisting(models.User, userConfig.primaryKey, user, callback);
   }
 
-  insertItem() {
-    
+  insertItem(user, item, callback = () => {}) {
+    utils.authorize(user, callback, () => {
+      utils.insert(models.Item, item, callback);
+    });
   }
 
-  insertEvent() {
-
+  insertEvent(user, event, callback = () => {}) {
+    utils.authorize(user, callback, () => {
+      utils.insert(models.Event, event, callback);
+    });
   }
 
   updateUser(user, callback = () => {}) {
-    this.update(models.User, 
-      config.databaseModels.User.primaryKey, user, callback);
+    utils.authorize(user, callback, () => {
+      utils.update(models.User, userConfig.primaryKey, user, callback);
+    });
   }
 
-  updateItem() {
-    
+  updateItem(user, item, callback = () => {}) {
+    utils.authorize(user, callback, () => {
+      utils.update(models.Item, itemConfig.primaryKey, item, callback);
+    });
   }
 
-  updateEvent() {
-    
+  updateEvent(user, event, callback = () => {}) {
+    utils.authorize(user, callback, () => {
+      utils.update(models.Event, eventConfig.primaryKey, event, callback);
+    });
   }
 
   removeUser(user, callback = () => {}) {
-    this.remove(models.User, 
-      config.databaseModels.User.primaryKey, user, callback);
+    utils.authorize(user, callback, () => {
+      utils.remove(models.User, userConfig.primaryKey, user, callback);
+    });
   }
 
-  removeItem() {
-    
+  removeItem(user, item, callback = () => {}) {
+    utils.authorize(user, callback, () => {
+      utils.remove(models.Item, itemConfig.primaryKey, item, callback);
+    });
   }
 
-  removeEvent() {
-    
+  removeEvent(user, event, callback = () => {}) {
+    utils.remove(models.Event, eventConfig.primaryKey, event, callback);
   }
 }
 

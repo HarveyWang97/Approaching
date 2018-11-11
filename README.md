@@ -12,29 +12,32 @@ npm run dev
 
 ## API
 
-Goto these api endpoints in a browser and you should see expected response in plaintext.
-At the same time, our mlab mongodb database should change accordingly. In all three cases for the User, on success, client side will receive an object containing the id of the document we just modified.
+Goto these API endpoints in a browser and you should see expected response in plaintext.
+At the same time, our mlab mongodb database should change accordingly.
 
-### Insert User
+`facebookId` and `accessToken` are required for all requests. Parameters that are not listed in "Required" column are optional.
 
-Syntax: `http://localhost:3000/users/insert?facebookId=****&name=****&email=****`
+### User
 
-Sample: `http://localhost:3000/users/insert?facebookId=99887&name=Peter&email=sample@email.com`
+| Action |                                        Url                                         | Required |
+|:------:|------------------------------------------------------------------------------------|:--------:|
+| Insert | `http://localhost:3000/users/insert?facebookId={}&accessToken={}&name={}&email={}` |    All   |
+| Update | `http://localhost:3000/users/update?facebookId={}&accessToken={}&email={}`         |          |
+| Remove | `http://localhost:3000/users/remove?facebookId={}&accessToken={}`                  |          |
 
-Note: A new user will be added only if he doesn't exist before. The request will result in a success if the user is finally added to the database.
+### Item
 
-### Update User
+| Action |                                        Url                                         | Required |
+|:------:|------------------------------------------------------------------------------------|:--------:|
+| Insert | `http://localhost:3000/items/insert?facebookId={}&accessToken={}&name={}&picture={}&expireDate={}&location={}&quantity={}&description={}` |    All   |
+| Update | `http://localhost:3000/items/update?facebookId={}&accessToken={}&_id={}&name={}&picture={}&expireDate={}&location={}&quantity={}&description={}` |   `_id`  |
+| Remove | `http://localhost:3000/items/remove?facebookId={}&accessToken={}&_id={}`           |   `_id`  |
 
-Syntax: `http://localhost:3000/users/update?facebookId=****&email=****`
+### Event
 
-Sample: `http://localhost:3000/users/update?facebookId=1754&email=newemail@email.com`
+| Action |                                        Url                                         | Required |
+|:------:|------------------------------------------------------------------------------------|:--------:|
+| Insert | `http://localhost:3000/events/insert?facebookId={}&accessToken={}&name={}&picture={}&time={}&location={}&description={}` |    All   |
+| Update | `http://localhost:3000/events/update?facebookId={}&accessToken={}&_id={}&name={}&picture={}&time={}&location={}&description={}` |   `_id`  |
+| Remove | `http://localhost:3000/events/remove?facebookId={}&accessToken={}&_id={}`                  |   `_id`  |
 
-Note: Update accepts the unique id and the fields we want to update. For a user, the only field we can update is email. The request will result in a success if the user already exists in the database and is successfully updated.
-
-### Remove User
-
-Syntax: `http://localhost:3000/users/remove?facebookId=****`
-
-Sample: `http://localhost:3000/users/insert?facebookId=8888`
-
-Note: The request will result in a success if the user previouly exists in the database and is successfully removed.

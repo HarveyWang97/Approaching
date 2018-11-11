@@ -23,7 +23,7 @@ class LoginButton extends Component{
             console.log("state ", this.state, "  props ", this.props);
         }); // insert into database
         this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
-        this.props.history.push('/dashboard');
+        this.props.history.push('/dashboard?id=catdog');
     };
 
     
