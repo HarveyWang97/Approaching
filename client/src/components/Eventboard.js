@@ -6,6 +6,8 @@ import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
 import bg from './bg.jpg';
 import tree from './tree.jpeg';
 import th from './th.jpg';
+import swag from './swag.jpg';
+import calendar from './calendar.jpeg';
 
 export default class Eventboard extends Component{
     constructor(props){
@@ -42,7 +44,7 @@ export default class Eventboard extends Component{
         return (
             <div>
                 <div style={{marginLeft:'50px',marginBottom:'10px'}}>
-                    <text >{this.monthName[month]} {year}</text>
+                    <text ><b>{this.monthName[month]} {year}</b></text>
                 </div>
                 {events}
             </div>
@@ -70,7 +72,7 @@ export default class Eventboard extends Component{
                         "name": "Onsite Interview",
                         "time": "3pm - 5pm",
                         "location": "Menlo Park",
-                        "picture": tree,
+                        "picture": bg,
                         "description": null 
                     }
                 ],
@@ -79,7 +81,7 @@ export default class Eventboard extends Component{
                         "name": "Swag Dispense",
                         "time": "10am - 12pm",
                         "location": "Westwood",
-                        "picture": bg,
+                        "picture": swag,
                         "description": null
                     },
                     {
@@ -101,12 +103,13 @@ export default class Eventboard extends Component{
         return (
             <div className="split-right right">  
             <div className="events">          
-                <h2 style = {{marginTop:'40px', marginLeft:'90px'}}>Events</h2>
+                <h2 style = {{marginTop:'40px', marginLeft:'50px', color:"green"}}>Events Calendar
+                <img style = {{marginLeft:'5px'}} src={calendar} width="30" height="26" />
+                </h2>
                 {events}
            </div>
-
                 <div className="footer">
-                    <i className="fa fa-plus add" ></i>
+                    <a href="dashboard"><i className="fa fa-plus add" ></i></a>   
                 </div>
         
             </div>
