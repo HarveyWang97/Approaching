@@ -41,3 +41,8 @@ At the same time, our mlab mongodb database should change accordingly.
 | Update | `http://localhost:3000/events/update?facebookId={}&accessToken={}&_id={}&name={}&picture={}&time={}&location={}&description={}` |   `_id`  |
 | Remove | `http://localhost:3000/events/remove?facebookId={}&accessToken={}&_id={}`                  |   `_id`  |
 
+### Get All Items and Events
+
+|  Action   |                                        Url                                         | Required |
+|:---------:|------------------------------------------------------------------------------------|:--------:|
+| fetchDate | `http://localhost:3000/fetchData?facebookId={}&accessToken={}`                     |          |
