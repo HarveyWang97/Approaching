@@ -5,7 +5,36 @@ import "../css/Dashboard.css";
 export default class Eventboard extends Component{
     constructor(props){
         super(props);
-        let data = {
+        
+    }
+
+    renderYear(year,items){
+        const events = Object.keys(items).map(key=> {
+            return this.renderMonth(key,items[key]);
+        }); // iterate an object
+        return events;
+    }
+
+    renderMonth(month,items){
+        const events = items.map(item => {
+            return this.renderItem(item.name,item.time);
+        }); // iterate an array
+        return (
+            <div>
+                <text style={{marginLeft:'50px'}}>{month}</text>
+                {events}
+            </div>
+        );
+    }
+
+    renderItem(name,time){
+        return (
+            <EventItem name={name} time={time} key={name}/>
+        );
+    }
+
+    render(){
+        const data = {
             2018: {
                 10: [
                     {
@@ -39,10 +68,10 @@ export default class Eventboard extends Component{
             2019: {
 
             }
-        }
-    }
-
-    render(){
+        };
+        const events = Object.keys(data).map(key => {
+            return this.renderYear(key,data[key]);
+        });
         return (
             <div className="split-right right">  
             <div className="events">          
@@ -50,11 +79,12 @@ export default class Eventboard extends Component{
                 {/*arr.map(item => {
                     return <EventItem title={item.title} />
                 })*/}
-                <text style={{marginLeft:'50px'}} >Nov 2018 </text>
+               {/* <text style={{marginLeft:'50px'}} >Nov 2018 </text>
                 <EventItem />     
                 <EventItem width="100px"/>
                 <text style={{marginLeft:'50px'}} >Dec 2018 </text>
-                <EventItem />
+            <EventItem /> */}
+                {events}
            </div>
 
                 <div className="footer">

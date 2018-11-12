@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import bg from './bg.jpg';
 
-export default () => {
+export default (props) => {
     return (
         <div 
             style={{border:'solid 1px', 
@@ -12,9 +12,9 @@ export default () => {
         >
             <img src={bg} width="400" height="200" />
             <br />
-            <text style={{marginLeft:'10px'}}>Onsite Interview </text>
+            <text style={{marginLeft:'10px'}}>{props.name}</text>
             <br />
-            <text style={{marginLeft:'10px'}}>10 AM - 3 PM</text>
+            <text style={{marginLeft:'10px'}}>{props.time}</text>
         </div>
     );
 };
