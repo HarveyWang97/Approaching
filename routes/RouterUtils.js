@@ -1,10 +1,10 @@
-class Utils {
+class RouterUtils {
   constructor() {}
 
   static getAuth(query) {
     return {
-      facebookId: query.facebookId,
-      accessToken: query.accessToken
+      facebookId: query && query.facebookId,
+      accessToken: query && query.accessToken
     };
   }
 
@@ -19,4 +19,4 @@ class Utils {
   }
 }
 
-module.exports = Utils;
+module.exports = RouterUtils;

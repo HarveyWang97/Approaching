@@ -1,5 +1,5 @@
 const utils = require('./ValidatorUtils');
-const getDetails = require('../Utils').getDetails;
+const { getDetails } = require('../routes/RouterUtils');
 
 class QueryValidator {
   constructor() {}
