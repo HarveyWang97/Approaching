@@ -1,15 +1,25 @@
 import React,{Component} from 'react';
 
-export default () => {
+export default (props) => {
     return (
         <div 
             style={{border:'solid 1px', 
-                    width:'300px',height:'25px',
-                    paddingTop:'7px',
-                    marginLeft:'90px'}}
+                    width:'400px',height:'265px',
+                    paddingTop:'0px',
+                    marginLeft:'90px',
+                    marginBottom:'20px'}}
         >
-            <span style={{marginLeft:'30px'}}>Onsite Interview</span>
-            <span style={{marginRight:'30px'}}>10 AM - 3 PM</span>
+
+            <img src={props.picture} width="400" height="220" />
+            <br />
+            <body bgcolor="white">
+            <text style={{marginLeft:'10px'}}>{props.name}</text>
+            <br />
+            <text style={{marginLeft:'10px'}}>{props.time}</text>
+            </body>
         </div>
     );
 };
+
+
+  
