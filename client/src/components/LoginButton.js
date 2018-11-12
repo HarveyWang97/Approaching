@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 import '../css/Header.css';
-import axios from 'axios';
+import {insertUser} from '../Request.js';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 
@@ -12,16 +12,12 @@ class LoginButton extends Component{
             isLoggedIn:true,
             userId:response.userID,
             name:response.name,
-            email:response.email
+            email:response.email,
+            accessToken:response.accessToken
         });
-        console.log("here");
-        const url = 
-        `http://localhost:3000/users/insert?facebookId=${response.userID}&name=${response.name}&email=${response.email}`;
-        axios.get(url)
-        .then((response) => {
-            console.log("res", response);
-            console.log("state ", this.state, "  props ", this.props);
-        }); // insert into database
+        //console.log("here");
+        insertUser(response);
+        console.log("state ", this.state, "  props ", this.props);
         this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
         this.props.history.push('/dashboard?id=catdog');
     };
