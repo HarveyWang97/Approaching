@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import bg from './bg.jpg';
 
 export default (props) => {
     return (
@@ -10,7 +9,7 @@ export default (props) => {
                     marginLeft:'90px',
                     marginBottom:'20px'}}
         >
-            <img src={bg} width="400" height="200" />
+            <img src={props.picture} width="400" height="200" />
             <br />
             <text style={{marginLeft:'10px'}}>{props.name}</text>
             <br />

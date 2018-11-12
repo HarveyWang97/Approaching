@@ -1,6 +1,11 @@
 import React,{Component} from 'react';
 import EventItem from './Eventitem';
 import "../css/Dashboard.css";
+import { INSPECT_MAX_BYTES } from 'buffer';
+import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
+import bg from './bg.jpg';
+import tree from './tree.jpeg';
+import th from './th.jpg';
 
 export default class Eventboard extends Component{
     constructor(props){
@@ -10,26 +15,43 @@ export default class Eventboard extends Component{
 
     renderYear(year,items){
         const events = Object.keys(items).map(key=> {
-            return this.renderMonth(key,items[key]);
+            return this.renderMonth(key,year,items[key]);
         }); // iterate an object
         return events;
     }
 
-    renderMonth(month,items){
+    monthName = {
+        1:"January",
+        2:"February",
+        3:"March",
+        4:"April",
+        5:"May",
+        6:"June",
+        7:"July",
+        8:"August",
+        9:"September",
+        10:"October",
+        11:"November",
+        12:"December"
+    }
+
+    renderMonth(month,year,items){
         const events = items.map(item => {
-            return this.renderItem(item.name,item.time);
+            return this.renderItem(item.name,item.time,item.picture);
         }); // iterate an array
         return (
             <div>
-                <text style={{marginLeft:'50px'}}>{month}</text>
+                <div style={{marginLeft:'50px',marginBottom:'10px'}}>
+                    <text >{this.monthName[month]} {year}</text>
+                </div>
                 {events}
             </div>
         );
     }
 
-    renderItem(name,time){
+    renderItem(name,time,picture){
         return (
-            <EventItem name={name} time={time} key={name}/>
+            <EventItem name={name} time={time} picture = {picture} key={name}/>
         );
     }
 
@@ -38,29 +60,33 @@ export default class Eventboard extends Component{
             2018: {
                 10: [
                     {
-                        "name": "Contest",
-                        "time": "10/26/2018",
+                        "name": "CS Contest",
+                        "time": "1pm - 3pm",
                         "location": "Los Angeles",
+                        "picture": th,
                         "description": null 
                     },
                     {
                         "name": "Onsite Interview",
-                        "time": "10/28/2018",
+                        "time": "3pm - 5pm",
                         "location": "Menlo Park",
+                        "picture": tree,
                         "description": null 
                     }
                 ],
                 12: [
                     {
                         "name": "Swag Dispense",
-                        "time": "12/3/2018",
+                        "time": "10am - 12pm",
                         "location": "Westwood",
+                        "picture": bg,
                         "description": null
                     },
                     {
                         "name": "Birthday Party",
-                        "time": "12/8/2018",
+                        "time": "6pm",
                         "location": "Midvale Avenue",
+                        "picture": tree,
                         "description": null
                     }
                 ],
@@ -76,14 +102,6 @@ export default class Eventboard extends Component{
             <div className="split-right right">  
             <div className="events">          
                 <h2 style = {{marginTop:'40px', marginLeft:'90px'}}>Events</h2>
-                {/*arr.map(item => {
-                    return <EventItem title={item.title} />
-                })*/}
-               {/* <text style={{marginLeft:'50px'}} >Nov 2018 </text>
-                <EventItem />     
-                <EventItem width="100px"/>
-                <text style={{marginLeft:'50px'}} >Dec 2018 </text>
-            <EventItem /> */}
                 {events}
            </div>
 
