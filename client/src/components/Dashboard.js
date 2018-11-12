@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import Eventboard from './Eventboard';
+import Itemboard from './Itemboard';
 import "../css/Dashboard.css";
 
 export default class Dashboard extends Component {
@@ -10,13 +11,8 @@ export default class Dashboard extends Component {
     render(){
         return (
             <div>
-                <div class="split-left left">
-                    <h2>Jane Flex</h2>
-                    <p>Some text.</p>
-                </div>
-          
+                <Itemboard />       
                 <Eventboard />
-                
             </div>
         );
     }
