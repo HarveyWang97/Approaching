@@ -1,11 +1,30 @@
 import React,{Component} from 'react';
 import '../css/Header.css';
+import Eventboard from './Eventboard';
+import Itemboard from './Itemboard';
 import { Navbar} from 'reactstrap';
+import ProfilePopup from './popup/ProfilePopup';
+import Icon from './popup/Icon'
 
 
 class Header extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            showPopup: false
+        };
+    }
+
+    togglePopup() {
+        this.setState({
+          showPopup: !this.state.showPopup
+        });
+    }
+
+    setPopupState(){
+        this.setState({
+          showPopup: true
+        });
     }
 
 
@@ -14,8 +33,17 @@ class Header extends Component{
             <div>
                 <Navbar color="dark" className="header" expand="md">
                     <span style={{fontSize:'22px'}}>Approaching</span>
-                    <i className="fa fa-user-circle icon" ></i>
+                    <div className="icon">
+                        <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
+                    </div>
                 </Navbar>
+                <Eventboard />
+                {this.state.showPopup ? 
+                    <ProfilePopup
+                        closePopup={this.togglePopup.bind(this)}
+                    />
+                    : null
+                }
             </div>
         );
     }
