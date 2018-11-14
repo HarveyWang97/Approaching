@@ -6,7 +6,8 @@
     "setup": "npm i && cd client/ && npm i && cd ..",
     "server": "NODE_ENV=dev DEBUG='server:*' node ./bin/www",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "test": "mocha"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -18,5 +19,8 @@
     "http-errors": "~1.6.2",
     "mongoose": "^5.3.9",
     "morgan": "~1.9.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }

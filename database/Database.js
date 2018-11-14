@@ -26,16 +26,25 @@ class Database {
     });
   }
 
-  fetchData(callback = () => {}) {
-    models.User.find({}, function(err, users) {
-      if (err) {
-        callback({ success: false });
-      } else {
-        callback({
-          success: true,
-          users: users
-        });
-      }
+  fetchData(user, callback = () => {}) {
+    utils.authorize(user, callback, () => {
+      utils.getItems(user.facebookId, itemsResult => {
+        if (!(itemsResult.success)) {
+          callback(itemsResult);
+        } else {
+          utils.getEvents(user.facebookId, eventsResult => {
+            if (!(eventsResult.success)) {
+              callback(eventsResult);
+            } else {
+              callback({
+                success: true,
+                items: itemsResult.items,
+                events: eventsResult.events
+              });
+            }
+          })
+        }
+      });
     });
   }
 

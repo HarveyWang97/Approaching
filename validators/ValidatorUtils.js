@@ -2,8 +2,8 @@ class ValidatorUtils {
   constructor() {}
 
   static hasAuth(query) {
-    return (query && query.hasOwnProperty('facebookId') 
-                  && query.hasOwnProperty('accessToken'));
+    return (!!query && query.hasOwnProperty('facebookId') 
+                    && query.hasOwnProperty('accessToken'));
   }
 
   static arrayEqual(arr1, arr2) {
