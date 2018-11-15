@@ -34,15 +34,9 @@ import Icon from './Icon';
 /**
  * @classdesc Construct a Popup component that renders given data object. 
  */
-<<<<<<< HEAD
 class Popup extends Component {
     /**
      * Currently we manually construct datas for popup to display since we do not have communication with others.
-=======
-export default class Popup extends Component {
-    /**
-	 * Currently we manually construct datas for popup to display since we do not have communication with others.
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
      * Initialize the state variables with corresponding input data.
      * (TO BE DONE) Communication with other front-end components and server.
 	 * @constructor 
@@ -93,12 +87,8 @@ export default class Popup extends Component {
     /**
 	 * This method flips the current editing state.
 	 * either from editing to not-editing, or vice versa.
-<<<<<<< HEAD
      * 
 	 * @param {None}
-=======
-	 * @param {None} 
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
 	 * @return {void} 
 	 *
 	 */
@@ -110,13 +100,8 @@ export default class Popup extends Component {
 
      /**
 	 * This method set the value of title to the new input value.
-<<<<<<< HEAD
 	 * 
 	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
-=======
-	 *
-	 * @param {object} event a specific event that invokes this method, e.g. editing the iput form
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
 	 * @return {void} 
 	 */
     handleChange(event){
@@ -128,11 +113,7 @@ export default class Popup extends Component {
     /**
 	 * This method invokes the changeEditingState() on clicking of submit button.
      * In the future it will send the changed data to server and reducer.
-<<<<<<< HEAD
 	 * 
-=======
-	 *
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
 	 * @param {None}
 	 * @return {void}
 	 */
@@ -142,22 +123,15 @@ export default class Popup extends Component {
 
     /**
 	 * This method set the value of each key to the new given value.
-<<<<<<< HEAD
 	 * 
 	 * @param {String} key a specific event that invokes this method, e.g. editing the iput form.
 	 * @param {String} value the given new value.
-=======
-	 *
-	 * @param {string} key a specific event that invokes this method, e.g. editing the iput form
-	 * @param {string}
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
      * @return {void} 
 	 */
     handleEditResult(key, value) {
         this.state[key] = value;
     }
 
-<<<<<<< HEAD
 
     /**
 	 * Render the popup based on input data type and value. 
@@ -165,8 +139,6 @@ export default class Popup extends Component {
 	 * @param {none}
      * @return {html} Returns a html block of Popup component. 
 	 */
-=======
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
     render() {
         const data = this.data.data;
         return (
@@ -213,12 +185,7 @@ export default class Popup extends Component {
     }
 }
 
-<<<<<<< HEAD
 export default Popup;</code></pre>
-=======
-
-</code></pre>
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
         </article>
     </section>
 
@@ -228,21 +195,13 @@ export default Popup;</code></pre>
 </div>
 
 <nav>
-<<<<<<< HEAD
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Icon.html">Icon</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Row.html">Row</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeEditingState">changeEditingState</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#handleEditResult">handleEditResult</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#renderLayer">renderLayer</a></li></ul>
-=======
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeEditingState">changeEditingState</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#handleChange">handleChange</a></li><li><a href="global.html#handleEditResult">handleEditResult</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#renderItem">renderItem</a></li><li><a href="global.html#renderLayer">renderLayer</a></li><li><a href="global.html#renderMonth">renderMonth</a></li><li><a href="global.html#renderYear">renderYear</a></li></ul>
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Icon.html">Icon</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Row.html">Row</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeEditingState">changeEditingState</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#handleEditResult">handleEditResult</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#renderItem">renderItem</a></li><li><a href="global.html#renderLayer">renderLayer</a></li><li><a href="global.html#renderMonth">renderMonth</a></li><li><a href="global.html#renderYear">renderYear</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-<<<<<<< HEAD
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 14:15:44 GMT-0800 (Pacific Standard Time)
-=======
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 14:07:54 GMT-0800 (Pacific Standard Time)
->>>>>>> b57148f7407919ccf7229f91fcfaa962aa331fe5
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 14:21:25 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
