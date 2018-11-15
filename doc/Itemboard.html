@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: LoginButton</title>
+    <title>JSDoc: Class: Itemboard</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: LoginButton</h1>
+    <h1 class="page-title">Class: Itemboard</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>LoginButton<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Itemboard<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Create a login button that get user logged in with facebook.</div>
+            <div class="class-description">Class representing the Item dashboard</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="LoginButton"><span class="type-signature"></span>new LoginButton<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Itemboard"><span class="type-signature"></span>new Itemboard<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_LoginButton.js.html">components/LoginButton.js</a>, <a href="components_LoginButton.js.html#line12">line 12</a>
+        <a href="components_Itemboard.js.html">components/Itemboard.js</a>, <a href="components_Itemboard.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -147,16 +147,12 @@
     
 
     
-    <h4 class="name" id="responseFacebook"><span class="type-signature"></span>responseFacebook<span class="signature">(response)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="changeLayer"><span class="type-signature"></span>changeLayer<span class="signature">(l)</span><span class="type-signature"> &rarr; {JsonObject}</span></h4>
     
 
     
 
 
-
-<div class="description">
-    This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page
-</div>
 
 
 
@@ -191,7 +187,7 @@
 
         <tr>
             
-                <td class="name"><code>response</code></td>
+                <td class="name"><code>l</code></td>
             
 
             <td class="type">
@@ -207,7 +203,7 @@
 
             
 
-            <td class="description last">response sent back by facebook, contains information such as userId,email,name....</td>
+            <td class="description last">The new layer that will be rendered</td>
         </tr>
 
     
@@ -248,7 +244,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_LoginButton.js.html">components/LoginButton.js</a>, <a href="components_LoginButton.js.html#line23">line 23</a>
+        <a href="components_Itemboard.js.html">components/Itemboard.js</a>, <a href="components_Itemboard.js.html#line55">line 55</a>
     </li></ul></dd>
     
 
@@ -274,6 +270,10 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    set the layer to the new layer passed in
+</div>
+
 
 
 <dl>
@@ -282,7 +282,160 @@
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">JsonObject</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderLayer"><span class="type-signature"></span>renderLayer<span class="signature">(current)</span><span class="type-signature"> &rarr; {html}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>current</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JsonObject</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The current layer rendered on the screen</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_Itemboard.js.html">components/Itemboard.js</a>, <a href="components_Itemboard.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The html block that contains the layer's name,sublayers and items inside
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">html</span>
 
 
     </dd>
