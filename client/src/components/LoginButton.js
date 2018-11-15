@@ -15,9 +15,7 @@ class LoginButton extends Component{
             email:response.email,
             accessToken:response.accessToken
         });
-        //console.log("here");
         insertUser(response);
-        console.log("state ", this.state, "  props ", this.props);
         this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
         this.props.history.push('/dashboard?id=catdog');
     };

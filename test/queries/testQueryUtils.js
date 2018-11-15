@@ -1,30 +1,8 @@
-const { hasAuth, arrayEqual, arraySubsetOf } = require('../../src/validators/ValidatorUtils');
+const { arrayEqual, arraySubsetOf }  = require('../../src/queries/QueryUtils');
 const assert = require('assert');
 
 module.exports = () => {
   describe('ValidatorUtils', function() {
-    describe('#hasAuth(query)', function() {
-      it('return true if the input is not null and has all authorization fields', function() {
-        assert.strictEqual(hasAuth(null), false);
-        assert.strictEqual(hasAuth({
-          facebookId: 'facebookId',
-          accessToken: 'accessToken',
-          otherfields: 'otherfields'
-        }), true);
-        assert.strictEqual(hasAuth({
-          facebookId: 'facebookId',
-          otherfields: 'otherfields'
-        }), false);
-        assert.strictEqual(hasAuth({
-          accessToken: 'accessToken',
-          otherfields: 'otherfields'
-        }), false);
-        assert.strictEqual(hasAuth({
-          otherfields: 'otherfields'
-        }), false);
-      });
-    });
-
     describe('#arrayEqual(arr1, arr2)', function() {
       it('return false if any of the two inputs is null or is not an array', function() {
         assert.strictEqual(arrayEqual(null, null), false);

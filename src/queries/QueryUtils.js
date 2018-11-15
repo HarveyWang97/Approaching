@@ -1,10 +1,5 @@
-class ValidatorUtils {
+class QueryUtils {
   constructor() {}
-
-  static hasAuth(query) {
-    return (!!query && query.hasOwnProperty('facebookId') 
-                    && query.hasOwnProperty('accessToken'));
-  }
 
   static arrayEqual(arr1, arr2) {
     if (!arr1 || !Array.isArray(arr1)) return false;
@@ -30,4 +25,4 @@ class ValidatorUtils {
   }
 }
 
-module.exports = ValidatorUtils;
+module.exports = QueryUtils;

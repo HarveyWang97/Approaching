@@ -59,7 +59,6 @@ export default class Popup extends Component {
 
     handleSubmit(event) {
         this.changeEditingState();
-        console.log(this.state);
     }
 
     handleEditResult(key, value) {

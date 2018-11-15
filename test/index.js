@@ -1,7 +1,7 @@
 const database = require('./database');
-const routes = require('./routes');
-const validators = require('./validators');
+const queries = require('./queries');
+const routers = require('./routers');
 
 database();
-routes();
-validators();
+queries();
+routers();
