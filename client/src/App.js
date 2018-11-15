@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import {BrowserRouter,Route} from 'react-router-dom';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
+
 import { faFileAlt, faClock, faMapMarkerAlt, faListUl, faPen, faTrashAlt, faTimes, faCalendarAlt, faSave, faEnvelope, faBell, faSignOutAlt, faUserCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faFileAlt, faClock, faMapMarkerAlt, faListUl, faPen, faTrashAlt, faTimes, faCalendarAlt, faSave, faEnvelope, faBell, faSignOutAlt, faUserCircle, faUser);

@@ -10,7 +10,17 @@ import * as actions from '../actions';
   * @classdesc Create a login button that get user logged in with facebook.
   */
 class LoginButton extends Component{
-    responseFacebook = response => {
+    constructor(props){
+        super(props);
+        this.responseFacebook = this.responseFacebook.bind(this);
+    }
+
+    /**
+     * This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page
+     * @param {JsonObject} response response sent back by facebook, contains information such as userId,email,name....
+     * @return {void}
+     */
+    responseFacebook (response)  {
         console.log(response);
         this.setState({
             isLoggedIn:true,
@@ -24,7 +34,7 @@ class LoginButton extends Component{
         console.log("state ", this.state, "  props ", this.props);
         this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
         this.props.history.push('/dashboard?id=catdog');
-    };
+    }
 
     render(){
         let content;
