@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import Eventboard from './Eventboard';
 import Popup from './popup/Popup';
 import Itemboard from './Itemboard';
+import bground from './bg.jpg';
 import "../css/Dashboard.css";
 
 export default class Dashboard extends Component {
@@ -19,8 +20,9 @@ export default class Dashboard extends Component {
     }
 
     render(){
+        const dashboardStyle = {backgroundImage:`url(${bground})`};
         return (
-            <div>
+            <div style={dashboardStyle}>
                 <Itemboard />       
                 <Eventboard />
                 {this.state.showPopup ? 
