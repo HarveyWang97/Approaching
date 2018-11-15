@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 import '../css/Header.css';
+import autumn from './autumn.jpg';
 import {insertUser} from '../Request.js';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
@@ -30,15 +31,17 @@ class LoginButton extends Component{
             content = this.props.user.email;
         }
 
-        return (
-            <div className="login">
-                <FacebookLogin
-                    appId="300879247180866"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={this.responseFacebook}
-                />
-            </div>
+        const dashboardStyle = {backgroundImage:`url(${autumn})`};
+
+        return (         
+                <div className="login" >
+                    <FacebookLogin
+                        appId="300879247180866"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={this.responseFacebook}
+                    />
+                </div>
         );
     }
 }

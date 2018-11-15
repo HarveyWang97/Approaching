@@ -1,6 +1,13 @@
 import React,{Component} from 'react';
 import "../css/Dashboard.css";
 
+/**
+ * Class representing the Item dashboard
+ * 
+ * @class
+ */
+
+
 export default class Itemboard extends Component {
     constructor(props){
         super(props);
@@ -28,27 +35,33 @@ export default class Itemboard extends Component {
                             }
                         ],
                         items:[
-                            'hhhh'
+                            'bowl'
                         ]
                     }
                 ],
                 items:[
-                    'hhh',
-                    'etpr'
+                    'shoes',
+                    'coat'
                 ]
             },
             parent:null
         };
     }
     
+    /** 
+     * @param {JsonObject} l - The new layer that will be rendered
+     * @returns {JsonObject} set the layer to the new layer passed in
+    */
     changeLayer(l){
         this.setState(() => {
             return {container:l};
         });
     }
 
-    
-
+    /**
+     * @param {JsonObject} - The current layer rendered on the screen
+     * @returns {html} - The html block that contains the layer's name,sublayers and items inside
+     */
     renderLayer(current){
         const sublayers = current.sublayers.map(item => {
             return (
@@ -82,7 +95,6 @@ export default class Itemboard extends Component {
     }
 
     render(){
-
 
         return (
             <div class="split-left left">
