@@ -11,16 +11,16 @@ module.exports = () => {
   describe('EventsQueryValidator', function() {
     describe('#_getConfig()', function() {
       it('return correct configuration', function() {
-        assert.deepEqual(_getConfig(), config.Event);
+        assert.deepStrictEqual(_getConfig(), config.Event);
       });
     });
 
     describe('#isInsert(query)', function() {
       it('return false is the input doesn\'t contain auth info', function() {
-        assert.deepEqual(isInsert({}), false);
+        assert.strictEqual(isInsert({}), false);
       });
       it('return true is the input has exactly the same fields as specified in config, false otherwise', function() {
-        assert.deepEqual(isInsert({
+        assert.strictEqual(isInsert({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           name: 'name',
@@ -29,7 +29,7 @@ module.exports = () => {
           location: 'location',
           description: 'description'
         }), true);
-        assert.deepEqual(isInsert({
+        assert.strictEqual(isInsert({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           name: 'name',
@@ -38,7 +38,7 @@ module.exports = () => {
           location: 'location',
           description: 'description'
         }), false);
-        assert.deepEqual(isInsert({
+        assert.strictEqual(isInsert({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           name: 'name',
@@ -49,21 +49,21 @@ module.exports = () => {
 
     describe('#isUpdate(query)', function() {
       it('return false is the input doesn\'t contain auth info', function() {
-        assert.deepEqual(isUpdate({}), false);
+        assert.strictEqual(isUpdate({}), false);
       });
       it('the input should contain all required fields', function() {
-        assert.deepEqual(isUpdate({
+        assert.strictEqual(isUpdate({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
         }), false);
-        assert.deepEqual(isUpdate({
+        assert.strictEqual(isUpdate({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           _id: '_id'
         }), true);
       });
       it('the input fields should be a subset of all optional fields', function() {
-        assert.deepEqual(isUpdate({
+        assert.strictEqual(isUpdate({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           _id: '_id',
@@ -73,14 +73,14 @@ module.exports = () => {
           location: 'location',
           description: 'description'
         }), true);
-        assert.deepEqual(isUpdate({
+        assert.strictEqual(isUpdate({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           _id: '_id',
           time: 'time',
           description: 'description'
         }), true);
-        assert.deepEqual(isUpdate({
+        assert.strictEqual(isUpdate({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           _id: '_id',
@@ -91,20 +91,20 @@ module.exports = () => {
 
     describe('#isRemove(query)', function() {
       it('return false is the input doesn\'t contain auth info', function() {
-        assert.deepEqual(isRemove({}), false);
+        assert.strictEqual(isRemove({}), false);
       });
       it('return true is the input has exactly the same fields as specified in config, false otherwise', function() {
-        assert.deepEqual(isRemove({
+        assert.strictEqual(isRemove({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           _id: '_id'
         }), true);
-        assert.deepEqual(isRemove({
+        assert.strictEqual(isRemove({
           facebookId: 'facebookId',
           accessToken: 'accessToken',
           id: 'id'
         }), false);
-        assert.deepEqual(isRemove({
+        assert.strictEqual(isRemove({
           facebookId: 'facebookId',
           accessToken: 'accessToken'
         }), false);
