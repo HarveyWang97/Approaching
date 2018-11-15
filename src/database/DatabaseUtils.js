@@ -10,13 +10,14 @@ class DatabaseUtils {
     return { success: true, id: id };
   }
 
-  static failure(err) {
-    return { success: false, message: err };
+  static failure(error) {
+    return { success: false, message: error };
   }
 
   static authorize(object, callback = () => {}, onSuccess = () => {}) {
     if (!object || !(object.facebookId) || !(object.accessToken)) {
       callback(this.failure('Authorization failed.'));
+      return;
     }
     const conditions = { facebookId: object.facebookId };
     models.User.findOne(conditions, (err, doc) => {
@@ -39,8 +40,7 @@ class DatabaseUtils {
     schema.findOne(conditions, (err, doc) => {
       if (err) {
         callback(this.failure(err));
-      }
-      if (doc) {
+      } else if (doc) {
         for (let field in object) {
           if (object.hasOwnProperty(field)) {
             doc[field] = object[field];
@@ -112,8 +112,6 @@ class DatabaseUtils {
     events.sort((a, b) => (a.time > b.time));
     const result = {};
 
-    console.log((new Date(2018, 11, 25, 20)).getTime());
-    console.log((new Date(2019, 0, 1, 0)).getTime());
     for (let event of events) {
       const time = new Date(Number(event.time));
       const year = time.getFullYear();
@@ -144,4 +142,3 @@ class DatabaseUtils {
 }
 
 module.exports = DatabaseUtils;
-
