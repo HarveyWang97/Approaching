@@ -21,11 +21,6 @@ export default class Dashboard extends Component {
     render(){
         return (
             <div>
-                <div className="split-left left">
-                    <h2>Jane Flex</h2>
-                    <p>Some text.</p>
-                </div>
-          
                 <Itemboard />       
                 <Eventboard />
                 {this.state.showPopup ? 

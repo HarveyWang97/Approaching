@@ -38,7 +38,6 @@ class LoginButton extends Component{
                     fields="name,email,picture"
                     callback={this.responseFacebook}
                 />
-                {content}
             </div>
         );
     }

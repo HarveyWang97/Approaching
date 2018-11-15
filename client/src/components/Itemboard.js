@@ -16,7 +16,8 @@ export default class Itemboard extends Component {
                                 sublayers:[
     
                                 ],
-                                items:['hamburger','chips']
+                                items:['hamburger','chips'],
+                                
                             },
                             {
                                 name:'cupboard',
@@ -34,9 +35,9 @@ export default class Itemboard extends Component {
                 items:[
                     'hhh',
                     'etpr'
-                ],
-                parent:null
-            }
+                ]
+            },
+            parent:null
         };
     }
     
