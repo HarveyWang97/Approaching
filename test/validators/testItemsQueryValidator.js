@@ -1,6 +1,6 @@
-const ItemsQueryValidator = require('../../validators/ItemsQueryValidator');
+const ItemsQueryValidator = require('../../src/validators/ItemsQueryValidator');
 const assert = require('assert');
-const config = require('../../config').databaseModels;
+const config = require('../../src/config').databaseModels;
 const { _getConfig } = ItemsQueryValidator;
 let { isInsert, isUpdate, isRemove } = ItemsQueryValidator;
 isInsert = isInsert.bind(ItemsQueryValidator);

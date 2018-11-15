@@ -1,6 +1,6 @@
-const UsersQueryValidator = require('../../validators/UsersQueryValidator');
+const UsersQueryValidator = require('../../src/validators/UsersQueryValidator');
 const assert = require('assert');
-const config = require('../../config').databaseModels;
+const config = require('../../src/config').databaseModels;
 const { _getConfig } = UsersQueryValidator;
 let { isInsert, isUpdate, isRemove } = UsersQueryValidator;
 isInsert = isInsert.bind(UsersQueryValidator);

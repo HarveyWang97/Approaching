@@ -1,4 +1,4 @@
-const { getAuth, getDetails } = require('../../routes/RouterUtils');
+const { getAuth, getDetails } = require('../../src/routes/RouterUtils');
 const assert = require('assert');
 
 module.exports = () => {

@@ -1,6 +1,6 @@
-const EventsQueryValidator = require('../../validators/EventsQueryValidator');
+const EventsQueryValidator = require('../../src/validators/EventsQueryValidator');
 const assert = require('assert');
-const config = require('../../config').databaseModels;
+const config = require('../../src/config').databaseModels;
 const { _getConfig } = EventsQueryValidator;
 let { isInsert, isUpdate, isRemove } = EventsQueryValidator;
 isInsert = isInsert.bind(EventsQueryValidator);

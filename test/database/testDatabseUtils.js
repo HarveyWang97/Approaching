@@ -129,7 +129,7 @@
 
 const { success, failure, authorize, insert, insertIfNotExisting, 
   update, remove, getItems, getEvents, reformatEvents, _save } 
-  = require('../../database/DatabaseUtils');
+  = require('../../src/database/DatabaseUtils');
 const assert = require('assert');
 
 module.exports = () => {

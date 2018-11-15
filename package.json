@@ -7,7 +7,8 @@
     "server": "NODE_ENV=dev DEBUG='server:*' node ./bin/www",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "test": "mocha"
+    "test": "mocha",
+    "doc": "rm -rf doc && ./node_modules/.bin/jsdoc -r src client/src -d doc"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -21,6 +22,7 @@
     "morgan": "~1.9.0"
   },
   "devDependencies": {
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   }
 }

@@ -1,5 +1,5 @@
-const { User, Item, Event } = require('../../database/models');
-const config = require('../../config').databaseModels;
+const { User, Item, Event } = require('../../src/database/models');
+const config = require('../../src/config').databaseModels;
 const assert = require('assert');
 
 module.exports = () => {

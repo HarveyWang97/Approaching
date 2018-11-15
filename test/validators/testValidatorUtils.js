@@ -1,4 +1,4 @@
-const { hasAuth, arrayEqual, arraySubsetOf } = require('../../validators/ValidatorUtils');
+const { hasAuth, arrayEqual, arraySubsetOf } = require('../../src/validators/ValidatorUtils');
 const assert = require('assert');
 
 module.exports = () => {
