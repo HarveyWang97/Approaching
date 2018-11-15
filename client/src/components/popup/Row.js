@@ -12,11 +12,10 @@ import Icon from './Icon';
  */
 class Row extends Component {
     /**
-	 * @constructor Currently we manually construct datas for popup to display since we do not have communication with others.
+	 * Currently we manually construct datas for popup to display since we do not have communication with others.
      * Initialize the state variables with corresponding input data.
      * (TO BE DONE) Communication with other front-end components and server.
-	 * 
-     * @private
+	 * @constructor
 	 * @param {None}
 	 * @return {void} 
 	 */
