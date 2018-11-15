@@ -1,5 +1,8 @@
 import React,{Component} from 'react';
 
+/**
+ * @constructor
+ */
 export default (props) => {
     return (
         <div 

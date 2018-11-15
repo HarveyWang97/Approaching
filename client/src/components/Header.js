@@ -37,7 +37,6 @@ class Header extends Component{
                         <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
                     </div>
                 </Navbar>
-                <Eventboard />
                 {this.state.showPopup ? 
                     <ProfilePopup
                         closePopup={this.togglePopup.bind(this)}

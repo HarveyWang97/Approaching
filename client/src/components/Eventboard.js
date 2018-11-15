@@ -9,18 +9,34 @@ import th from './th.jpg';
 import swag from './swag.jpg';
 import calendar from './calendar.jpeg';
 
+/**
+ * Class representing the Event Dashboard
+ * 
+ * @class
+ */
+
 export default class Eventboard extends Component{
     constructor(props){
         super(props);
         
     }
 
+    /**
+     * @function
+     * @param {number} year 
+     * @param {Array<Array<EventItem>>} items 
+     * @returns {Array<Array<EventItem>>} return all events in one year
+     */
     renderYear(year,items){
         const events = Object.keys(items).map(key=> {
             return this.renderMonth(key,year,items[key]);
         }); // iterate an object
         return events;
     }
+
+    /**
+     * mapping numbered month to English-spelling month
+     */
 
     monthName = {
         1:"January",
@@ -37,6 +53,14 @@ export default class Eventboard extends Component{
         12:"December"
     }
 
+    /**
+     * 
+     * @function
+     * @param {number} month 
+     * @param {number} year 
+     * @param {Array<EventItem>} items 
+     * @returns {Array<EventItem>} Events in one corresponding month 
+     */
     renderMonth(month,year,items){
         const events = items.map(item => {
             return this.renderItem(item.name,item.time,item.picture);
@@ -51,6 +75,15 @@ export default class Eventboard extends Component{
         );
     }
 
+    /**
+     * 
+     * @param {string} name 
+     * @param {string} time 
+     * @param {img} picture 
+     * @returns {EventItem} return the specified EventItem
+     * 
+     * @function
+     */
     renderItem(name,time,picture){
         return (
             <EventItem name={name} time={time} picture = {picture} key={name}/>
@@ -65,7 +98,7 @@ export default class Eventboard extends Component{
                         "name": "CS Contest",
                         "time": "1pm - 3pm",
                         "location": "Los Angeles",
-                        "picture": th,
+                        "picture": tree,
                         "description": null 
                     },
                     {

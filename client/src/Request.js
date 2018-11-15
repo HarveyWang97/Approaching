@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-/*
+/**
  * When user is logged in, pass user information from facebook to server.
  * Check if server correctly handle this user, then fetch all user data from server.
+ * @function
+ * @param {Object} response The response from facebook that includes the account settings of that user. 
+ * @returns {void}
  */
 export function insertUser(response) {
     const url = 
@@ -18,10 +21,14 @@ export function insertUser(response) {
     });
 }
 
-/*
+/** 
  * Fetch user data from server, user is specified by facebookId and accessToken.
- * Store user data to reducer (TO BE DONE).
+ * Store user data to reducer(TO BE DONE).
  * This should be called everytime user made changes to the front-end.
+ * @function
+ * @param {int} facebookId An ID that is received from facebook, unique for each user.
+ * @param {int} accessToken The access token that is required to fetch user data, also recieved from facbook.
+ * @returns {void}
  */
 export function fetchData(facebookId, accessToken) {
     const url = 

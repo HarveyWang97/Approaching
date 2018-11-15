@@ -31,22 +31,48 @@ export default class Profile extends Component {
         }
     }
 
+    /**
+	 * The changeEditingState() changes the current editing state to another.
+	 * either from editing to not-editing, or vice versa.
+	 *
+	 * @param {None} 
+	 * @return {void} 
+	 *
+	 * @example
+	 *
+	 *     changeEditingState()
+	 */
+
     changeEditingState(){
         this.setState({
             editing: !this.state.editing
         });
     }
 
-    handleChange(event){
-        this.setState({
-            title: event.target.value
-        });
-    }
+    /**
+	 * The handleSubmit() invokes the changeEditingState() on user clicks and logs the change.
+	 *
+	 * @param {None}
+	 * @return {void} 
+	 *
+	 * @example
+	 *
+	 *     handleSubmit()
+	 */
 
-    handleSubmit(event) {
+    handleSubmit() {
         this.changeEditingState();
     }
 
+    /**
+	 * The handleEditResult(key, value) sets the data field of the state with the key = "key" to have value = "value"
+	 * @param {String| String} key value
+	 * @return {None} 
+	 *
+	 * @example
+	 *
+	 *     handleEditResult(key, value)
+	 */
     handleEditResult(key, value) {
         this.state[key] = value;
     }

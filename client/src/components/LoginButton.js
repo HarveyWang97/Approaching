@@ -1,12 +1,26 @@
 import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 import '../css/Header.css';
+import autumn from './autumn.jpg';
 import {insertUser} from '../Request.js';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 
+ /**
+  * @classdesc Create a login button that get user logged in with facebook.
+  */
 class LoginButton extends Component{
-    responseFacebook = response => {
+    constructor(props){
+        super(props);
+        this.responseFacebook = this.responseFacebook.bind(this);
+    }
+
+    /**
+     * This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page
+     * @param {JsonObject} response response sent back by facebook, contains information such as userId,email,name....
+     * @return {void}
+     */
+    responseFacebook (response)  {
         console.log(response);
         this.setState({
             isLoggedIn:true,
@@ -18,9 +32,7 @@ class LoginButton extends Component{
         insertUser(response);
         this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
         this.props.history.push('/dashboard?id=catdog');
-    };
-
-    
+    }
 
     render(){
         let content;
@@ -28,16 +40,17 @@ class LoginButton extends Component{
             content = this.props.user.email;
         }
 
-        return (
-            <div className="login">
-                <FacebookLogin
-                    appId="300879247180866"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={this.responseFacebook}
-                />
-                {content}
-            </div>
+        const dashboardStyle = {backgroundImage:`url(${autumn})`};
+
+        return (         
+                <div className="login" >
+                    <FacebookLogin
+                        appId="300879247180866"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={this.responseFacebook}
+                    />
+                </div>
         );
     }
 }
