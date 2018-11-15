@@ -1,10 +1,14 @@
 import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 import '../css/Header.css';
+import autumn from './autumn.jpg';
 import {insertUser} from '../Request.js';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 
+ /**
+  * @classdesc Create a login button that get user logged in with facebook.
+  */
 class LoginButton extends Component{
     responseFacebook = response => {
         console.log(response);
@@ -22,24 +26,23 @@ class LoginButton extends Component{
         this.props.history.push('/dashboard?id=catdog');
     };
 
-    
-
     render(){
         let content;
         if(this.props.user != null && this.props.user != null){
             content = this.props.user.email;
         }
 
-        return (
-            <div className="login">
-                <FacebookLogin
-                    appId="300879247180866"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={this.responseFacebook}
-                />
-                {content}
-            </div>
+        const dashboardStyle = {backgroundImage:`url(${autumn})`};
+
+        return (         
+                <div className="login" >
+                    <FacebookLogin
+                        appId="300879247180866"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={this.responseFacebook}
+                    />
+                </div>
         );
     }
 }
