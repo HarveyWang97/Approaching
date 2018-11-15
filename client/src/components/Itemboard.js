@@ -8,7 +8,7 @@ import "../css/Dashboard.css";
  */
 
 
-export default class Itemboard extends Component {
+class Itemboard extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -108,3 +108,5 @@ export default class Itemboard extends Component {
         );
     }
 }
+
+export default Itemboard;
