@@ -1,4 +1,32 @@
-import React, { Component } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/popup/Popup.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/popup/Popup.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
 import '../../css/Popup.css';
 import Row from './Row';
 import Icon from './Icon';
@@ -114,23 +142,23 @@ class Popup extends Component {
     render() {
         const data = this.data.data;
         return (
-            <div className='popup'>
-                <div className='popup_inner'>
-                    <div className='top'>
-                        <span>
-                            <Icon iconName='times' onClick={this.props.closePopup} />
+            &lt;div className='popup'>
+                &lt;div className='popup_inner'>
+                    &lt;div className='top'>
+                        &lt;span>
+                            &lt;Icon iconName='times' onClick={this.props.closePopup} />
                             {this.state.editing? 
-                            (<input className='title' type="text" value={this.state.title} placeholder="Input item name here"
+                            (&lt;input className='title' type="text" value={this.state.title} placeholder="Input item name here"
                             onChange={this.handleChange.bind(this)} />)
-                            : (<div className='title'>{this.state.title}</div>)
+                            : (&lt;div className='title'>{this.state.title}&lt;/div>)
                             }
-                        </span>
-                    </div>
-                    <div className='middle'>
+                        &lt;/span>
+                    &lt;/div>
+                    &lt;div className='middle'>
                         {Object.keys(data).map(key => {
                             if (key !== 'title') {
                                 return (
-                                    <Row key={key} 
+                                    &lt;Row key={key} 
                                          field={key}
                                          iconName={this.fieldToIcon[key]}
                                          details={this.state[key]}
@@ -139,22 +167,44 @@ class Popup extends Component {
                                 );
                             }
                         })}
-                    </div>
-                    <div className='bottom'>
-                        <div className='left'>
+                    &lt;/div>
+                    &lt;div className='bottom'>
+                        &lt;div className='left'>
                             { this.state.editing ? 
-                            (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />)
-                            : (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
+                            (&lt;Icon iconName='save' onClick={this.handleSubmit.bind(this)} />)
+                            : (&lt;Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
                             }
-                        </div>
-                        <div className='right'>
-                            <Icon iconName='trash-alt' />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        &lt;/div>
+                        &lt;div className='right'>
+                            &lt;Icon iconName='trash-alt' />
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
         ); 
     }
 }
 
-export default Popup;
+export default Popup;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Icon.html">Icon</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Row.html">Row</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeEditingState">changeEditingState</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#handleEditResult">handleEditResult</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#renderLayer">renderLayer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 14:15:44 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Class: Icon</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Class: Icon</h1>
 
     
 
@@ -28,7 +28,9 @@
 
 <header>
     
-        <h2></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Icon<span class="signature">(onClick, iconName)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">Construct a FontAwesonIcon.</div>
         
     
 </header>
@@ -38,7 +40,100 @@
     
         
 
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="Icon"><span class="type-signature"></span>new Icon<span class="signature">(onClick, iconName)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
         
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>onClick</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JsonObject</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Associate specific onClick behavior with this icon.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of FAIcon to be constructed.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
 
 
 <dl class="details">
@@ -68,6 +163,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_popup_Icon.js.html">components/popup/Icon.js</a>, <a href="components_popup_Icon.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
 
     
 
@@ -77,7 +177,22 @@
 </dl>
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     </div>
 
@@ -104,7 +219,7 @@
     
 
     
-    <h4 class="name" id="fetchData"><span class="type-signature"></span>fetchData<span class="signature">(facebookId, accessToken)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"> &rarr; {html}</span></h4>
     
 
     
@@ -112,9 +227,7 @@
 
 
 <div class="description">
-    Fetch user data from server, user is specified by facebookId and accessToken.
-Store user data to reducer(TO BE DONE).
-This should be called everytime user made changes to the front-end.
+    Render the icon with given iconName.
 </div>
 
 
@@ -132,8 +245,6 @@ This should be called everytime user made changes to the front-end.
     <thead>
     <tr>
         
-        <th>Name</th>
-        
 
         <th>Type</th>
 
@@ -150,13 +261,11 @@ This should be called everytime user made changes to the front-end.
 
         <tr>
             
-                <td class="name"><code>facebookId</code></td>
-            
 
             <td class="type">
             
                 
-<span class="param-type">int</span>
+<span class="param-type">none</span>
 
 
             
@@ -166,30 +275,7 @@ This should be called everytime user made changes to the front-end.
 
             
 
-            <td class="description last">An ID that is received from facebook, unique for each user.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>accessToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The access token that is required to fetch user data, also recieved from facbook.</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -230,7 +316,7 @@ This should be called everytime user made changes to the front-end.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Request.js.html">Request.js</a>, <a href="Request.js.html#line33">line 33</a>
+        <a href="components_popup_Icon.js.html">components/popup/Icon.js</a>, <a href="components_popup_Icon.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -256,169 +342,19 @@ This should be called everytime user made changes to the front-end.
 <h5>Returns:</h5>
 
         
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="insertUser"><span class="type-signature"></span>insertUser<span class="signature">(response)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    When user is logged in, pass user information from facebook to server.
-Check if server correctly handle this user, then fetch all user data from server.
+<div class="param-desc">
+    Return a html object of FAIcon.
 </div>
 
 
 
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The response from facebook that includes the account settings of that user.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Request.js.html">Request.js</a>, <a href="Request.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
 <dl>
     <dt>
         Type
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">html</span>
 
 
     </dd>
@@ -446,13 +382,13 @@ Check if server correctly handle this user, then fetch all user data from server
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Icon.html">Icon</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Row.html">Row</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeEditingState">changeEditingState</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#handleEditResult">handleEditResult</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#renderLayer">renderLayer</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 12:34:59 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 14:15:44 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
