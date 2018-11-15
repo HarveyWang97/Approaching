@@ -3,6 +3,9 @@ import '../../css/Popup.css';
 import Row from './Row';
 import Icon from './Icon';
 
+/**
+ * @classdesc Construct a Popup component that renders given data object. 
+ */
 export default class Popup extends Component {
     /**
 	 * Currently we manually construct datas for popup to display since we do not have communication with others.
@@ -92,8 +95,9 @@ export default class Popup extends Component {
     /**
 	 * This method set the value of each key to the new given value.
 	 *
-	 * @param {object} event a specific event that invokes this method, e.g. editing the iput form
-	 * @return {void} 
+	 * @param {string} key a specific event that invokes this method, e.g. editing the iput form
+	 * @param {string}
+     * @return {void} 
 	 */
     handleEditResult(key, value) {
         this.state[key] = value;
