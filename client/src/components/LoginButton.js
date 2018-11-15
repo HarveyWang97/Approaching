@@ -16,7 +16,7 @@ class LoginButton extends Component{
      * @param {JsonObject} the response sent back by facebook, contains information such as userId,email,name....
      * @return {void}
      */
-    responseFacebook = response => {
+    responseFacebook = ( response ) =>  {
         console.log(response);
         this.setState({
             isLoggedIn:true,
@@ -30,7 +30,7 @@ class LoginButton extends Component{
         console.log("state ", this.state, "  props ", this.props);
         this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
         this.props.history.push('/dashboard?id=catdog');
-    };
+    }
 
     render(){
         let content;

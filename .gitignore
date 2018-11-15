@@ -6,7 +6,9 @@
 /client/node_modules
 /client/package-lock.json
 
-# testing
+
+# docs
+/client/src/components/out
 
 # production
 /build
