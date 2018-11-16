@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /**
  * @classdesc Construct a FontAwesonIcon. 
- * @param {JsonObject} onClick Associate specific onClick behavior with this icon.
- * @param {string} iconName The name of FAIcon to be constructed.
  */
 class Icon extends Component {
     /**
 	 * Render the icon with given iconName.
-	 * @param {none}
+	 * @param {JsonObject} onClick Associate specific onClick behavior with this icon.
+     * @param {String} iconName The name of FAIcon to be constructed.
      * @return {html} Return a html object of FAIcon. 
 	 */
     render() {
