@@ -15,7 +15,7 @@ import calendar from './calendar.jpeg';
  * @class
  */
 
-export default class Eventboard extends Component{
+class Eventboard extends Component{
     constructor(props){
         super(props);
         
@@ -148,4 +148,5 @@ export default class Eventboard extends Component{
             </div>
         );
     }
-}
+};
+export default Eventboard;

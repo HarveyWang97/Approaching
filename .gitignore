@@ -9,6 +9,7 @@
 
 # docs
 /client/src/components/out
+/doc
 
 # production
 /build

@@ -45,4 +45,4 @@ At the same time, our mlab mongodb database should change accordingly.
 
 |  Action   |                                        Url                                         | Required |
 |:---------:|------------------------------------------------------------------------------------|:--------:|
-| fetchDate | `http://localhost:3000/fetchData?facebookId={}&accessToken={}`                     |          |
+| fetchData | `http://localhost:3000/fetchData?facebookId={}&accessToken={}`                     |          |
