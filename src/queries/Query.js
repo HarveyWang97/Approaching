@@ -1,8 +1,10 @@
+/**
+ * @classdesc Class representing a query, wrapped from a client request.
+ */
 class Query {
   /**
    * Construct a query. Copy the properties of the input object if
    * it's not null, otherwise construct an empty query.
-   * 
    * @constructor
    * @param {string} target - Name of the database collection that the query
    * is targeted on.
@@ -25,7 +27,6 @@ class Query {
    */
   /**
    * Get the authorization informaion - facebookId and accessToken.
-   * 
    * @returns {Auth}
    */
   getAuth() {
@@ -37,7 +38,6 @@ class Query {
 
   /**
    * Get the properties of the query that are not authorization informaion.
-   * 
    * @returns {Object}
    */
   getDetails() {
@@ -51,8 +51,24 @@ class Query {
   }
 
   /**
+   * Return the original query object.
+   * @returns {Object}
+   */
+  getQuery() {
+    return this.query;
+  }
+
+  /**
+   * Return the name of the database collection that the query
+   * is targeted on.
+   * @returns {string}
+   */
+  getTarget() {
+    return this.target;
+  }
+
+  /**
    * Check if the query contains all authorization informaion.
-   * 
    * @private
    * @returns {boolean}
    */
@@ -63,7 +79,6 @@ class Query {
 
   /**
    * Check whether or not the query is valid.
-   * 
    * @abstract
    * @throws Will throw an error if the abstract method is called without 
    * implementation.

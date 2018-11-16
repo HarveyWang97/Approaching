@@ -4,14 +4,23 @@ const InsertQuery = require('../queries/InsertQuery');
 const RemoveQuery = require('../queries/RemoveQuery');
 const UpdateQuery = require('../queries/UpdateQuery');
 
+/**
+ * @classdesc Router that handles Users requests, 
+ * extending {@link express.Router}.
+ */
 class UsersRouter extends Router {
+  /**
+   * Construct a router to handle insert, update, and remove requests
+   * targeted on Users.
+   * @constructor
+   */
   constructor() {
     super();
 
     this.get('/insert', (req, res, next) => {
-      const query = new InsertQuery(null, req.query);
+      const query = new InsertQuery('User', req.query);
       if (query.isValid()) {
-        Database.insertUser(query, response => res.send(response));
+        Database.insert(query, response => res.send(response));
       } else {
         res.status(400);
         res.send({ success: false, message: 'invalid parameters' });
@@ -19,9 +28,9 @@ class UsersRouter extends Router {
     });
 
     this.get('/update', (req, res, next) => {
-      const query = new UpdateQuery(null, req.query);
+      const query = new UpdateQuery('User', req.query);
       if (query.isValid()) {
-        Database.updateUser(query, response => res.send(response));
+        Database.update(query, response => res.send(response));
       } else {
         res.status(400);
         res.send({ success: false, message: 'invalid parameters' });
@@ -29,9 +38,9 @@ class UsersRouter extends Router {
     });
 
     this.get('/remove', (req, res, next) => {
-      const query = new RemoveQuery(null, req.query);
+      const query = new RemoveQuery('User', req.query);
       if (query.isValid()) {
-        Database.removeUser(query, response => res.send(response));
+        Database.remove(query, response => res.send(response));
       } else {
         res.status(400);
         res.send({ success: false, message: 'invalid parameters' });

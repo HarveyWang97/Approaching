@@ -1,6 +1,12 @@
+/**
+ * @classdesc Utility class for {@link Query}.
+ */
 class QueryUtils {
-  constructor() {}
-
+  /**
+   * Return whether or not arr1 and arr2 are two identical arrays.
+   * @param {*} arr1 
+   * @param {*} arr2 
+   */
   static arrayEqual(arr1, arr2) {
     if (!arr1 || !Array.isArray(arr1)) return false;
     if (!arr2 || !Array.isArray(arr2)) return false;
@@ -15,6 +21,12 @@ class QueryUtils {
     return true;
   }
 
+  /**
+   * Return whether or not arr1 and arr2 are arrays and 
+   * arr1 is a subset of arr2.
+   * @param {*} arr1 
+   * @param {*} arr2 
+   */
   static arraySubsetOf(arr1, arr2) {
     if (!arr1 || !Array.isArray(arr1)) return false;
     if (!arr2 || !Array.isArray(arr2)) return false;

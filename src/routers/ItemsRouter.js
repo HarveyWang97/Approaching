@@ -4,17 +4,25 @@ const InsertQuery = require('../queries/InsertQuery');
 const RemoveQuery = require('../queries/RemoveQuery');
 const UpdateQuery = require('../queries/UpdateQuery');
 
+/**
+ * @classdesc Router that handles Items requests, 
+ * extending {@link express.Router}.
+ */
 class ItemsRouter extends Router {
+  /**
+   * Construct a router to handle insert, update, and remove requests
+   * targeted on Items.
+   * @constructor
+   */
   constructor() {
     super();
 
     this.get('/insert', (req, res, next) => {
-      const query = new InsertQuery(null, req.query);
+      const query = new InsertQuery('Item', req.query);
       if (query.isValid()) {
         const item = query.getDetails();
         item.owner = req.query.facebookId;
-        Database.insertItem(query.getAuth(),
-          item, response => res.send(response));
+        Database.insert(query, response => res.send(response));
       } else {
         res.status(400);
         res.send({ success: false, message: 'invalid parameters' });
@@ -22,9 +30,9 @@ class ItemsRouter extends Router {
     });
 
     this.get('/update', (req, res, next) => {
-      const query = new UpdateQuery(null, req.query);
+      const query = new UpdateQuery('Item', req.query);
       if (query.isValid()) {
-        Database.updateItem(query.getAuth(), query.getDetails(), response => res.send(response));
+        Database.update(query, response => res.send(response));
       } else {
         res.status(400);
         res.send({ success: false, message: 'invalid parameters' });
@@ -32,9 +40,9 @@ class ItemsRouter extends Router {
     });
 
     this.get('/remove', (req, res, next) => {
-      const query = new RemoveQuery(null, req.query);
+      const query = new RemoveQuery('Item', req.query);
       if (query.isValid()) {
-        Database.removeItem(query.getAuth(), query.getDetails(), response => res.send(response));
+        Database.remove(query, response => res.send(response));
       } else {
         res.status(400);
         res.send({ success: false, message: 'invalid parameters' });

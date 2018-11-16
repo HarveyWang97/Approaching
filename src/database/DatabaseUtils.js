@@ -1,27 +1,40 @@
 const debug = require('debug')('server:database');
 const mongoose = require('mongoose');
 const models = require('./models');
-const config = require('../config');
 
+/**
+ * @classdesc Utility class for {@link Database}.
+ */
 class DatabaseUtils {
-  constructor() {}
-
   static success(id) {
     return { success: true, id: id };
   }
-
+  
   static failure(error) {
     return { success: false, message: error };
   }
 
-  static authorize(object, callback = () => {}, onSuccess = () => {}) {
-    if (!object || !(object.facebookId) || !(object.accessToken)) {
-      callback(this.failure('Authorization failed.'));
-      return;
-    }
-    const conditions = { facebookId: object.facebookId };
+  /**
+   * The callback invoked when a database operation is done.
+   * @callback DatabaseCallback
+   * @param {Object} response
+   */
+  /**
+   * The callback invoked when a database authorization succeeds.
+   * @callback OnAuthSuccessCallback
+   */
+  /**
+   * Check the user's authoriazation information. Exact 
+   * facebookId-accessToken pair must be found in the database.
+   * @param {Auth} user - User authoriazation information
+   * @param {DatabaseCallback} callback - Called when authorization fails.
+   * @param {OnAuthSuccessCallback} onSuccess - Called when authorization 
+   * is successful.
+   */
+  static authorize(user, callback = () => {}, onSuccess = () => {}) {
+    const conditions = { facebookId: user.facebookId };
     models.User.findOne(conditions, (err, doc) => {
-      if (err || !doc || doc.accessToken !== object.accessToken) {
+      if (err || !doc || doc.accessToken !== user.accessToken) {
         callback(this.failure('Authorization failed.'));
       } else {        
         onSuccess();
@@ -29,15 +42,35 @@ class DatabaseUtils {
     });
   }
 
-  static insert(schema, object, callback = () => {}) {    
-    const doc = new schema(object);    
+  /**
+   * Insert the object into the model and call the callback 
+   * after the insertion is done.
+   * @param {mongoose.Model} model - The database model that the operation 
+   * targets on.
+   * @param {Object} object
+   * @param {DatabaseCallback} callback - Called when authorization fails.
+   */
+  static insert(model, object, callback = () => {}) {    
+    const doc = new model(object);    
     this._save(doc, callback);
   }
 
-  static insertIfNotExisting(schema, primaryKey, object, callback = () => {}) {
+  /**
+   * If the object already exists in the model, update the record in the model.
+   * Otherwise, insert the object into the model. In both cases, call the 
+   * callback after the operation is done.
+   * @param {mongoose.Model} model - The database model that the operation 
+   * targets on.
+   * @param {string} primaryKey - The key used to match the object to the
+   * database documents.
+   * @param {Object} object 
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   * are done.
+   */
+  static insertIfNotExisting(model, primaryKey, object, callback = () => {}) {
     const conditions = {};
     conditions[primaryKey] = object[primaryKey];
-    schema.findOne(conditions, (err, doc) => {
+    model.findOne(conditions, (err, doc) => {
       if (err) {
         callback(this.failure(err));
       } else if (doc) {
@@ -48,15 +81,27 @@ class DatabaseUtils {
         }
         this._save(doc, callback);
       } else {
-        this.insert(schema, object, callback);
+        this.insert(model, object, callback);
       }
     });
   }
 
-  static update(schema, primaryKey, object, callback = () => {}) {
+  /**
+   * If the object already exists in the model, update the record in the model,
+   * and then call the callback on the successful response. Otherwise, call the
+   * callback on the failure response.
+   * @param {mongoose.Model} model - The database model that the operation 
+   * targets on.
+   * @param {string} primaryKey - The key used to match the object to the
+   * database documents.
+   * @param {Object} object 
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   * are done.
+   */
+  static update(model, primaryKey, object, callback = () => {}) {
     const conditions = {};
     conditions[primaryKey] = object[primaryKey];
-    schema.findOne(conditions, (err, doc) => {      
+    model.findOne(conditions, (err, doc) => {      
       if (err || !doc) {
         callback(this.failure(err ? err : "Entry not found."));
       } else {
@@ -70,10 +115,22 @@ class DatabaseUtils {
     });
   }
 
-  static remove(schema, primaryKey, object, callback = () => {}) {
+  /**
+   * If the object already exists in the model, remove that record from the 
+   * database, and then call the callback on the successful response. 
+   * Otherwise, call the callback on the failure response.
+   * @param {mongoose.Model} model - The database model that the operation 
+   * targets on.
+   * @param {string} primaryKey - The key used to match the object to the
+   * database documents.
+   * @param {Object} object 
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   * are done.
+   */
+  static remove(model, primaryKey, object, callback = () => {}) {
     const conditions = {};
     conditions[primaryKey] = object[primaryKey];
-    schema.findOneAndDelete(conditions, (err, doc) => {
+    model.findOneAndDelete(conditions, (err, doc) => {
       if (err || !doc) {
         callback(this.failure(err ? err : "Entry not found."));
       } else {
@@ -82,6 +139,13 @@ class DatabaseUtils {
     });
   }
 
+  /**
+   * Get all the items from a given user.
+   * @param {string} owner - The user's facebookId. Used to filter which items
+   * we want.
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   * are done.
+   */
   static getItems(owner, callback = () => {}) {
     models.Item.find({ owner: owner }, (err, items) => {
       if (err) {
@@ -95,6 +159,13 @@ class DatabaseUtils {
     });
   }
 
+  /**
+   * Get all the events from a given user.
+   * @param {string} owner - The user's facebookId. Used to filter which items
+   * we want.
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   * are done.
+   */
   static getEvents(owner, callback = () => {}) {
     models.Event.find({ owner: owner }, (err, events) => {
       if (err) {
@@ -108,6 +179,11 @@ class DatabaseUtils {
     });
   }
 
+  /**
+   * Reformat an array of events for client-side use.
+   * @param {Object[]} events - An array of event objects.
+   * @returns {Object}
+   */
   static reformatEvents(events) {
     events.sort((a, b) => (a.time > b.time));
     const result = {};
@@ -130,6 +206,12 @@ class DatabaseUtils {
     return result;
   }
 
+  /**
+   * Save a document into the database and then call the callback
+   * @param {mongoose.Document} doc - The document to be saved.
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   * are done.
+   */
   static _save(doc, callback = () => {}) {
     doc.save((err, doc) => {
       if (err) {
