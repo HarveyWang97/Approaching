@@ -6,9 +6,9 @@ import Icon from './Icon';
 /**
  * @classdesc Construct a Popup component that renders given data object. 
  */
-export default class Popup extends Component {
+class Popup extends Component {
     /**
-	 * Currently we manually construct datas for popup to display since we do not have communication with others.
+     * Currently we manually construct datas for popup to display since we do not have communication with others.
      * Initialize the state variables with corresponding input data.
      * (TO BE DONE) Communication with other front-end components and server.
 	 * @constructor 
@@ -59,7 +59,8 @@ export default class Popup extends Component {
     /**
 	 * This method flips the current editing state.
 	 * either from editing to not-editing, or vice versa.
-	 * @param {None} 
+     * 
+	 * @param {None}
 	 * @return {void} 
 	 *
 	 */
@@ -71,8 +72,8 @@ export default class Popup extends Component {
 
      /**
 	 * This method set the value of title to the new input value.
-	 *
-	 * @param {object} event a specific event that invokes this method, e.g. editing the iput form
+	 * 
+	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
 	 * @return {void} 
 	 */
     handleChange(event){
@@ -84,7 +85,7 @@ export default class Popup extends Component {
     /**
 	 * This method invokes the changeEditingState() on clicking of submit button.
      * In the future it will send the changed data to server and reducer.
-	 *
+	 * 
 	 * @param {None}
 	 * @return {void}
 	 */
@@ -94,15 +95,22 @@ export default class Popup extends Component {
 
     /**
 	 * This method set the value of each key to the new given value.
-	 *
-	 * @param {string} key a specific event that invokes this method, e.g. editing the iput form
-	 * @param {string}
+	 * 
+	 * @param {String} key a specific event that invokes this method, e.g. editing the iput form.
+	 * @param {String} value the given new value.
      * @return {void} 
 	 */
     handleEditResult(key, value) {
         this.state[key] = value;
     }
 
+
+    /**
+	 * Render the popup based on input data type and value. 
+     * 
+	 * @param {none}
+     * @return {html} Returns a html block of Popup component. 
+	 */
     render() {
         const data = this.data.data;
         return (
@@ -149,4 +157,4 @@ export default class Popup extends Component {
     }
 }
 
-
+export default Popup;
