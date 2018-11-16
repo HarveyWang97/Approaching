@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: src/queries/QueryUtils.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,57 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: src/queries/QueryUtils.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @classdesc Utility class for {@link Query}.
+ */
+class QueryUtils {
+  /**
+   * Return whether or not arr1 and arr2 are two identical arrays.
+   * @param {*} arr1 
+   * @param {*} arr2 
+   */
+  static arrayEqual(arr1, arr2) {
+    if (!arr1 || !Array.isArray(arr1)) return false;
+    if (!arr2 || !Array.isArray(arr2)) return false;
+    if (arr1.length !== arr2.length) return false;
 
+    const a = arr1.slice(); a.sort();
+    const b = arr2.slice(); b.sort();
 
-    <h3> </h3>
+    for (let i = 0; i &lt; a.length; ++i) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
 
+  /**
+   * Return whether or not arr1 and arr2 are arrays and 
+   * arr1 is a subset of arr2.
+   * @param {*} arr1 
+   * @param {*} arr2 
+   */
+  static arraySubsetOf(arr1, arr2) {
+    if (!arr1 || !Array.isArray(arr1)) return false;
+    if (!arr2 || !Array.isArray(arr2)) return false;
+    for (let entry of arr1) {
+      if (!arr2.includes(entry)) return false;
+    }
+    return true;
+  }
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = QueryUtils;</code></pre>
+        </article>
+    </section>
 
 
 

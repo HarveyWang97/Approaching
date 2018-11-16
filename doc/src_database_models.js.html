@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: src/database/models.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,49 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: src/database/models.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const config = require('../config').databaseModels;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
+/**
+ * @function modelGenerator
+ * @param {string} name 
+ * @returns {mongoose.Model}
+ * @see config.js
+ */
+const modelGenerator = name => {
+  const schemaPrototype = config[name].fields;
+  const primaryKey = config[name].primaryKey;
+  if (schemaPrototype[primaryKey]) {
+    schemaPrototype[primaryKey].unique = true;
+  }
 
-    <h3> </h3>
+  const schema = new Schema(schemaPrototype, {
+    collection: config[name].collection
+  });
+  const model = mongoose.model(name, schema);
+  model.collection.dropIndexes();
 
+  return model;
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = {
+  User: modelGenerator('User'),
+  Item: modelGenerator('Item'),
+  Event: modelGenerator('Event'),
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

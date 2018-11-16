@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: src/queries/UpdateQuery.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,43 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: src/queries/UpdateQuery.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Query = require('./Query');
+const utils = require('./QueryUtils');
+const config = require('../config').databaseModels;
 
+/**
+ * @classdesc Class representing an update query, extending {@link Query}.
+ */
+class UpdateQuery extends Query {
+  /**
+   * Check whether or not the query is valid.
+   * @implements {Query#isValid}
+   * @see config.js
+   */
+  isValid() {
+    if (!(this._hasauth())) return false;
 
-    <h3> </h3>
+    const properties = Object.keys(this.getDetails());
+    const { updateRequired, updateOptional } = config[this.target];
 
+    return utils.arraySubsetOf(updateRequired, properties) &amp;&amp;
+           utils.arraySubsetOf(properties, updateOptional);
+  }
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = UpdateQuery;
+</code></pre>
+        </article>
+    </section>
 
 
 

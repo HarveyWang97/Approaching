@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Icon</title>
+    <title>JSDoc: Class: UpdateQuery</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Icon</h1>
+    <h1 class="page-title">Class: UpdateQuery</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Icon<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>UpdateQuery<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Construct a FontAwesonIcon.</div>
+            <div class="class-description">Class representing an update query, extending <a href="Query.html">Query</a>.</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Icon"><span class="type-signature"></span>new Icon<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="UpdateQuery"><span class="type-signature"></span>new UpdateQuery<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_popup_Icon.js.html">client/src/components/popup/Icon.js</a>, <a href="client_src_components_popup_Icon.js.html#line8">line 8</a>
+        <a href="src_queries_UpdateQuery.js.html">src/queries/UpdateQuery.js</a>, <a href="src_queries_UpdateQuery.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -147,7 +147,7 @@
     
 
     
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">(onClick, iconName)</span><span class="type-signature"> &rarr; {html}</span></h4>
+    <h4 class="name" id="isValid"><span class="type-signature"></span>isValid<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -155,7 +155,7 @@
 
 
 <div class="description">
-    Render the icon with given iconName.
+    Check whether or not the query is valid.
 </div>
 
 
@@ -164,78 +164,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>onClick</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">JsonObject</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Associate specific onClick behavior with this icon.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>iconName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of FAIcon to be constructed.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -255,6 +183,13 @@
     
 
     
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Query.html#isValid">Query#isValid</a></li>
+        
+    </ul></dd>
+    
 
     
 
@@ -271,51 +206,36 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_popup_Icon.js.html">client/src/components/popup/Icon.js</a>, <a href="client_src_components_popup_Icon.js.html#line15">line 15</a>
+        <a href="src_queries_UpdateQuery.js.html">src/queries/UpdateQuery.js</a>, <a href="src_queries_UpdateQuery.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
     
 
     
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Return a html object of FAIcon.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">html</span>
-
-
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>config.js</li>
+        </ul>
     </dd>
-</dl>
+    
 
     
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

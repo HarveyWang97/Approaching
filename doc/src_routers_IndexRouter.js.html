@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: src/routers/IndexRouter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,47 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: src/routers/IndexRouter.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { Router } = require('express');
+const Database = require('../database/Database');
+const FetchDataQuery = require('../queries/FetchDataQuery');
 
+/**
+ * @classdesc Router that handles requests to index url, 
+ * extending {@link express.Router}.
+ */
+class IndexRouter extends Router {
+  /**
+   * Construct a router to handle fetchData requests.
+   * @constructor
+   */
+  constructor() {
+    super();
 
-    <h3> </h3>
+    this.get('/fetchData', (req, res, next) => {
+      const query = new FetchDataQuery(null, req.query);
+      if (query.isValid()) {
+        Database.fetchData(query, response => res.send(response));
+      } else {
+        res.status(400);
+        res.send({ success: false, message: 'invalid parameters' });
+      }
+    });
+  }
+}
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = new IndexRouter();
+</code></pre>
+        </article>
+    </section>
 
 
 

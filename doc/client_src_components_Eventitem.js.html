@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: client/src/components/Eventitem.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,46 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: client/src/components/Eventitem.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React,{Component} from 'react';
+
+/**
+ * @constructor
+ */
+
+export default (props) => {
+    return (
+        &lt;div 
+            style={{border:'solid 1px', 
+                    width:'400px',height:'265px',
+                    paddingTop:'0px',
+                    marginLeft:'90px',
+                    marginBottom:'20px'}}
+        >
+
+            &lt;img src={props.picture} width="400" height="220" />
+            &lt;br />
+            &lt;body bgcolor="white">
+            &lt;text style={{marginLeft:'10px'}}>{props.name}&lt;/text>
+            &lt;br />
+            &lt;text style={{marginLeft:'10px'}}>{props.time}&lt;/text>
+            &lt;/body>
+        &lt;/div>
+    );
+};
 
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+  </code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: client/src/components/Eventboard.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: client/src/components/Eventboard.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React,{Component} from 'react';
+import EventItem from './Eventitem';
+import "../css/Dashboard.css";
+import { INSPECT_MAX_BYTES } from 'buffer';
+import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
+import bg from './bg.jpg';
+import tree from './tree.jpeg';
+import th from './th.jpg';
+import swag from './swag.jpg';
+import calendar from './calendar.jpeg';
+
+/**
+ * Class representing the Event Dashboard
+ * 
+ * @class
+ */
+
+class Eventboard extends Component{
+    constructor(props){
+        super(props);
+        
+    }
+
+    /**
+     * @function
+     * @param {number} year 
+     * @param {Array&lt;Array&lt;EventItem>>} items 
+     * @returns {Array&lt;Array&lt;EventItem>>} return all events in one year
+     */
+    renderYear(year,items){
+        const events = Object.keys(items).map(key=> {
+            return this.renderMonth(key,year,items[key]);
+        }); // iterate an object
+        return events;
+    }
+
+    /**
+     * mapping numbered month to English-spelling month
+     */
+
+    monthName = {
+        1:"January",
+        2:"February",
+        3:"March",
+        4:"April",
+        5:"May",
+        6:"June",
+        7:"July",
+        8:"August",
+        9:"September",
+        10:"October",
+        11:"November",
+        12:"December"
+    }
+
+    /**
+     * 
+     * @function
+     * @param {number} month 
+     * @param {number} year 
+     * @param {Array&lt;EventItem>} items 
+     * @returns {Array&lt;EventItem>} Events in one corresponding month 
+     */
+    renderMonth(month,year,items){
+        const events = items.map(item => {
+            return this.renderItem(item.name,item.time,item.picture);
+        }); // iterate an array
+        return (
+            &lt;div>
+                &lt;div style={{marginLeft:'50px',marginBottom:'10px'}}>
+                    &lt;text >&lt;b>{this.monthName[month]} {year}&lt;/b>&lt;/text>
+                &lt;/div>
+                {events}
+            &lt;/div>
+        );
+    }
+
+    /**
+     * 
+     * @param {string} name 
+     * @param {string} time 
+     * @param {img} picture 
+     * @returns {EventItem} return the specified EventItem
+     * 
+     * @function
+     */
+    renderItem(name,time,picture){
+        return (
+            &lt;EventItem name={name} time={time} picture = {picture} key={name}/>
+        );
+    }
+
+    render(){
+        const data = {
+            2018: {
+                10: [
+                    {
+                        "name": "CS Contest",
+                        "time": "1pm - 3pm",
+                        "location": "Los Angeles",
+                        "picture": tree,
+                        "description": null 
+                    },
+                    {
+                        "name": "Onsite Interview",
+                        "time": "3pm - 5pm",
+                        "location": "Menlo Park",
+                        "picture": bg,
+                        "description": null 
+                    }
+                ],
+                12: [
+                    {
+                        "name": "Swag Dispense",
+                        "time": "10am - 12pm",
+                        "location": "Westwood",
+                        "picture": swag,
+                        "description": null
+                    },
+                    {
+                        "name": "Birthday Party",
+                        "time": "6pm",
+                        "location": "Midvale Avenue",
+                        "picture": tree,
+                        "description": null
+                    }
+                ],
+            },
+            2019: {
+
+            }
+        };
+        const events = Object.keys(data).map(key => {
+            return this.renderYear(key,data[key]);
+        });
+        return (
+            &lt;div className="split-right right">  
+            &lt;div className="events">          
+                &lt;h2 style = {{marginTop:'40px', marginLeft:'50px', color:"green"}}>Events Calendar
+                &lt;img style = {{marginLeft:'5px'}} src={calendar} width="30" height="26" />
+                &lt;/h2>
+                {events}
+           &lt;/div>
+                &lt;div className="footer">
+                    &lt;a href="dashboard">&lt;i className="fa fa-plus add" >&lt;/i>&lt;/a>   
+                &lt;/div>
+        
+            &lt;/div>
+        );
+    }
+};
+export default Eventboard;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
