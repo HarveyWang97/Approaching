@@ -13,6 +13,9 @@
 # production
 /build
 
+#test
+/client/src/__tests__/components/__snapshots__
+
 # misc
 .DS_Store
 .env.local

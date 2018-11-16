@@ -8,6 +8,7 @@
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
     "test": "mocha",
+    "test-react":"cd client &&  npm run test",
     "doc": "rm -rf doc && ./node_modules/.bin/jsdoc -r src client/src -d doc"
   },
   "dependencies": {
