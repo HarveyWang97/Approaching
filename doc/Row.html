@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Row<span class="signature">(field, iconName, editing, handleEditResult)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Row<span class="signature">(props)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Called by Popup to construct a pair of one Icon and one text value.</div>
         
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Row"><span class="type-signature"></span>new Row<span class="signature">(field, iconName, editing, handleEditResult)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Row"><span class="type-signature"></span>new Row<span class="signature">(props)</span><span class="type-signature"></span></h4>
     
 
     
@@ -56,6 +56,314 @@
     Currently we manually construct datas for popup to display since we do not have communication with others.
 Initialize the state variables with corresponding input data.
 (TO BE DONE) Communication with other front-end components and server.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>props</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">None</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_popup_Row.js.html">components/popup/Row.js</a>, <a href="components_popup_Row.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="handleChange"><span class="type-signature"></span>handleChange<span class="signature">(event)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This method set the value of this row's item to the new input value.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JsonObject</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a specific event that invokes this method, e.g. editing the iput form</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_popup_Row.js.html">components/popup/Row.js</a>, <a href="components_popup_Row.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">(field, iconName, editing, handleEditResult)</span><span class="type-signature"> &rarr; {html}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Render the row based on the given input.
 </div>
 
 
@@ -217,7 +525,7 @@ Initialize the state variables with corresponding input data.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_popup_Row.js.html">components/popup/Row.js</a>, <a href="components_popup_Row.js.html#line13">line 13</a>
+        <a href="components_popup_Row.js.html">components/popup/Row.js</a>, <a href="components_popup_Row.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -240,28 +548,34 @@ Initialize the state variables with corresponding input data.
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Returns a html block of Popup component.
+</div>
 
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">html</span>
 
+
+    </dd>
+</dl>
 
     
-    </div>
 
-    
 
-    
 
-    
 
-    
 
-    
-
-    
-
-    
-
+        
     
 
     
@@ -283,7 +597,7 @@ Initialize the state variables with corresponding input data.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 14:57:28 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 18:02:21 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

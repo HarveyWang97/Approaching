@@ -4,10 +4,6 @@ import Icon from './Icon';
 
 /**
  * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
- * @param {String} field The data type of given text value, e.g. location, time.
- * @param {String} iconName The name of FAIcon to be constructed.
- * @param {Boolean} editing Whether the Popup is in editing mode.
- * @param {JsonObject} handleEditResult Pass handleEditResult behavior from Popup to this object.
  * 
  */
 class Row extends Component {
@@ -27,12 +23,28 @@ class Row extends Component {
         };
     }
 
+    /**
+	 * This method set the value of this row's item to the new input value.
+	 * 
+	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
+	 * @return {void} 
+	 */
     handleChange(event){
         this.setState({
             item: event.target.value
         });
     }
 
+    /**
+	 * Render the row based on the given input. 
+     *
+     *  @param {String} field The data type of given text value, e.g. location, time.
+     * @param {String} iconName The name of FAIcon to be constructed.
+     * @param {Boolean} editing Whether the Popup is in editing mode.
+     * @param {JsonObject} handleEditResult Pass handleEditResult behavior from Popup to this object.
+     * 
+     * @return {html} Returns a html block of Popup component. 
+	 */
     render() {
         const { field, iconName, details, editing, handleEditResult } = this.props;
         handleEditResult(field, this.state.item);
