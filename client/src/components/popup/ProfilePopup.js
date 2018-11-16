@@ -3,7 +3,7 @@ import '../../css/Profile.css';
 import Row from './Row';
 import Icon from './Icon';
 
-export default class Profile extends Component {
+class Profile extends Component {
     constructor(props){
         super(props);
 
@@ -119,6 +119,7 @@ export default class Profile extends Component {
     }
 }
 
+export default Profile;
 
 
 
