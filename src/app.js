@@ -6,10 +6,10 @@ const cors = require('cors');
 const logger = require('morgan');
 const config = require('./config');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const itemsRouter = require('./routes/items');
-const eventsRouter = require('./routes/events');
+const indexRouter = require('./routers/IndexRouter');
+const usersRouter = require('./routers/UsersRouter');
+const itemsRouter = require('./routers/ItemsRouter');
+const eventsRouter = require('./routers/EventsRouter');
 
 const app = express();
 

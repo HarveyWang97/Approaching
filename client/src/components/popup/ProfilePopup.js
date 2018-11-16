@@ -62,7 +62,6 @@ export default class Profile extends Component {
 
     handleSubmit() {
         this.changeEditingState();
-        console.log(this.state);
     }
 
     /**

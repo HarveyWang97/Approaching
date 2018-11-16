@@ -8,6 +8,12 @@ const eventConfig = config.databaseModels.Event;
 const utils = require('./DatabaseUtils');
 
 class Database {
+  /**
+   * The constructor initializes a connection to the MongoDB at the url
+   * specified in configuration.
+   * 
+   * @see config.js
+   */
   constructor() {
     // initialize connection status
     this.connected = false;
