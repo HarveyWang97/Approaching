@@ -8,12 +8,8 @@
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
     "test": "mocha",
-<<<<<<< HEAD
-    "test-react":"cd client &&  npm run test",
-    "doc": "rm -rf doc && ./node_modules/.bin/jsdoc -r src client/src -d doc"
-=======
+    "test-react":"cd client &&  npm run test && cd ..",
     "doc": "rm -rf doc && ./node_modules/.bin/jsdoc -r src client/src -a all -d doc"
->>>>>>> 228043c376ed624d7d0e16ab8501e06c2a493fba
   },
   "dependencies": {
     "axios": "^0.18.0",
