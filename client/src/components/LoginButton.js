@@ -40,17 +40,20 @@ class LoginButton extends Component{
             content = this.props.user.email;
         }
 
-        const dashboardStyle = {backgroundImage:`url(${autumn})`};
+        
 
-        return (         
-                <div className="login" >
-                    <FacebookLogin
-                        appId="300879247180866"
-                        autoLoad={false}
-                        fields="name,email,picture"
-                        callback={this.responseFacebook}
-                    />
-                </div>
+        return (                 
+                    <div className="login">
+                        <div className="login-btn">                                           
+                            <FacebookLogin
+                                appId="300879247180866"
+                                autoLoad={false}
+                                fields="name,email,picture"
+                                callback={this.responseFacebook}
+                            />
+                        </div>
+                    </div>
+                
         );
     }
 }

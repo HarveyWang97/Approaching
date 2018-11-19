@@ -43,7 +43,7 @@ class Header extends Component{
                     />
                     : null
                 }
-                <h1>ee</h1>
+                
             </div>
         );
     }
