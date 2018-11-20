@@ -25,6 +25,7 @@ class Popup extends Component {
             itemList: 'list-ul',
             eventList: 'calendar-alt'
         };
+        
         this.data = {
             type: 'event',
             editing: false,

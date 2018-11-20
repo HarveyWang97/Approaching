@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import "../css/Dashboard.css";
+import { throws } from 'assert';
 
 /**
  * Class representing the Item dashboard
@@ -7,45 +8,56 @@ import "../css/Dashboard.css";
  * @class
  */
 
+ const c = {
+    name:'home',
+    sublayers:[
+        {
+            name:'kitchen',
+            sublayers:[
+                {
+                    name:'fridge',
+                    sublayers:[
+
+                    ],
+                    items:['hamburger','chips'],
+                    
+                },
+                {
+                    name:'cupboard',
+                    sublayers:[
+
+                    ],
+                    items:['meat']
+                }
+            ],
+            items:[
+                'bowl'
+            ]
+        }
+    ],
+    items:[
+        'shoes',
+        'coat'
+    ]
+};
 
 class Itemboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            container:{
-                name:'home',
-                sublayers:[
-                    {
-                        name:'kitchen',
-                        sublayers:[
-                            {
-                                name:'fridge',
-                                sublayers:[
-    
-                                ],
-                                items:['hamburger','chips'],
-                                
-                            },
-                            {
-                                name:'cupboard',
-                                sublayers:[
-    
-                                ],
-                                items:['meat']
-                            }
-                        ],
-                        items:[
-                            'bowl'
-                        ]
-                    }
-                ],
-                items:[
-                    'shoes',
-                    'coat'
-                ]
-            },
-            parent:null
+            container:c,
+            stk:[c]
         };
+    }
+
+    
+
+    go_back(){
+        if(this.state.stk.length > 1 ){
+            this.setState((prevState) => {
+                return {stk:prevState.stk.slice(0,-1),container:prevState.stk[prevState.stk.length-2]};
+            });
+        }
     }
     
     /** 
@@ -53,9 +65,11 @@ class Itemboard extends Component {
      * @returns {JsonObject} set the layer to the new layer passed in
     */
     changeLayer(l){
-        this.setState(() => {
-            return {container:l};
+        this.setState((prevState) => {
+            return {stk:prevState.stk.concat(l),container:l};
         });
+        
+      //  console.log(this.state.stk);
     }
 
     /**
@@ -82,8 +96,14 @@ class Itemboard extends Component {
 
         return (
             <div style={{float:'left',width:'268px'}}>
-                <div className="entry" style={{textAlign:'center'}}>
-                    {current.name}
+                <div className="entry" style={{textAlign:'left'}}>
+                    <i 
+                        className="fas fa-angle-left" 
+                        style={{fontSize:'20px',marginLeft:'10px'}}
+                        onClick={() => this.go_back()}
+                    >
+                    </i>
+                    <span style={{marginLeft:'90px'}}>{current.name}</span>
                 </div>
                 {sublayers}
                 {items}
@@ -95,7 +115,7 @@ class Itemboard extends Component {
     }
 
     render(){
-
+        console.log(this.state.stk);
         return (
             <div class="split-left left">
                 <input type="text" placeholder="Search..."  className="searchbar"/>

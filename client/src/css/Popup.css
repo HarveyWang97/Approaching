@@ -24,14 +24,19 @@
 .popup_inner .top {
     height: 25%;
     background: rgb(250, 204, 172);
+   
 }
 
 .title {
     display: inline-block;
     text-align: left;
-    margin-top: 10%;
+    margin-top: 1%;
     margin-left: 5%;
     font-size: xx-large;
+   /* font-size:30px;
+    position: relative;
+    bottom:5%;
+    left:5%;*/
 }
 
 .popup_inner .top .popup_icon {
@@ -79,6 +84,7 @@
     /* border-top: 2px solid; */
     padding: 5% 0%;
     background: rgb(250, 155, 150);
+    height:5%;
 }
 
 .popup_inner .bottom .left {
