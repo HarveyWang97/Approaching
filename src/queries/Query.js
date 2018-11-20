@@ -37,16 +37,20 @@ class Query {
   }
 
   /**
-   * Get the properties of the query that are not authorization informaion.
+   * Get the properties of the query that are used for the real work.
    * @returns {Object}
    */
   getDetails() {
+    if (this.target === 'User') {
+      return this.query;
+    }
     const details = {};
     for (let property in this.query) {
       if (property !== 'facebookId' && property !== 'accessToken') {
         details[property] = this.query[property];
       }
     }
+    details.owner = this.query.facebookId;
     return details;
   }
 

@@ -18,7 +18,8 @@ module.exports = () => {
       details: {
         name: 'name',
         time: 'time',
-        location: 'location'
+        location: 'location',
+        owner: 'facebookId'
       }
     };
     const invalidTest = {
@@ -29,7 +30,9 @@ module.exports = () => {
         facebookId: 'facebookId',
         accessToken: undefined,
       },
-      details: {}
+      details: {
+        owner: 'facebookId'
+      }
     }
 
     describe('#_hasauth()', function() {

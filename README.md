@@ -28,7 +28,6 @@ npm run test        // run backend test
 npm run test-react  // run frontend test
 
 npm run doc         // generate documentation
-
 ```
 
 

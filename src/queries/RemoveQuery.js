@@ -14,7 +14,7 @@ class RemoveQuery extends Query {
   isValid() {
     if (!(this._hasauth())) return false;
 
-    const properties = Object.keys(this.getDetails());
+    const properties = Object.keys(this.getQuery());
     const { remove } = config[this.target];
 
     return utils.arrayEqual(properties, remove);

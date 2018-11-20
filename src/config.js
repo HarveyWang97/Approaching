@@ -11,10 +11,10 @@ module.exports = {
         email:       { type: String, required: true },
       },
       primaryKey: 'facebookId',
-      insert: [ 'name', 'email' ],
-      updateRequired: [],
-      updateOptional: [ 'email' ],
-      remove: []
+      insert: [ 'facebookId', 'accessToken', 'name', 'email' ],
+      updateRequired: [ 'facebookId', 'accessToken' ],
+      updateOptional: [ 'facebookId', 'accessToken', 'email' ],
+      remove: [ 'facebookId', 'accessToken' ]
     },
     Item: {
       collection: 'Items',
@@ -28,10 +28,10 @@ module.exports = {
         description: { type: String, required: false },
       },
       primaryKey: '_id',
-      insert: [ 'name', 'picture', 'expireDate', 'location', 'quantity', 'description' ],
-      updateRequired: [ '_id' ],
-      updateOptional: [ '_id', 'name', 'picture', 'expireDate', 'location', 'quantity', 'description' ],
-      remove: [ '_id' ]
+      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'expireDate', 'location', 'quantity', 'description' ],
+      updateRequired: [ 'facebookId', 'accessToken', '_id' ],
+      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'expireDate', 'location', 'quantity', 'description' ],
+      remove: [ 'facebookId', 'accessToken', '_id' ]
     },
     Event: {
       collection: 'Events',
@@ -44,10 +44,10 @@ module.exports = {
         description: { type: String, required: false },
       },
       primaryKey: '_id',
-      insert: [ 'name', 'picture', 'time', 'location', 'description' ],
-      updateRequired: [ '_id' ],
-      updateOptional: [ '_id', 'name', 'picture', 'time', 'location', 'description' ],
-      remove: [ '_id' ]
+      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'time', 'location', 'description' ],
+      updateRequired: [ 'facebookId', 'accessToken', '_id' ],
+      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'time', 'location', 'description' ],
+      remove: [ 'facebookId', 'accessToken', '_id' ]
     }
   }
 }

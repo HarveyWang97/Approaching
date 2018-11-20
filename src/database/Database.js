@@ -70,23 +70,21 @@ class Database {
    * are done.
    */
   insert(query, callback = () => {}) {
+    const user = query.getAuth();
+    const details = query.getDetails();
     switch (query.getTarget()) {
       case 'User':
         utils.insertIfNotExisting(models.User, userConfig.primaryKey, 
-          query.getQuery(), callback);
+          details, callback);
         break;
       case 'Item':
-        const user = query.getAuth();
-        const item = query.getDetails();
         utils.authorize(user, callback, () => {
-          utils.insert(models.Item, item, callback);
+          utils.insert(models.Item, details, callback);
         });
         break;
       case 'Event':
-        const user = query.getAuth();
-        const event = query.getDetails();
         utils.authorize(user, callback, () => {
-          utils.insert(models.Event, event, callback);
+          utils.insert(models.Event, details, callback);
         });
         break;
     }
@@ -103,6 +101,7 @@ class Database {
     const details = query.getDetails();
     const model = models[query.getTarget()];
     const primaryKey = config.databaseModels[query.getTarget()].primaryKey;
+    
     utils.authorize(user, callback, () => {
       utils.update(model, primaryKey, details, callback);
     });

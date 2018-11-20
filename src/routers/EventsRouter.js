@@ -20,8 +20,6 @@ class EventsRouter extends Router {
     this.get('/insert', (req, res, next) => {
       const query = new InsertQuery('Event', req.query);
       if (query.isValid()) {
-        const event = query.getDetails();
-        event.owner = req.query.facebookId;
         Database.insert(query, response => res.send(response));
       } else {
         res.status(400);

@@ -14,7 +14,7 @@ class UpdateQuery extends Query {
   isValid() {
     if (!(this._hasauth())) return false;
 
-    const properties = Object.keys(this.getDetails());
+    const properties = Object.keys(this.getQuery());
     const { updateRequired, updateOptional } = config[this.target];
 
     return utils.arraySubsetOf(updateRequired, properties) &&
