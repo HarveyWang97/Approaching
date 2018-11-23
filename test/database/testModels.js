@@ -23,6 +23,7 @@ module.exports = () => {
       const configUser = config.User.fields;
       const configItem = config.Item.fields;
       const configEvent = config.Event.fields;
+
       it('the model should have correct fields', function() {
         const configUserKeys = Object.keys(configUser);
         const configItemKeys = Object.keys(configItem);
@@ -35,6 +36,7 @@ module.exports = () => {
         assert.deepStrictEqual(Object.keys(mongooseItem), configItemKeys);
         assert.deepStrictEqual(Object.keys(mongooseEvent), configEventKeys);
       });
+
       it('the model fields should meet the type and "required" constraints', function() {
         for (let key in configUser) {
           assert.strictEqual(mongooseUser[key].instance, configUser[key].type.name);
@@ -49,6 +51,7 @@ module.exports = () => {
           assert.strictEqual(mongooseEvent[key].isRequired, configEvent[key].required);
         }
       });
+
       it('the primary key should be set to unique, i.e., indexed', function() {
         for (let key in configUser) {
           if (key === config.User.primaryKey) {
@@ -72,6 +75,7 @@ module.exports = () => {
           }
         }
       });
+      
       it('the model should have the specified collection name', function() {
         assert.strictEqual(User.schema.options.collection, config.User.collection);
         assert.strictEqual(Item.schema.options.collection, config.Item.collection);

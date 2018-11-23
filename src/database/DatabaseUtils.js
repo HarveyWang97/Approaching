@@ -36,7 +36,7 @@ class DatabaseUtils {
     models.User.findOne(conditions, (err, doc) => {
       if (err || !doc || doc.accessToken !== user.accessToken) {
         callback(this.failure('Authorization failed.'));
-      } else {        
+      } else {
         onSuccess();
       }
     });
@@ -119,6 +119,8 @@ class DatabaseUtils {
    * If the object already exists in the model, remove that record from the 
    * database, and then call the callback on the successful response. 
    * Otherwise, call the callback on the failure response.
+   * Note that the primary key is supposed to be unique, so there should be
+   * at most 1 such document found in a specific collection.
    * @param {mongoose.Model} model - The database model that the operation 
    * targets on.
    * @param {string} primaryKey - The key used to match the object to the
@@ -167,43 +169,34 @@ class DatabaseUtils {
    * are done.
    */
   static getEvents(owner, callback = () => {}) {
-    models.Event.find({ owner: owner }, (err, events) => {
+    models.Event.find({ owner: owner }, (err, rawEvents) => {
       if (err) {
         callback({ success: false });
       } else {
+        rawEvents.sort((a, b) => (a.time > b.time));
+        const events = {};
+    
+        for (let event of rawEvents) {
+          const time = new Date(Number(event.time));
+          const year = time.getFullYear();
+          const month = time.getMonth() + 1;
+          const date = time.getDate();
+          if (!(year in events))              { events[year] = {}; }
+          if (!(month in events[year]))       { events[year][month] = {}; }
+          if (!(date in events[year][month])) { events[year][month][date] = []; }
+          const hour = time.getHours();
+          const minute = time.getMinutes();
+          const hourMinute = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
+          event.time = hourMinute;
+          events[year][month][date].push(event);
+        }
+
         callback({
           success: true,
-          events: this.reformatEvents(events)
+          events: events
         });
       }
     });
-  }
-
-  /**
-   * Reformat an array of events for client-side use.
-   * @param {Object[]} events - An array of event objects.
-   * @returns {Object}
-   */
-  static reformatEvents(events) {
-    events.sort((a, b) => (a.time > b.time));
-    const result = {};
-
-    for (let event of events) {
-      const time = new Date(Number(event.time));
-      const year = time.getFullYear();
-      const month = time.getMonth() + 1;
-      const date = time.getDate();
-      if (!(year in result))              { result[year] = {}; }
-      if (!(month in result[year]))       { result[year][month] = {}; }
-      if (!(date in result[year][month])) { result[year][month][date] = []; }
-      const hour = time.getHours();
-      const minute = time.getMinutes();
-      const hourMinute = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
-      event.time = hourMinute;
-      result[year][month][date].push(event);
-    }
-
-    return result;
   }
 
   /**
