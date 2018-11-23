@@ -1,6 +1,7 @@
 module.exports = {
   localhost: 'http://localhost:' + (process.env.PORT || '3000'),
   databaseUrl: 'mongodb://TeamChaosz:CS130Approaching@ds151383.mlab.com:51383/approaching',
+  testDatabaseUrl: 'mongodb://TeamChaosz:CS130Approaching@ds115154.mlab.com:15154/approaching_test',
   databaseModels: {
     User: {
       collection: 'Users',

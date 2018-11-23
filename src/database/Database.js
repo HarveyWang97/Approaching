@@ -7,31 +7,66 @@ const itemConfig = config.databaseModels.Item;
 const eventConfig = config.databaseModels.Event;
 const utils = require('./DatabaseUtils');
 
+const DatabaseStatus = {
+  DISCONNECTED: 'disconnected',
+  CONNECTING:   'connecting',
+  CONNECTED:    'connected',
+}
+
 /**
  * @classdesc Class representing the database.
+ * This class implements Singleton design pattern. At most one instance
+ * should exist during the runtime. Get a database instance with 
+ * `Database.getInstance()` or `Database.getTestInstance()` for testing.
+ * Avoid using `new Database(...)` outside the Database class.
+ * Note that NodeJS and ExpressJS are single threaded by default.
  */
 class Database {
   /**
    * The constructor initializes a connection to the MongoDB at the url
    * specified in configuration.
-   * @see config.js
+   * @private
+   * @param {boolean} isTest - Indicating whether or not the instance is
+   * constructed for testing. Used to decide which database to connect to
+   * and which status variables to update.
+   * @see config.js 
    */
-  constructor() {
-    // initialize connection status
-    this.connected = false;
-
+  constructor(isTest) {
+    const databaseUrl = isTest ? config.testDatabaseUrl : config.databaseUrl;
     // connect to db
-    mongoose.connect(config.databaseUrl, {
+    mongoose.connect(databaseUrl, {
       useCreateIndex: true,
       useNewUrlParser: true
     });
     this.db = mongoose.connection;
-    this.db.on('error', console.error.bind(console, 'connection error:'));
+    this.db.on('error', console.error.bind(console, 'connection error: '));
     this.db.once('open', () => {
       // set connection status to be successful
-      this.connected = true;
-      debug('connected to mongodb: ', config.databaseUrl);
+      if (isTest) {
+        this.testStatus = DatabaseStatus.CONNECTED;
+      } else  {
+        this.status = DatabaseStatus.CONNECTED;
+      }
+      debug('connected to mongodb: ', databaseUrl);
     });
+  }
+
+  static getInstance() {
+    if (this.status === DatabaseStatus.DISCONNECTED) {
+      this.status = DatabaseStatus.CONNECTING;      
+      this.uniqueInstance = new Database(false);
+    }
+    while (this.uniqueInstance === null) ;
+    return this.uniqueInstance;
+  }
+
+  static getTestInstance() {
+    if (this.testStatus === DatabaseStatus.DISCONNECTED) {
+      this.testStatus = DatabaseStatus.CONNECTING;      
+      this.uniqueTestInstance = new Database(true);
+    }
+    while (this.uniqueTestInstance === null) ;
+    return this.uniqueTestInstance;
   }
 
   /**
@@ -124,5 +159,22 @@ class Database {
   }
 }
 
-module.exports = new Database();
+/**
+ * initialize connection status.
+ * `status` is necessary because checking uniqueInstance is null or not is 
+ * not enough. When uniqueInstance = null and status = disconnect, we
+ * need to create a Database instance. When uniqueInstance = null and 
+ * status = connecting, we don't need to create a Database instance.
+ */
+Database.status = DatabaseStatus.DISCONNECTED;
+  
+Database.uniqueInstance = null;
+  
+/**
+ *  initialize connection status for test.
+ */
+Database.testStatus = DatabaseStatus.DISCONNECTED;
 
+Database.uniqueTestInstance = null;
+
+module.exports = Database;

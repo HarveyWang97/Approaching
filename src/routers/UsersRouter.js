@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const Database = require('../database/Database');
+const Database = require('../database/Database').getInstance();
 const InsertQuery = require('../queries/InsertQuery');
 const RemoveQuery = require('../queries/RemoveQuery');
 const UpdateQuery = require('../queries/UpdateQuery');
