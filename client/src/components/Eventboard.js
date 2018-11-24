@@ -8,6 +8,8 @@ import tree from './tree.jpeg';
 import th from './th.jpg';
 import swag from './swag.jpg';
 import calendar from './calendar.jpeg';
+import {connect} from 'react-redux';
+import  * as actions from '../actions';
 
 /**
  * Class representing the Event Dashboard
@@ -142,11 +144,11 @@ class Eventboard extends Component{
                 {events}
            </div>
                 <div className="footer">
-                    <a href="dashboard"><i className="fa fa-plus add" ></i></a>   
+                    <i className="fa fa-plus add" onClick={() => this.props.toggleAddEventPopup()} ></i>
                 </div>
         
             </div>
         );
     }
 };
-export default Eventboard;
+export default connect(null,actions)(Eventboard);

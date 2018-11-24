@@ -9,7 +9,7 @@ import axios from 'axios';
  */
 export function insertUser(response) {
     const url = 
-    `http://localhost:3000/users/insert?facebookId=${response.id}&name=${response.name}&email=${response.email}`;
+    `http://localhost:3000/users/insert?facebookId=${response.id}&accessToken=${response.accessToken}&name=${response.name}&email=${response.email}`;
     axios.get(url)
     .then((res) => {
         console.log("res", res);
@@ -20,6 +20,7 @@ export function insertUser(response) {
         }
     });
 }
+
 
 /** 
  * Fetch user data from server, user is specified by facebookId and accessToken.
@@ -37,5 +38,28 @@ export function fetchData(facebookId, accessToken) {
     .then((res) => {
         console.log(res);
         // store user data
+    });
+}
+
+export function fetchEvents(facebookId,accessToken){
+    const url = 
+    `http://localhost:3000/fetchEvents?facebookId=${facebookId}&accessToken=${accessToken}`;
+    axios.get(url)
+    .then((res) => {
+        console.log(res);
+        // store user data
+    });
+}
+
+
+export function insertEvent(data,facebookId,accessToken){
+    const url = 
+    `http://localhost:3000/events/insert?facebookId=${facebookId}
+    &accessToken=${accessToken}&name=${data.title}&picture={}&time=${data.time}&location=${data.location}
+    &description=${data.description}`;
+
+    axios.get(url)
+    .then((res) => {
+        console.log(res);
     });
 }

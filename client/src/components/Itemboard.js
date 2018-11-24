@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import "../css/Dashboard.css";
 import { throws } from 'assert';
+import {fetchData} from '../Request';
+
 
 /**
  * Class representing the Item dashboard
@@ -115,6 +117,8 @@ class Itemboard extends Component {
     }
 
     render(){
+        
+        fetchData('test','test');
         console.log(this.state.stk);
         return (
             <div class="split-left left">

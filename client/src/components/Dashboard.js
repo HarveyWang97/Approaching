@@ -1,23 +1,26 @@
 import React,{Component} from 'react';
 import Eventboard from './Eventboard';
 import Popup from './popup/Popup';
+import AddEventPopup from './popup/AddEventPopup';
 import Itemboard from './Itemboard';
 import bground from './bg.jpg';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
 import "../css/Dashboard.css";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showPopup: false
+            showPopup: true
         };
     }
 
-    togglePopup() {
+   /* togglePopup() {
         this.setState({
           showPopup: !this.state.showPopup
         });
-    }
+    }*/
 
     render(){
         const dashboardStyle = {backgroundImage:`url(${bground})`};
@@ -25,13 +28,19 @@ export default class Dashboard extends Component {
             <div style={dashboardStyle}>
                 <Itemboard />       
                 <Eventboard />
-                {this.state.showPopup ? 
-                    <Popup
-                        closePopup={this.togglePopup.bind(this)}
-                    />
+                {this.props.showAddEventPopup ? 
+                    <AddEventPopup/>
                     : null
                 }
             </div>
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        showAddEventPopup:state.addEventPopup
+    }
+}
+
+export default connect(mapStateToProps,actions)(Dashboard);

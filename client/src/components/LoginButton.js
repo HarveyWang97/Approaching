@@ -22,16 +22,9 @@ class LoginButton extends Component{
      */
     responseFacebook (response)  {
         console.log(response);
-        this.setState({
-            isLoggedIn:true,
-            userId:response.userID,
-            name:response.name,
-            email:response.email,
-            accessToken:response.accessToken
-        });
         insertUser(response);
-        this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
-        this.props.history.push('/dashboard?id=catdog');
+        this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken});
+        this.props.history.push('/dashboard');
     }
 
     render(){
@@ -39,8 +32,6 @@ class LoginButton extends Component{
         if(this.props.user != null && this.props.user != null){
             content = this.props.user.email;
         }
-
-        
 
         return (                 
                     <div className="login">
@@ -52,8 +43,7 @@ class LoginButton extends Component{
                                 callback={this.responseFacebook}
                             />
                         </div>
-                    </div>
-                
+                    </div>                
         );
     }
 }
@@ -66,23 +56,3 @@ function mapStateToProps(state){
 
 export default connect(mapStateToProps,actions)(LoginButton);
 
-/*let content;
-        if(this.props.user != null && this.props.user!=false){
-            content = (
-                <div className="login">
-                    <FacebookLogin
-                        appId="300879247180866"
-                        autoLoad
-                        fields="name,email,picture"
-                        callback={this.responseFacebook}
-                    />
-                </div>
-            );
-        }
-        else{
-            content = (
-                <div style={{textAlign:'center'}}>
-                    Welcome back
-                </div>
-            );
-        }*/
