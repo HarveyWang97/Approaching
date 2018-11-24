@@ -109,3 +109,5 @@ At the same time, our mlab mongodb database should change accordingly.
 |  Action   |                                        Url                                         | Required |
 |:---------:|------------------------------------------------------------------------------------|:--------:|
 | fetchData | `http://localhost:3000/fetchData?facebookId={}&accessToken={}`                     |          |
+| fetchItems | `http://localhost:3000/fetchItems?facebookId={}&accessToken={}`                     |          |
+| fetchEvents | `http://localhost:3000/fetchEvents?facebookId={}&accessToken={}`                     |          |

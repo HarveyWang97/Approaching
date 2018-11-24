@@ -69,6 +69,24 @@ class Database {
     return this.uniqueTestInstance;
   }
 
+  fetchItems(query, callback = () => {}) {
+    const user = query.getAuth();
+    utils.authorize(user, callback, () => {
+      utils.getItems(user.facebookId, items => {
+        callback(items);
+      });
+    });
+  }
+
+  fetchEvents(query, callback = () => {}) {
+    const user = query.getAuth();
+    utils.authorize(user, callback, () => {
+      utils.getEvents(user.facebookId, events => {
+        callback(events);
+      });
+    });
+  }
+
   /**
    * Fetch and reformat Items and Events data for a given user from database.
    * @param {Query} query - The Query object wrapped from client request.
