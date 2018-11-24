@@ -117,9 +117,6 @@ class Itemboard extends Component {
     }
 
     render(){
-        
-        fetchData('test','test');
-        console.log(this.state.stk);
         return (
             <div class="split-left left">
                 <input type="text" placeholder="Search..."  className="searchbar"/>

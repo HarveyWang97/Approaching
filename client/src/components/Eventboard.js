@@ -11,6 +11,8 @@ import calendar from './calendar.jpeg';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
 
+
+
 /**
  * Class representing the Event Dashboard
  * 
@@ -31,7 +33,7 @@ class Eventboard extends Component{
      */
     renderYear(year,items){
         const events = Object.keys(items).map(key=> {
-            return this.renderMonth(key,year,items[key]);
+            return this.renderMonth(key,items[key],year);
         }); // iterate an object
         return events;
     }
@@ -55,6 +57,13 @@ class Eventboard extends Component{
         12:"December"
     }
 
+    renderMonth(month,items,year){
+        const events = Object.keys(items).map(key => {
+            return this.renderDay(month,year,key,items[key]);
+        });
+        return events;
+    }
+
     /**
      * 
      * @function
@@ -63,7 +72,8 @@ class Eventboard extends Component{
      * @param {Array<EventItem>} items 
      * @returns {Array<EventItem>} Events in one corresponding month 
      */
-    renderMonth(month,year,items){
+    renderDay(month,year,day,items){
+        console.log('day',items);
         const events = items.map(item => {
             return this.renderItem(item.name,item.time,item.picture);
         }); // iterate an array
@@ -76,6 +86,31 @@ class Eventboard extends Component{
             </div>
         );
     }
+
+   /* renderYear(year,items){
+        const events = Object.keys(items).map(key=> {
+            return this.renderMonth(key,year,items[key]);
+        }); // iterate an object
+        return events;
+    }
+
+    renderMonth(month,year,items){
+        const events = items.map(item => {
+            return this.renderItem(item.name,item.time,item.picture);
+        }); // iterate an array
+        return (
+            <div>
+                <div style={{marginLeft:'50px',marginBottom:'10px'}}>
+                    <text ><b>{this.monthName[month]} {year}</b></text>
+                </div>
+                {events}
+            </div>
+        );
+    }*/
+
+
+
+    
 
     /**
      * 
@@ -92,8 +127,12 @@ class Eventboard extends Component{
         );
     }
 
+    componentDidMount(){
+        this.props.fetchEvents('test','test');
+    }
+
     render(){
-        const data = {
+        /*const data = {
             2018: {
                 10: [
                     {
@@ -134,7 +173,17 @@ class Eventboard extends Component{
         };
         const events = Object.keys(data).map(key => {
             return this.renderYear(key,data[key]);
+        });*/
+       let events;
+       if(this.props.events == null || this.props.events == false){
+           events = null;
+       }
+       else{
+        events = Object.keys(this.props.events).map(key => {
+            return this.renderYear(key,this.props.events[key]);
         });
+       }
+      
         return (
             <div className="split-right right">  
             <div className="events">          
@@ -151,4 +200,14 @@ class Eventboard extends Component{
         );
     }
 };
-export default connect(null,actions)(Eventboard);
+
+
+function mapStateToProps(state){
+    return {
+        user:state.auth,
+        events:state.events
+    }
+}
+
+
+export default connect(mapStateToProps,actions)(Eventboard);

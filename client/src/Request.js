@@ -12,9 +12,8 @@ export function insertUser(response) {
     `http://localhost:3000/users/insert?facebookId=${response.id}&accessToken=${response.accessToken}&name=${response.name}&email=${response.email}`;
     axios.get(url)
     .then((res) => {
-        console.log("res", res);
         if (res.data.success === true){
-            fetchData(response.id, response.accessToken);
+           // fetchData(response.id, response.accessToken);
         } else {
             console.log("Fail to insert user in server.")
         }
@@ -41,7 +40,7 @@ export function fetchData(facebookId, accessToken) {
     });
 }
 
-export function fetchEvents(facebookId,accessToken){
+/*export function fetchEvents(facebookId,accessToken){
     const url = 
     `http://localhost:3000/fetchEvents?facebookId=${facebookId}&accessToken=${accessToken}`;
     axios.get(url)
@@ -49,7 +48,7 @@ export function fetchEvents(facebookId,accessToken){
         console.log(res);
         // store user data
     });
-}
+}*/
 
 
 export function insertEvent(data,facebookId,accessToken){
