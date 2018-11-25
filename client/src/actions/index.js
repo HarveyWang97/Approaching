@@ -16,10 +16,13 @@ export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
     const url = 
     `http://localhost:3000/fetchEvents?facebookId=${facebookId}&accessToken=${accessToken}`;
     const res = await axios.get(url);
-    console.log("events res",res);
-    console.log(res.data.events);
-    console.log(res.data.success);
-    
     dispatch({type:FETCH_EVENTS,payload:res.data.events});
-    
 };
+
+export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
+    const url = 
+    `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture={}&time=${data.time}&location=${data.location}&description=${data.description}`;
+    console.log("url",url);
+    const res = await axios.get(url);
+    console.log("insert",res);
+}
