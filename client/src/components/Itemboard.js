@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import "../css/Dashboard.css";
 import { throws } from 'assert';
-import {fetchData} from '../Request';
+import {fetchItems} from '../Request';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
 
 
 /**
@@ -117,6 +119,7 @@ class Itemboard extends Component {
     }
 
     render(){
+        fetchItems('test','test');
         return (
             <div class="split-left left">
                 <input type="text" placeholder="Search..."  className="searchbar"/>
@@ -130,4 +133,8 @@ class Itemboard extends Component {
     }
 }
 
-export default Itemboard;
+function mapStateToProps(state){
+
+}
+
+export default connect(mapStateToProps,actions)(Itemboard);
