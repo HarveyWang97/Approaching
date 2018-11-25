@@ -74,13 +74,11 @@ class Eventboard extends Component{
      * @param {Object} eventsData 
      * @returns {Array<Event>} Events in one corresponding month 
      */
-        return (
-            <div>
-                <text style={{marginLeft:'60px'}} ><b>{day}</b></text>
+
     renderDay(month,year,day,eventsData){
         // console.log('day', eventsData);
         const events = eventsData.map(event => {
-            return this.renderItem(event._id,event.name,event.time,event.picture);
+            return this.renderItem(event._id,event.name,event.time);
         }); // iterate an array
         return (
             <div>
@@ -120,9 +118,9 @@ class Eventboard extends Component{
      * 
      * @function
      */
-    renderItem(id, name,time,picture){
+    renderItem(id, name,time){
         return (
-            <Event id={id} name={name} time={time} picture={picture} key={name}/>
+            <Event id={id} name={name} time={time} key={name}/>
         );
     }
 
