@@ -61,7 +61,14 @@ class Eventboard extends Component{
         const events = Object.keys(items).map(key => {
             return this.renderDay(month,year,key,items[key]);
         });
-        return events;
+        return (
+            <div>
+                <div style={{marginLeft:'50px',marginBottom:'10px'}}>
+                    <text ><b>{this.monthName[month]} {year}</b></text>
+                </div>
+                {events}
+            </div>
+        );
     }
 
     /**
@@ -75,13 +82,11 @@ class Eventboard extends Component{
     renderDay(month,year,day,items){
         console.log('day',items);
         const events = items.map(item => {
-            return this.renderItem(item.name,item.time,item.picture);
+            return this.renderItem(item.name,item.time);
         }); // iterate an array
         return (
             <div>
-                <div style={{marginLeft:'50px',marginBottom:'10px'}}>
-                    <text ><b>{this.monthName[month]} {year}</b></text>
-                </div>
+                <text style={{marginLeft:'60px'}} ><b>{day}</b></text>
                 {events}
             </div>
         );
