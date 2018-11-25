@@ -60,10 +60,12 @@ class Popup extends Component {
 	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
 	 * @return {void} 
 	 */
-    handleChange(event){
+    handleChange(event) {
+        const payload = this.state.payload;
+        payload.name = event.target.value;
         this.setState({
-            name: event.target.value
-        });
+            payload: payload
+        })
     }
 
     /**
@@ -84,8 +86,9 @@ class Popup extends Component {
          * request to server.
          */
         
-        if(this.props.payload.isAdd === true){
-            this.props.insertEvent(this.state,'test','test');
+        if (this.props.payload.isAdd === true) {
+            console.log("tttt", this.state.payload);
+            this.props.insertEvent(this.state.payload,'test','test');
             this.props.fetchEvents('test','test');
             this.props.togglePopup();
         }
