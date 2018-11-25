@@ -24,7 +24,7 @@ module.exports = {
         name:        { type: String, required: true },
         picture:     { type: String, required: false },
         expireDate:  { type: String, required: false },
-        location:    { type: String, required: false },
+        location:    { type: String, required: true },
         quantity:    { type: String, required: true },
         description: { type: String, required: false },
       },
