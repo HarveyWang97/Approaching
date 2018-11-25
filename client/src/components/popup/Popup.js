@@ -2,6 +2,32 @@ import React, { Component } from 'react';
 import '../../css/Popup.css';
 import Row from './Row';
 import Icon from './Icon';
+import {connect} from 'react-redux';
+import  * as actions from '../../actions';
+
+const FIELDS = {
+    item: [
+        'description',
+        'expireDate',
+        'location',
+        'quantity',
+        'eventList'
+    ],
+    event: [
+        'description',
+        'time',
+        'location',
+        'itemList'
+    ]
+};
+const ICONS = {
+    description: 'file-alt',
+    time: 'clock',
+    expireDate: 'clock',
+    location: 'map-marker-alt',
+    itemList: 'list-ul',
+    eventList: 'calendar-alt'
+};
 
 /**
  * @classdesc Construct a Popup component that renders given data object. 
@@ -18,43 +44,11 @@ class Popup extends Component {
     constructor(props){
         super(props);
 
-        this.fieldToIcon = {
-            description: 'file-alt',
-            time: 'clock',
-            location: 'map-marker-alt',
-            itemList: 'list-ul',
-            eventList: 'calendar-alt'
-        };
-        
-        this.data = {
-            type: 'event',
-            editing: false,
-            data: {
-                title: 'Christmas Party',
-                description: 'xxxxx',
-                time: '18-12-09',
-                location: 'paris',
-                itemList: 'TBD'
-            }
-        };
-        // this.data = {
-        //     type: 'item',
-        //     editing: true,
-        //     data: {
-        //         title: 'Chocolate',
-        //         description: 'xxxxx',
-        //         location: 'Kitchen>Cupboard',
-        //         time: '18-12-09',
-        //         eventList: 'TBD'
-        //     }
-        // };
-
+        const { isAdd, payload } = this.props.payload;
         this.state = {
-            editing: this.data.editing,
+            editing: isAdd,
+            payload: payload
         };
-        for (let key in this.data.data) {
-            this.state[key] = this.data.data[key];
-        }
     }
 
     /**
@@ -72,14 +66,14 @@ class Popup extends Component {
     }
 
      /**
-	 * This method set the value of title to the new input value.
+	 * This method set the value of name to the new input value.
 	 * 
 	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
 	 * @return {void} 
 	 */
     handleChange(event){
         this.setState({
-            title: event.target.value
+            name: event.target.value
         });
     }
 
@@ -92,6 +86,14 @@ class Popup extends Component {
 	 */
     handleSubmit() {
         this.changeEditingState();
+        /**
+         * if this.props.payload.isAdd === true, send an insert item/event 
+         * request to server.
+         */
+        /**
+         * if this.props.payload.isAdd === false, send an update item/event 
+         * request to server.
+         */
     }
 
     /**
@@ -113,39 +115,38 @@ class Popup extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const data = this.data.data;
+        const payload = this.state.payload || {};
         return (
             <div className='popup'>
                 <div className='popup_inner'>
                     <div className='top'>
                         <span>
-                            <Icon iconName='times' onClick={this.props.closePopup} />
-                            {this.state.editing? 
-                            (<input className='title' type="text" value={this.state.title} placeholder="Input item name here"
-                            onChange={this.handleChange.bind(this)} />)
-                            : (<div className='title'>{this.state.title}</div>)
+                            <Icon iconName='times' onClick={() => this.props.togglePopup()} />
+                            { this.state.editing ? 
+                                (<input className='title' 
+                                        type="text"
+                                        value={payload.name} 
+                                        placeholder="Input item name here"
+                                        onChange={this.handleChange.bind(this)} />) : 
+                                (<div className='title'>{payload.name}</div>)
                             }
                         </span>
                     </div>
                     <div className='middle'>
-                        {Object.keys(data).map(key => {
-                            if (key !== 'title') {
-                                return (
-                                    <Row key={key} 
-                                         field={key}
-                                         iconName={this.fieldToIcon[key]}
-                                         details={this.state[key]}
-                                         editing={this.state.editing}
-                                         handleEditResult={this.handleEditResult.bind(this)} />
-                                );
-                            }
-                        })}
+                        { FIELDS[this.props.payload.contentType].map(key => (
+                            <Row key={key} 
+                                field={key}
+                                iconName={ICONS[key]}
+                                details={this.state.payload[key]}
+                                editing={this.state.editing}
+                                handleEditResult={this.handleEditResult.bind(this)} />
+                        ))}
                     </div>
                     <div className='bottom'>
                         <div className='left'>
                             { this.state.editing ? 
-                            (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />)
-                            : (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
+                                (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />) : 
+                                (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
                             }
                         </div>
                         <div className='right'>
@@ -158,4 +159,10 @@ class Popup extends Component {
     }
 }
 
-export default Popup;
+function mapStateToProps(state){
+    return {
+        payload: state.popup.payload
+    }
+}
+
+export default connect(mapStateToProps, actions)(Popup);

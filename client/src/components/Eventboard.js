@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import EventItem from './Eventitem';
+import EventItem from './EventItem';
 import "../css/Dashboard.css";
 import { INSPECT_MAX_BYTES } from 'buffer';
 import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
@@ -174,16 +174,14 @@ class Eventboard extends Component{
         const events = Object.keys(data).map(key => {
             return this.renderYear(key,data[key]);
         });*/
-       let events;
-       if(this.props.events == null || this.props.events == false){
-           events = null;
-       }
-       else{
-        events = Object.keys(this.props.events).map(key => {
-            return this.renderYear(key,this.props.events[key]);
-        });
-       }
-      
+        let events;
+        if (this.props.events == null || this.props.events == false){
+            events = null;
+        } else {
+            events = Object.keys(this.props.events).map(key => {
+                return this.renderYear(key,this.props.events[key]);
+            });
+        }
         return (
             <div className="split-right right">  
             <div className="events">          
@@ -193,7 +191,13 @@ class Eventboard extends Component{
                 {events}
            </div>
                 <div className="footer">
-                    <i className="fa fa-plus add" onClick={() => this.props.toggleAddEventPopup()} ></i>
+                    <i className="fa fa-plus add"
+                        onClick={() => this.props.togglePopup({
+                            contentType: 'event',
+                            isAdd: true,
+                            payload: {}
+                        })}
+                    />
                 </div>
         
             </div>
@@ -201,13 +205,11 @@ class Eventboard extends Component{
     }
 };
 
-
 function mapStateToProps(state){
     return {
         user:state.auth,
         events:state.events
     }
 }
-
 
 export default connect(mapStateToProps,actions)(Eventboard);

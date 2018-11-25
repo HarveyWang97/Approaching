@@ -1,15 +1,15 @@
 import {FETCH_USER} from './types.js';
-import {ADD_EVENT_POPUP} from './types.js';
+import {TOGGLE_POPUP} from './types.js';
 import {FETCH_EVENTS} from './types.js';
 import axios from 'axios';
 
 
 export const fetchUser = (user) => dispatch => {
-    dispatch({type:FETCH_USER,payload:user});
+    dispatch({type: FETCH_USER, payload: user});
 };
 
-export const toggleAddEventPopup = () => dispatch => {
-    dispatch({type:ADD_EVENT_POPUP});
+export const togglePopup = (payload) => dispatch => {
+    dispatch({type: TOGGLE_POPUP, payload: payload});
 };
 
 export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
