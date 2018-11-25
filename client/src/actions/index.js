@@ -20,6 +20,6 @@ export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
     console.log(res.data.events);
     console.log(res.data.success);
     
-        dispatch({type:FETCH_EVENTS,payload:res.data.events});
+    dispatch({type:FETCH_EVENTS,payload:res.data.events});
     
 };

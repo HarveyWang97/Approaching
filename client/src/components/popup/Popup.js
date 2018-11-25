@@ -2,32 +2,11 @@ import React, { Component } from 'react';
 import '../../css/Popup.css';
 import Row from './Row';
 import Icon from './Icon';
+import config from '../../config';
 import {connect} from 'react-redux';
 import  * as actions from '../../actions';
 
-const FIELDS = {
-    item: [
-        'description',
-        'expireDate',
-        'location',
-        'quantity',
-        'eventList'
-    ],
-    event: [
-        'description',
-        'time',
-        'location',
-        'itemList'
-    ]
-};
-const ICONS = {
-    description: 'file-alt',
-    time: 'clock',
-    expireDate: 'clock',
-    location: 'map-marker-alt',
-    itemList: 'list-ul',
-    eventList: 'calendar-alt'
-};
+
 
 /**
  * @classdesc Construct a Popup component that renders given data object. 
@@ -44,11 +23,21 @@ class Popup extends Component {
     constructor(props){
         super(props);
 
-        const { isAdd, payload } = this.props.payload;
-        this.state = {
-            editing: isAdd,
-            payload: payload
-        };
+        const { isAdd, id } = this.props.payload;
+        if (isAdd) {
+            this.state = {
+                editing: true,
+                payload: {}
+            };
+        } else {
+            const payload = this.props.events.filter(event => event._id === id)[0];
+            this.state = {
+                editing: false,
+                payload: payload
+            };
+        }
+        
+        
     }
 
     /**
@@ -104,7 +93,7 @@ class Popup extends Component {
      * @return {void} 
 	 */
     handleEditResult(key, value) {
-        this.state[key] = value;
+        this.state.payload[key] = value;
     }
 
 
@@ -115,7 +104,8 @@ class Popup extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const payload = this.state.payload || {};
+        const payload = this.state.payload;
+        console.log("---------", payload);
         return (
             <div className='popup'>
                 <div className='popup_inner'>
@@ -133,11 +123,11 @@ class Popup extends Component {
                         </span>
                     </div>
                     <div className='middle'>
-                        { FIELDS[this.props.payload.contentType].map(key => (
+                        { config.fields[this.props.payload.contentType].map(key => (
                             <Row key={key} 
                                 field={key}
-                                iconName={ICONS[key]}
-                                details={this.state.payload[key]}
+                                iconName={config.icons[key]}
+                                details={payload[key]}
                                 editing={this.state.editing}
                                 handleEditResult={this.handleEditResult.bind(this)} />
                         ))}
@@ -161,7 +151,8 @@ class Popup extends Component {
 
 function mapStateToProps(state){
     return {
-        payload: state.popup.payload
+        payload: state.popup.payload,
+        events: state.events.rawEvents
     }
 }
 

@@ -15,9 +15,8 @@ class Dashboard extends Component {
         };
     }
 
-    render(){
+    render() {
         const dashboardStyle = {backgroundImage:`url(${bground})`};
-        console.log("666666666666666666", this.props.popup);
         return (
             <div style={dashboardStyle}>
                 <Itemboard />

@@ -1,15 +1,14 @@
 import React,{Component} from 'react';
+import config from '../config';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
 
-class EventItem extends Component{
+class Event extends Component{
     constructor(props){
         super(props);
     }
 
     render() {
-        const { name, time, picture } = this.props;
-        const payload = { name: name, time: time, picture: picture };
         return (
             <div 
                 style={{border:'solid 1px', 
@@ -20,7 +19,7 @@ class EventItem extends Component{
                 onClick={() => this.props.togglePopup({
                     contentType: 'event',
                     isAdd: false,
-                    payload: payload
+                    id: this.props.id
                 })}
             >
 
@@ -36,9 +35,4 @@ class EventItem extends Component{
     }
 }
 
-function mapStateToProps(state){
-    return {
-    }
-}
-
-export default connect(mapStateToProps,actions)(EventItem);
+export default connect(state => {}, actions)(Event);
