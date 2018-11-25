@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import Eventboard from './Eventboard';
 import Popup from './popup/Popup';
-import AddEventPopup from './popup/AddEventPopup';
 import Itemboard from './Itemboard';
 import bground from './bg.jpg';
 import {connect} from 'react-redux';
@@ -16,20 +15,14 @@ class Dashboard extends Component {
         };
     }
 
-   /* togglePopup() {
-        this.setState({
-          showPopup: !this.state.showPopup
-        });
-    }*/
-
-    render(){
+    render() {
         const dashboardStyle = {backgroundImage:`url(${bground})`};
         return (
             <div style={dashboardStyle}>
-                <Itemboard />       
+                <Itemboard />
                 <Eventboard />
-                {this.props.showAddEventPopup ? 
-                    <AddEventPopup/>
+                {this.props.popup.show ? 
+                    <Popup payload={this.props.popup.payload}/>
                     : null
                 }
             </div>
@@ -39,7 +32,7 @@ class Dashboard extends Component {
 
 function mapStateToProps(state){
     return {
-        showAddEventPopup:state.addEventPopup
+        popup:state.popup
     }
 }
 

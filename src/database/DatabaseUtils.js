@@ -132,6 +132,7 @@ class DatabaseUtils {
   static remove(model, primaryKey, object, callback = () => {}) {
     const conditions = {};
     conditions[primaryKey] = object[primaryKey];
+    console.log("<><><><><><><><><", Object.keys(model), model.find, model.findOneAndDelete, model.findOneAndRemove);
     model.findOneAndDelete(conditions, (err, doc) => {
       if (err || !doc) {
         callback(this.failure(err ? err : "Entry not found."));
@@ -169,28 +170,10 @@ class DatabaseUtils {
    * are done.
    */
   static getEvents(owner, callback = () => {}) {
-    models.Event.find({ owner: owner }, (err, rawEvents) => {
+    models.Event.find({ owner: owner }, (err, events) => {
       if (err) {
         callback({ success: false });
       } else {
-        rawEvents.sort((a, b) => (a.time > b.time));
-        const events = {};
-    
-        for (let event of rawEvents) {
-          const time = new Date(Number(event.time));
-          const year = time.getFullYear();
-          const month = time.getMonth() + 1;
-          const date = time.getDate();
-          if (!(year in events))              { events[year] = {}; }
-          if (!(month in events[year]))       { events[year][month] = {}; }
-          if (!(date in events[year][month])) { events[year][month][date] = []; }
-          const hour = time.getHours();
-          const minute = time.getMinutes();
-          const hourMinute = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
-          event.time = hourMinute;
-          events[year][month][date].push(event);
-        }
-
         callback({
           success: true,
           events: events

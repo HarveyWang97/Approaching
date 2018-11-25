@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
-import EventItem from './Eventitem';
+import Event from './Event';
 import "../css/Dashboard.css";
-import { INSPECT_MAX_BYTES } from 'buffer';
-import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
-import bg from './bg.jpg';
-import tree from './tree.jpeg';
-import th from './th.jpg';
-import swag from './swag.jpg';
+// import { INSPECT_MAX_BYTES } from 'buffer';
+// import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
+// import bg from './bg.jpg';
+// import tree from './tree.jpeg';
+// import th from './th.jpg';
+// import swag from './swag.jpg';
 import calendar from './calendar.jpeg';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
@@ -20,20 +20,15 @@ import  * as actions from '../actions';
  */
 
 class Eventboard extends Component{
-    constructor(props){
-        super(props);
-        
-    }
-
     /**
      * @function
      * @param {number} year 
-     * @param {Array<Array<EventItem>>} items 
-     * @returns {Array<Array<EventItem>>} return all events in one year
+     * @param {Object} eventsData 
+     * @returns {Array<Array<Event>>} return all events in one year
      */
-    renderYear(year,items){
-        const events = Object.keys(items).map(key=> {
-            return this.renderMonth(key,items[key],year);
+    renderYear(year,eventsData){
+        const events = Object.keys(eventsData).map(key=> {
+            return this.renderMonth(key,eventsData[key],year);
         }); // iterate an object
         return events;
     }
@@ -57,9 +52,9 @@ class Eventboard extends Component{
         12:"December"
     }
 
-    renderMonth(month,items,year){
-        const events = Object.keys(items).map(key => {
-            return this.renderDay(month,year,key,items[key]);
+    renderMonth(month,eventsData,year){
+        const events = Object.keys(eventsData).map(key => {
+            return this.renderDay(month,year,key,eventsData[key]);
         });
         return (
             <div>
@@ -76,13 +71,16 @@ class Eventboard extends Component{
      * @function
      * @param {number} month 
      * @param {number} year 
-     * @param {Array<EventItem>} items 
-     * @returns {Array<EventItem>} Events in one corresponding month 
+     * @param {Object} eventsData 
+     * @returns {Array<Event>} Events in one corresponding month 
      */
-    renderDay(month,year,day,items){
-        console.log('day',items);
-        const events = items.map(item => {
-            return this.renderItem(item.name,item.time);
+        return (
+            <div>
+                <text style={{marginLeft:'60px'}} ><b>{day}</b></text>
+    renderDay(month,year,day,eventsData){
+        // console.log('day', eventsData);
+        const events = eventsData.map(event => {
+            return this.renderItem(event._id,event.name,event.time,event.picture);
         }); // iterate an array
         return (
             <div>
@@ -113,22 +111,18 @@ class Eventboard extends Component{
         );
     }*/
 
-
-
-    
-
     /**
      * 
      * @param {string} name 
      * @param {string} time 
      * @param {img} picture 
-     * @returns {EventItem} return the specified EventItem
+     * @returns {Event} return the specified Event
      * 
      * @function
      */
-    renderItem(name,time,picture){
+    renderItem(id, name,time,picture){
         return (
-            <EventItem name={name} time={time} picture = {picture} key={name}/>
+            <Event id={id} name={name} time={time} picture={picture} key={name}/>
         );
     }
 
@@ -179,16 +173,15 @@ class Eventboard extends Component{
         const events = Object.keys(data).map(key => {
             return this.renderYear(key,data[key]);
         });*/
-       let events;
-       if(this.props.events == null || this.props.events == false){
-           events = null;
-       }
-       else{
-        events = Object.keys(this.props.events).map(key => {
-            return this.renderYear(key,this.props.events[key]);
-        });
-       }
-      
+        let events;
+        if (this.props.events == null || this.props.events === false){
+            events = null;
+        } else {
+            events = Object.keys(this.props.events).map(key => {
+                return this.renderYear(key,this.props.events[key]);
+            });
+            console.log("events",this.props.events);
+        }
         return (
             <div className="split-right right">  
             <div className="events">          
@@ -198,7 +191,13 @@ class Eventboard extends Component{
                 {events}
            </div>
                 <div className="footer">
-                    <i className="fa fa-plus add" onClick={() => this.props.toggleAddEventPopup()} ></i>
+                    <i className="fa fa-plus add"
+                        onClick={() => this.props.togglePopup({
+                            contentType: 'event',
+                            isAdd: true,
+                            id: null
+                        })}
+                    />
                 </div>
         
             </div>
@@ -206,13 +205,11 @@ class Eventboard extends Component{
     }
 };
 
-
 function mapStateToProps(state){
     return {
         user:state.auth,
-        events:state.events
+        events:state.events.structuredEvents
     }
 }
-
 
 export default connect(mapStateToProps,actions)(Eventboard);

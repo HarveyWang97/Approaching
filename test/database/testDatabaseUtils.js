@@ -223,7 +223,7 @@ module.exports = () => {
         });
       });
     });
-    
+
     describe('#getEvents(owner, callback)', function() {
       it('get and reformat all events for a given user', function(done) {
         const event1 = { name: 'event 1', time: '1530000000000', owner: 'test user' };

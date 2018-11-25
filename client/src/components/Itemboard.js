@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import "../css/Dashboard.css";
-import { throws } from 'assert';
-import {fetchData} from '../Request';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
 
 
 /**
@@ -10,46 +10,29 @@ import {fetchData} from '../Request';
  * @class
  */
 
- const c = {
-    name:'home',
-    sublayers:[
-        {
-            name:'kitchen',
-            sublayers:[
-                {
-                    name:'fridge',
-                    sublayers:[
-
-                    ],
-                    items:['hamburger','chips'],
-                    
-                },
-                {
-                    name:'cupboard',
-                    sublayers:[
-
-                    ],
-                    items:['meat']
-                }
-            ],
-            items:[
-                'bowl'
-            ]
-        }
-    ],
-    items:[
-        'shoes',
-        'coat'
-    ]
-};
 
 class Itemboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            container:c,
-            stk:[c]
+            container:this.props.structuredItems,
+            stk:[this.props.structuredItems]
         };
+    }
+
+    componentDidMount(){
+        this.props.fetchItems('test','test');
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.structuredItems !== this.props.structuredItems){
+            this.setState(
+                {
+                    container:nextProps.structuredItems,
+                    stk:[nextProps.structuredItems]
+                }
+            );
+        }
     }
 
     
@@ -79,22 +62,29 @@ class Itemboard extends Component {
      * @returns {html} - The html block that contains the layer's name,sublayers and items inside
      */
     renderLayer(current){
-        const sublayers = current.sublayers.map(item => {
-            return (
-                <div className="entry" onClick={() => this.changeLayer(item)}>
-                    <span style={{marginLeft:'18px'}}>{item.name}</span>
-                    <span style={{position:'absolute',right:'10px',fontSize:'20px'}}> > </span>
-                </div>
-            );
-        });
-        const items = current.items.map(item => {
-            return (
-                <div className="entry"  >
-                    <span style={{marginLeft:'18px'}}>{item}</span>
-                    <span></span>
-                </div>
-            );
-        });
+        let sublayers;
+        let concrete_items;
+        
+        if(current!=undefined){
+            sublayers = current.sublayers.map( (item,index) => {
+                return (
+                    <div className="entry" key={index}  onClick={() => this.changeLayer(item)}>
+                        <span style={{marginLeft:'18px'}}>{item.name}</span>
+                        <span style={{position:'absolute',right:'10px',fontSize:'20px'}}> > </span>
+                    </div>
+                );
+            });
+            
+            concrete_items = current.items.map((item,index) => {
+                return (
+                    <div className="entry" key={index}  >
+                        <span style={{marginLeft:'18px'}}>{item}</span>
+                        <span></span>
+                    </div>
+                );
+            });
+        }
+        
 
         return (
             <div style={{float:'left',width:'268px'}}>
@@ -105,10 +95,10 @@ class Itemboard extends Component {
                         onClick={() => this.go_back()}
                     >
                     </i>
-                    <span style={{marginLeft:'90px'}}>{current.name}</span>
+                    <span style={{marginLeft:'90px'}}>{current == undefined ?'Home': current.name}</span>
                 </div>
                 {sublayers}
-                {items}
+                {concrete_items}
                 <div className="addItemRow">
                     <i className="fa fa-plus add" style={{position:'relative',bottom:'2px'}} ></i>
                 </div>         
@@ -117,8 +107,12 @@ class Itemboard extends Component {
     }
 
     render(){
+       
+        console.log(this.props.structuredItems);
+        console.log('container',this.state.container);
+        
         return (
-            <div class="split-left left">
+            <div className="split-left left">
                 <input type="text" placeholder="Search..."  className="searchbar"/>
                 <div className="showercase">
                     <div className="vertical" />    
@@ -130,4 +124,12 @@ class Itemboard extends Component {
     }
 }
 
-export default Itemboard;
+function mapStateToProps(state){
+    return {
+        structuredItems:state.items['structuredItems'],
+        rawItems:state.items['rawItems']
+    };
+}
+
+
+export default connect(mapStateToProps,actions)(Itemboard);

@@ -73,7 +73,51 @@ class Database {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
       utils.getItems(user.facebookId, items => {
-        callback(items);
+        // success: false, do nothing but return
+        if (!(items.success)) {
+          callback(items);
+        } else {
+          const rawItems = items.items;
+          let structuredItems = {
+            name: 'home',
+            sublayers: [],
+            items: []};
+          // iterate through all items
+          for (let object of rawItems){
+            let current = structuredItems;
+            // iterate through location path
+            const loc_arr = JSON.parse(object.location);
+            for (let loc of loc_arr){
+              if (loc !== current.name){
+                // check if the location exists in sublayers
+                let exist = false;
+                for (let sub of current.sublayers){
+                  if (loc === sub.name){
+                    current = sub;
+                    exist = true;
+                  }
+                }
+                // the location doesn't exist in sublayers, create one
+                if (!exist) {
+                  let layer = {
+                    name: loc,
+                    sublayers: [],
+                    items: []};
+                  current.sublayers.push(layer);
+                  current = layer;
+                }
+              }
+            }
+            current.items.push(object.name);
+          }
+          callback({
+            success: true,
+            items:{
+              rawItems: rawItems,
+              structuredItems: structuredItems
+            }
+          });
+        }
       });
     });
   }
@@ -82,10 +126,59 @@ class Database {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
       utils.getEvents(user.facebookId, events => {
-        callback(events);
+        if (!(events.success)) {
+          callback(events);
+        } else {
+          const rawEvents = events.events;
+          rawEvents.sort((a, b) => (a.time > b.time));
+          const structuredEvents = {};
+      
+          for (let event of rawEvents) {
+            const time = new Date(Number(event.time));
+            const year = time.getFullYear();
+            const month = time.getMonth() + 1;
+            const date = time.getDate();
+            if (!(year in structuredEvents)) {
+              structuredEvents[year] = {};
+            }
+            if (!(month in structuredEvents[year])) {
+              structuredEvents[year][month] = {};
+            }
+            if (!(date in structuredEvents[year][month])) {
+              structuredEvents[year][month][date] = [];
+            }
+            const hour = time.getHours();
+            const minute = time.getMinutes();
+            const hourMinute = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
+            event.time = hourMinute;
+            structuredEvents[year][month][date].push(event);
+          }
+  
+          callback({
+            success: true,
+            events: {
+              rawEvents: rawEvents,
+              structuredEvents: structuredEvents
+            }
+          });
+        }
       });
     });
   }
+
+
+  /////
+  /*
+static getEvents(owner, callback = () => {}) {
+    models.Event.find({ owner: owner }, (err, rawEvents) => {
+      if (err) {
+        callback({ success: false });
+      } else {
+        
+      }
+    });
+  }
+  */
 
   /**
    * Fetch and reformat Items and Events data for a given user from database.
@@ -172,7 +265,7 @@ class Database {
     const model = models[query.getTarget()];
     const primaryKey = config.databaseModels[query.getTarget()].primaryKey;
     utils.authorize(user, callback, () => {
-      utils.remove(models, primaryKey, details, callback);
+      utils.remove(model, primaryKey, details, callback);
     });
   }
 }

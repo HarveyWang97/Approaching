@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux';
 import authReducer from './authReducer';
-import addEventReducer from './addEventReducer';
+import togglePopupReducer from './togglePopupReducer';
 import eventsReducer from './eventsReducer';
+import itemsReducer from './itemsReducer';
 
 export default combineReducers({
     auth:authReducer,
-    addEventPopup:addEventReducer,
-    events:eventsReducer
+    popup:togglePopupReducer,
+    events:eventsReducer,
+    items:itemsReducer
 });

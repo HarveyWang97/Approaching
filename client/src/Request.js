@@ -40,25 +40,13 @@ export function fetchData(facebookId, accessToken) {
     });
 }
 
-/*export function fetchEvents(facebookId,accessToken){
+
+export function fetchItems(facebookId,accessToken){
     const url = 
-    `http://localhost:3000/fetchEvents?facebookId=${facebookId}&accessToken=${accessToken}`;
+    `http://localhost:3000/fetchItems?facebookId=${facebookId}&accessToken=${accessToken}`;
     axios.get(url)
     .then((res) => {
-        console.log(res);
-        // store user data
-    });
-}*/
-
-
-export function insertEvent(data,facebookId,accessToken){
-    const url = 
-    `http://localhost:3000/events/insert?facebookId=${facebookId}
-    &accessToken=${accessToken}&name=${data.title}&picture={}&time=${data.time}&location=${data.location}
-    &description=${data.description}`;
-
-    axios.get(url)
-    .then((res) => {
-        console.log(res);
+        console.log('items',res);
     });
 }
+
