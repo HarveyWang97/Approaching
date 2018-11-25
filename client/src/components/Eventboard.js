@@ -75,7 +75,7 @@ class Eventboard extends Component{
         return (
             <div>
                 <div style={{marginLeft:'50px',marginBottom:'10px'}}>
-                    <text ><b>{this.monthName[month]} {year}</b></text>
+                    <b>{this.monthName[month]} {year}</b>
                 </div>
                 {events}
             </div>

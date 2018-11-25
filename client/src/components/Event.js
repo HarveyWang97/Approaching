@@ -20,14 +20,14 @@ class Event extends Component{
 
                 <img src={this.props.picture} width="400" height="220" />
                 <br />
-                <body bgcolor="white">
-                    <text style={{marginLeft:'10px'}}>{this.props.name}</text>
+                <div bgcolor="white">
+                    <span style={{marginLeft:'10px'}}>{this.props.name}</span>
                     <br />
-                    <text style={{marginLeft:'10px'}}>{this.props.time}</text>
-                </body>
+                    <span style={{marginLeft:'10px'}}>{this.props.time}</span>
+                </div>
             </div>
         );
     }
 }
 
-export default connect(state => ({}), actions)(Event);
+export default connect(null, actions)(Event);

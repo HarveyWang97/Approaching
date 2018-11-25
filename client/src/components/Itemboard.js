@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import "../css/Dashboard.css";
-import { throws } from 'assert';
 import {fetchItems} from '../Request';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
@@ -81,17 +80,17 @@ class Itemboard extends Component {
      * @returns {html} - The html block that contains the layer's name,sublayers and items inside
      */
     renderLayer(current){
-        const sublayers = current.sublayers.map(item => {
+        const sublayers = current.sublayers.map( (item,index) => {
             return (
-                <div className="entry" onClick={() => this.changeLayer(item)}>
+                <div className="entry" key={index}  onClick={() => this.changeLayer(item)}>
                     <span style={{marginLeft:'18px'}}>{item.name}</span>
                     <span style={{position:'absolute',right:'10px',fontSize:'20px'}}> > </span>
                 </div>
             );
         });
-        const items = current.items.map(item => {
+        const items = current.items.map((item,index) => {
             return (
-                <div className="entry"  >
+                <div className="entry" key={index}  >
                     <span style={{marginLeft:'18px'}}>{item}</span>
                     <span></span>
                 </div>
@@ -133,8 +132,5 @@ class Itemboard extends Component {
     }
 }
 
-function mapStateToProps(state){
 
-}
-
-export default connect(mapStateToProps,actions)(Itemboard);
+export default connect(null,actions)(Itemboard);
