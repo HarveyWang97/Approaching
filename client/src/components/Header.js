@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
 import '../css/Header.css';
-import Eventboard from './Eventboard';
-import Itemboard from './Itemboard';
 import { Navbar} from 'reactstrap';
 import ProfilePopup from './popup/ProfilePopup';
 import Icon from './popup/Icon'

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import "../css/Dashboard.css";
-import { throws } from 'assert';
-import {fetchData} from '../Request';
+// import { throws } from 'assert';
+// import {fetchData} from '../Request';
 
 
 /**
@@ -118,7 +118,7 @@ class Itemboard extends Component {
 
     render(){
         return (
-            <div class="split-left left">
+            <div className="split-left left">
                 <input type="text" placeholder="Search..."  className="searchbar"/>
                 <div className="showercase">
                     <div className="vertical" />    

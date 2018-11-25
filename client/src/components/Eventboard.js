@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
 import Event from './Event';
 import "../css/Dashboard.css";
-import { INSPECT_MAX_BYTES } from 'buffer';
-import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
-import bg from './bg.jpg';
-import tree from './tree.jpeg';
-import th from './th.jpg';
-import swag from './swag.jpg';
+// import { INSPECT_MAX_BYTES } from 'buffer';
+// import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
+// import bg from './bg.jpg';
+// import tree from './tree.jpeg';
+// import th from './th.jpg';
+// import swag from './swag.jpg';
 import calendar from './calendar.jpeg';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
@@ -20,11 +20,6 @@ import  * as actions from '../actions';
  */
 
 class Eventboard extends Component{
-    constructor(props){
-        super(props);
-        
-    }
-
     /**
      * @function
      * @param {number} year 
@@ -171,7 +166,7 @@ class Eventboard extends Component{
             return this.renderYear(key,data[key]);
         });*/
         let events;
-        if (this.props.events == null || this.props.events == false){
+        if (this.props.events == null || this.props.events === false){
             events = null;
         } else {
             events = Object.keys(this.props.events).map(key => {
