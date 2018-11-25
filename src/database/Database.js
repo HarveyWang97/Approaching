@@ -73,7 +73,51 @@ class Database {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
       utils.getItems(user.facebookId, items => {
-        callback(items);
+        // success: false, do nothing but return
+        if (!items.success) {
+          callback(items);
+        } else {
+          const rawItems = items.items;
+          let structuredItems = {
+            name: 'home',
+            sublayers: [],
+            items: []};
+          // iterate through all items
+          for (let object of rawItems){
+            let current = structuredItems;
+            // iterate through location path
+            const loc_arr = JSON.parse(object.location);
+            for (let loc of loc_arr){
+              if (loc !== current.name){
+                // check if the location exists in sublayers
+                let exist = false;
+                for (let sub of current.sublayers){
+                  if (loc === sub.name){
+                    current = sub;
+                    exist = true;
+                  }
+                }
+                // the location doesn't exist in sublayers, create one
+                if (!exist) {
+                  let layer = {
+                    name: loc,
+                    sublayers: [],
+                    items: []};
+                  current.sublayers.push(layer);
+                  current = layer;
+                } 
+              }
+            }
+            current.items.push(object.name);
+          }
+          callback({
+            success: true,
+            items:{
+              rawItems: rawItems,
+              structuredItems: structuredItems
+            }
+          });
+        }
       });
     });
   }
@@ -172,7 +216,7 @@ class Database {
     const model = models[query.getTarget()];
     const primaryKey = config.databaseModels[query.getTarget()].primaryKey;
     utils.authorize(user, callback, () => {
-      utils.remove(models, primaryKey, details, callback);
+      utils.remove(model, primaryKey, details, callback);
     });
   }
 }
