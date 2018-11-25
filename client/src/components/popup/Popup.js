@@ -60,10 +60,12 @@ class Popup extends Component {
 	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
 	 * @return {void} 
 	 */
-    handleChange(event){
+    handleChange(event) {
+        const payload = this.state.payload;
+        payload.name = event.target.value;
         this.setState({
-            name: event.target.value
-        });
+            payload: payload
+        })
     }
 
     /**
@@ -84,14 +86,15 @@ class Popup extends Component {
          * request to server.
          */
         
-         if(this.props.payload.isAdd == true){
-            this.props.insertEvent(this.state,'test','test');
+        if (this.props.payload.isAdd === true) {
+            console.log("tttt", this.state.payload);
+            this.props.insertEvent(this.state.payload,'test','test');
             this.props.fetchEvents('test','test');
             this.props.togglePopup();
-         }
-         else{
+        }
+        else{
 
-         }
+        }
     }
 
     /**
@@ -102,7 +105,11 @@ class Popup extends Component {
      * @return {void} 
 	 */
     handleEditResult(key, value) {
-        this.state.payload[key] = value;
+        const payload = this.state.payload;
+        payload[key] = value;
+        this.setState({
+            payload: payload
+        })
     }
 
 
@@ -113,8 +120,8 @@ class Popup extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const payload = this.state.payload;
-        console.log("---------", payload);
+        const { payload } = this.state;
+        console.log("---------", this.state.payload.description, payload);
         return (
             <div className='popup'>
                 <div className='popup_inner'>

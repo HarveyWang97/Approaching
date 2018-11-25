@@ -1,13 +1,8 @@
 import React,{Component} from 'react';
-import config from '../config';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
 
 class Event extends Component{
-    constructor(props){
-        super(props);
-    }
-
     render() {
         return (
             <div 
@@ -26,13 +21,13 @@ class Event extends Component{
                 <img src={this.props.picture} width="400" height="220" />
                 <br />
                 <body bgcolor="white">
-                <text style={{marginLeft:'10px'}}>{this.props.name}</text>
-                <br />
-                <text style={{marginLeft:'10px'}}>{this.props.time}</text>
+                    <text style={{marginLeft:'10px'}}>{this.props.name}</text>
+                    <br />
+                    <text style={{marginLeft:'10px'}}>{this.props.time}</text>
                 </body>
             </div>
         );
     }
 }
 
-export default connect(state => {}, actions)(Event);
+export default connect(state => ({}), actions)(Event);
