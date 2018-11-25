@@ -94,6 +94,15 @@ class Popup extends Component {
          * if this.props.payload.isAdd === false, send an update item/event 
          * request to server.
          */
+        
+         if(this.props.payload.isAdd == true){
+            this.props.insertEvent(this.state,'test','test');
+            this.props.fetchEvents('test','test');
+            this.props.togglePopup();
+         }
+         else{
+
+         }
     }
 
     /**
@@ -161,6 +170,7 @@ class Popup extends Component {
 
 function mapStateToProps(state){
     return {
+        user:state.auth,
         payload: state.popup.payload
     }
 }

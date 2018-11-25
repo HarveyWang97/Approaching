@@ -51,7 +51,7 @@ export function fetchData(facebookId, accessToken) {
 }*/
 
 
-export function insertEvent(data,facebookId,accessToken){
+/*export function insertEvent(data,facebookId,accessToken){
     const url = 
     `http://localhost:3000/events/insert?facebookId=${facebookId}
     &accessToken=${accessToken}&name=${data.title}&picture={}&time=${data.time}&location=${data.location}
@@ -61,4 +61,4 @@ export function insertEvent(data,facebookId,accessToken){
     .then((res) => {
         console.log(res);
     });
-}
+}*/
