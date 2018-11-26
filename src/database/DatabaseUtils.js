@@ -1,7 +1,6 @@
 const debug = require('debug')('server:database');
 const mongoose = require('mongoose');
 const models = require('./models');
-const mandrill = require('node-mandrill')('FGkuN54CdMt7xCvkJzH54g');
 
 /**
  * @classdesc Utility class for {@link Database}.
@@ -214,20 +213,6 @@ class DatabaseUtils {
       } else {
         callback(this.success(doc._id));
       }
-    });
-  }
-
-  static sendNotification(){
-    mandrill('/messages/send', {
-      message: {
-        to: [{email: 'sqwang97@gmail.com', name: 'Shiqi Wang'}],
-        from_email: 'celia1997@icloud.com',
-        subject: "Hey, what's up?",
-        text: "Hello, I sent this message using mandrill."
-      }
-    }, function(error, response) {
-      if (error) console.log( "error reason:" + JSON.stringify(error) );
-      else console.log(response);
     });
   }
 }
