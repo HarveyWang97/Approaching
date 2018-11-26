@@ -15,9 +15,9 @@ class Row extends Component {
 	 * @param {None}
 	 * @return {void} 
 	 */
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     /**
 	 * This method set the value of this row's item to the new input value.
@@ -48,9 +48,7 @@ class Row extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const { field, iconName, details, editing, handleEditResult } = this.props;
-        console.log('rendering...', details);
-        
+        const { iconName, details, editing } = this.props;        
 
         return (
             <div className='popup_row'>

@@ -142,7 +142,6 @@ class DatabaseUtils {
   static remove(model, primaryKey, object, callback = () => {}) {
     const conditions = {};
     conditions[primaryKey] = object[primaryKey];
-    console.log("<><><><><><><><><", Object.keys(model), model.find, model.findOneAndDelete, model.findOneAndRemove);
     model.findOneAndDelete(conditions, (err, doc) => {
       if (err || !doc) {
         callback(this.failure(err ? err : "Entry not found."));
@@ -241,7 +240,7 @@ class DatabaseUtils {
       to:		"<"+email+">",
       subject:	"Expiration Notification from Approaching",
     };
-    
+
     smtp.send(message, function(err, message) { console.log(err || message); });
   }
 }
