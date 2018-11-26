@@ -7,6 +7,7 @@ import Icon from './popup/Icon';
 import { connect } from 'react-redux';
 import  * as actions from '../actions';
 
+// reference: https://codesandbox.io/s/o68joy0p5
 class PictureEditor extends Component {
     constructor(props){
         super(props);
@@ -99,7 +100,6 @@ class PictureEditor extends Component {
     }
 
     render() {
-        const { croppedImageUrl } = this.state;
         return (
             <div className='picture-editor'>
                 <div className='picture-editor-inner'>
@@ -120,7 +120,6 @@ class PictureEditor extends Component {
                             className='cropscreen'
                         />
                     )}
-                    {/* {croppedImageUrl && <img alt="Crop" style={{width: '100%'}} src={croppedImageUrl} />} */}
                     <div className='submit' onClick={this.handleSubmit.bind(this)}>
                         <Icon iconName='save'/>
                     </div>

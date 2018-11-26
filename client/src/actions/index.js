@@ -31,7 +31,8 @@ export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     const url = 
     `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture={}&time=${data.time}&location=${data.location}&description=${data.description}`;
     const res = await axios.get(url);
-    console.log("insert",res);
+    // TODO: check res.success and console.log only if it fails
+    console.log("insert", res);
 }
 
 export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
@@ -43,6 +44,8 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
         }
     }
     const res = await axios.get(url);
+    // TODO: check res.success and console.log only if it fails
+    console.log("insert", res);
 }
 
 export const fetchItems = (facebookId,accessToken) => async (dispatch) => {
