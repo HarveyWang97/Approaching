@@ -29,10 +29,12 @@ class Header extends Component{
     render(){
         return (
             <div>
-                <Navbar color="dark" className="header" expand="md">
-                    <span style={{fontSize:'22px'}}>Approaching</span>
-                    <div className="icon">
-                        <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
+                <Navbar color="dark" className="header-container" expand="md">
+                    <div className="header">
+                        <span style={{fontSize:'22px'}}>Approaching</span>
+                        <div className="icon">
+                            <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
+                        </div>
                     </div>
                 </Navbar>
                 {this.state.showPopup ? 

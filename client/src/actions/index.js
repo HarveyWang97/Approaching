@@ -1,6 +1,10 @@
-import {FETCH_USER} from './types.js';
-import {TOGGLE_POPUP} from './types.js';
-import {FETCH_EVENTS,FETCH_ITEMS} from './types.js';
+import {
+    FETCH_USER,
+    TOGGLE_POPUP,
+    TOGGLE_PICTURE_EDITOR,
+    FETCH_EVENTS,
+    FETCH_ITEMS
+} from './types.js';
 import axios from 'axios';
 
 
@@ -10,6 +14,10 @@ export const fetchUser = (user) => dispatch => {
 
 export const togglePopup = (payload) => dispatch => {
     dispatch({type: TOGGLE_POPUP, payload: payload});
+};
+
+export const togglePictureEditor = (payload) => dispatch => {
+    dispatch({type: TOGGLE_PICTURE_EDITOR, payload: payload});
 };
 
 export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
@@ -25,6 +33,19 @@ export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
   //  console.log("url",url);
     const res = await axios.get(url);
     console.log("insert",res);
+}
+
+export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
+    let url = 
+    `http://localhost:3000/events/update?facebookId=${facebookId}&accessToken=${accessToken}`;
+    for (let key in data) {
+        if (key !== '__v' && key !== 'owner') {
+            url += `&${key}=${data[key]}`;
+        }
+    }
+    console.log("url",url);
+    const res = await axios.get(url);
+    console.log("updateEvent result --- ", res);
 }
 
 export const fetchItems = (facebookId,accessToken) => async (dispatch) => {

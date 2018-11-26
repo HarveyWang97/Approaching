@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import LoginButton from './components/LoginButton';
 import Dashboard from './components/Dashboard';
-import {BrowserRouter,Route} from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import './App.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
