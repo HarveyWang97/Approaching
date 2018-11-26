@@ -1,6 +1,16 @@
 const debug = require('debug')('server:database');
 const mongoose = require('mongoose');
 const models = require('./models');
+const email = require("../../node_modules/emailjs/email");
+const smtp = email.server.connect({
+   user: "cs130.approaching@gmail.com",
+   password: "CS130Approaching",
+   host: "smtp.gmail.com",
+   ssl: true,
+   tls: false,
+   port: 465
+});
+
 
 /**
  * @classdesc Utility class for {@link Database}.
@@ -197,8 +207,19 @@ class DatabaseUtils {
       }
     });
   }
+
+  static sendNotification(){
+    let message	= {
+      text:	"i hope this works",
+      from:	"<cs130.approaching@gmail.com>",
+      to:		"<celia1997@icloud.com>",
+      subject:	"testing emailjs",
+    };
+    
+    smtp.send(message, function(err, message) { console.log(err || message); });
+  }
 }
 
-setTimeout(DatabaseUtils.sendNotification, 1000);
+//setTimeout(DatabaseUtils.sendNotification, 1000);
 
 module.exports = DatabaseUtils;

@@ -108,7 +108,7 @@ class Database {
                 }
               }
             }
-            current.items.push(object.name);
+            current.items.push(object);
           }
           callback({
             success: true,
