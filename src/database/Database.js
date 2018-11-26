@@ -74,7 +74,7 @@ class Database {
     utils.authorize(user, callback, () => {
       utils.getItems(user.facebookId, items => {
         // success: false, do nothing but return
-        if (!items.success) {
+        if (!(items.success)) {
           callback(items);
         } else {
           const rawItems = items.items;
@@ -105,7 +105,7 @@ class Database {
                     items: []};
                   current.sublayers.push(layer);
                   current = layer;
-                } 
+                }
               }
             }
             current.items.push(object.name);
@@ -126,10 +126,59 @@ class Database {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
       utils.getEvents(user.facebookId, events => {
-        callback(events);
+        if (!(events.success)) {
+          callback(events);
+        } else {
+          const rawEvents = events.events;
+          rawEvents.sort((a, b) => (a.time > b.time));
+          const structuredEvents = {};
+      
+          for (let event of rawEvents) {
+            const time = new Date(Number(event.time));
+            const year = time.getFullYear();
+            const month = time.getMonth() + 1;
+            const date = time.getDate();
+            if (!(year in structuredEvents)) {
+              structuredEvents[year] = {};
+            }
+            if (!(month in structuredEvents[year])) {
+              structuredEvents[year][month] = {};
+            }
+            if (!(date in structuredEvents[year][month])) {
+              structuredEvents[year][month][date] = [];
+            }
+            const hour = time.getHours();
+            const minute = time.getMinutes();
+            const hourMinute = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
+            event.time = hourMinute;
+            structuredEvents[year][month][date].push(event);
+          }
+  
+          callback({
+            success: true,
+            events: {
+              rawEvents: rawEvents,
+              structuredEvents: structuredEvents
+            }
+          });
+        }
       });
     });
   }
+
+
+  /////
+  /*
+static getEvents(owner, callback = () => {}) {
+    models.Event.find({ owner: owner }, (err, rawEvents) => {
+      if (err) {
+        callback({ success: false });
+      } else {
+        
+      }
+    });
+  }
+  */
 
   /**
    * Fetch and reformat Items and Events data for a given user from database.

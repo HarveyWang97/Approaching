@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 import '../css/Header.css';
-import autumn from './autumn.jpg';
+// import autumn from './autumn.jpg';
 import {insertUser} from '../Request.js';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
@@ -28,10 +28,10 @@ class LoginButton extends Component{
     }
 
     render(){
-        let content;
-        if(this.props.user != null && this.props.user != null){
-            content = this.props.user.email;
-        }
+        // let content;
+        // if(this.props.user != null && this.props.user != null){
+        //     content = this.props.user.email;
+        // }
 
         return (                 
                     <div className="login">
