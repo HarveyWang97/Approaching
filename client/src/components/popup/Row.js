@@ -30,6 +30,13 @@ class Row extends Component {
         handleEditResult(field, event.target.value);
     }
 
+    submitDate(e){
+        e.preventDefault();
+        const time = document.getElementById("datepicker");
+        console.log("time",time.value);
+        console.log("date value",e.target);
+    }
+
     /**
 	 * Render the row based on the given input. 
      *
@@ -51,6 +58,19 @@ class Row extends Component {
                 {editing ? (<input type="text" value={details} placeholder="Input"
                         onChange={this.handleChange.bind(this)} />)
                         : (<span>{details}</span>)
+                }
+                {
+                    iconName == "clock" && editing ? 
+                    (<form  onSubmit={e => this.submitDate(e)}>
+                        <input id="datepicker" type="datetime-local" min="2018-11" max="2030-12"/>
+                        <input type="submit"/>
+                    </form>) : null
+                }
+                {
+                    iconName == "list-ul" & editing ? (<button type="button" style={{marginLeft:'5px'}}>Add</button>) : null
+                }
+                {
+                    iconName == "list-ul" & editing ? (<div style={{marginTop:'5px', marginLeft:'38px'}}><button type="button">Select From Item Board</button></div>) : null
                 }
             </div>
         );
