@@ -79,8 +79,7 @@ class Itemboard extends Component {
                 console.log(item);
                 return (
                     <div className="entry" key={index}  >
-                        <span style={{marginLeft:'18px'}}></span>
-                        <span></span>
+                        <span style={{marginLeft:'18px'}}>{item.name}</span>
                     </div>
                 );
             });
@@ -101,7 +100,15 @@ class Itemboard extends Component {
                 {sublayers}
                 {concrete_items}
                 <div className="addItemRow">
-                    <i className="fa fa-plus add" style={{position:'relative',bottom:'2px'}} ></i>
+                    <i className="fa fa-plus add" 
+                       style={{position:'relative',bottom:'2px'}} 
+                       onClick={() => this.props.togglePopup({
+                        contentType: 'item',
+                        isAdd: true,
+                        id: null
+                    })}
+                    >
+                    </i>
                 </div>         
             </div>
         );
@@ -109,8 +116,8 @@ class Itemboard extends Component {
 
     render(){
        
-        console.log(this.props.structuredItems);
         console.log('container',this.state.container);
+        console.log('rawItems',this.props.rawItems);
         
         return (
             <div className="split-left left">
