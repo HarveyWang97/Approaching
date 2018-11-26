@@ -10,11 +10,12 @@ module.exports = {
         accessToken: { type: String, required: true },
         name:        { type: String, required: true },
         email:       { type: String, required: true },
+        notifyTime:  { type: String, required: true },
       },
       primaryKey: 'facebookId',
-      insert: [ 'facebookId', 'accessToken', 'name', 'email' ],
+      insert: [ 'facebookId', 'accessToken', 'name', 'email', 'notifyTime'],
       updateRequired: [ 'facebookId', 'accessToken' ],
-      updateOptional: [ 'facebookId', 'accessToken', 'email' ],
+      updateOptional: [ 'facebookId', 'accessToken', 'email', 'notifyTime' ],
       remove: [ 'facebookId', 'accessToken' ]
     },
     Item: {
