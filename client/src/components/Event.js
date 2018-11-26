@@ -7,8 +7,8 @@ class Event extends Component{
         return (
             <div 
                 style={{border:'solid 1px', 
-                        width:'400px',height:'265px',
-                        paddingTop:'0px',
+                        width:'400px',height:'45px',
+                        paddingTop:'10px',
                         marginLeft:'90px',
                         marginBottom:'20px'}}
                 onClick={() => this.props.togglePopup({
@@ -17,9 +17,6 @@ class Event extends Component{
                     id: this.props.id
                 })}
             >
-
-                <img src={this.props.picture} width="400" height="220" />
-                <br />
                 <div bgcolor="white">
                     <span style={{marginLeft:'10px'}}>{this.props.name}</span>
                     <br />

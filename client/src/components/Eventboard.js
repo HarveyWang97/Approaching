@@ -82,7 +82,7 @@ class Eventboard extends Component{
         }); // iterate an array
         return (
             <div>
-                <text style={{marginLeft:'60px'}} ><b>{day}</b></text>
+                <text style={{marginLeft:'60px', float:'left'}} ><b>{day}</b></text>
                 {events}
             </div>
         );
