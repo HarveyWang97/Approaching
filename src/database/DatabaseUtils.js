@@ -208,18 +208,42 @@ class DatabaseUtils {
     });
   }
 
-  static sendNotification(){
+  /**
+   * Send an expiration notification email to the user.
+   * @param {Array} itemList - An array of approaching expiration items
+   * @param {Array} eventList - An array of approaching deadline events
+   * @param {string} name - User name
+   * @param {string} email - User email
+   */
+  static sendNotification(itemList, eventList, name, email){
+    let detail = "Hello " + name + ",\n";
+    // itemList is not empty
+    if (itemList.length > 0) {
+      detail += "Some items in your home are approaching expiration dates: \n";
+      for (let i in itemList){
+        const loc_arr = JSON.parse(i.location);
+        detail += i.name + " stored at " + loc_arr.join('/') + "\n";
+      } 
+    }
+    // eventList is not empty
+    if (eventList.length > 0) {
+      detail += "Some events are approaching their deadlines: \n";
+      detail += eventList.join('\n');
+    }
+
+    detail += "\nBest Regards,\n Team Chaoz - Project Approaching"
+
     let message	= {
-      text:	"i hope this works",
-      from:	"<cs130.approaching@gmail.com>",
-      to:		"<celia1997@icloud.com>",
-      subject:	"testing emailjs",
+      text:	detail,
+      from:	"Team Chaoz <cs130.approaching@gmail.com>",
+      to:		"<"+email+">",
+      subject:	"Expiration Notification from Approaching",
     };
     
     smtp.send(message, function(err, message) { console.log(err || message); });
   }
 }
 
-//setTimeout(DatabaseUtils.sendNotification, 1000);
+//setTimeout(function(){DatabaseUtils.sendNotification([],[],"Cecilia","celia1997@icloud.com")}, 1000);
 
 module.exports = DatabaseUtils;
