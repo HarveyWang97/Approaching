@@ -119,12 +119,14 @@ class Popup extends Component {
 	 */
     render() {
         const { payload } = this.state;
-        console.log("---------", payload, {backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"});
+        const displayPicture = (payload && payload.picture) ? {
+            backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"
+        } : null;
         
         return (
             <div className='popup'>
                 <div className='popup_inner'>
-                    <div className='top' id='top' style={{backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"}}>
+                    <div className='top' id='top' style={displayPicture}>
                         <span>
                             <Icon iconName='times' onClick={() => this.props.togglePopup()} />
                             { this.state.editing ? 

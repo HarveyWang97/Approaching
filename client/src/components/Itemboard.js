@@ -76,9 +76,10 @@ class Itemboard extends Component {
             });
             
             concrete_items = current.items.map((item,index) => {
+                console.log(item);
                 return (
                     <div className="entry" key={index}  >
-                        <span style={{marginLeft:'18px'}}>{item}</span>
+                        <span style={{marginLeft:'18px'}}></span>
                         <span></span>
                     </div>
                 );

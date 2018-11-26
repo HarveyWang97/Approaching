@@ -41,9 +41,7 @@ class Row extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const { field, iconName, details, editing, handleEditResult } = this.props;
-        console.log('rendering...', details);
-        
+        const { field, iconName, details, editing, handleEditResult } = this.props;        
 
         return (
             <div className='popup_row'>

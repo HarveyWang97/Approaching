@@ -88,7 +88,6 @@ class PictureEditor extends Component {
         return new Promise((resolve, reject) => {
             canvas.toBlob(blob => {
                 const quality = Math.min(20000 / blob.size, 1);
-                console.log('blob size', blob.size, quality);
                 resolve(canvas.toDataURL("image/jpeg", quality));
             }, "image/jpeg");
         });
@@ -100,7 +99,6 @@ class PictureEditor extends Component {
     }
 
     render() {
-        console.log('+++++', this.props.payload);
         const { croppedImageUrl } = this.state;
         return (
             <div className='picture-editor'>
