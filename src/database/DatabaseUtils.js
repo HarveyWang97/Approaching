@@ -228,7 +228,9 @@ class DatabaseUtils {
     // eventList is not empty
     if (eventList.length > 0) {
       detail += "Some events are approaching their deadlines: \n";
-      detail += eventList.join('\n');
+      for (let e in eventList){
+        detail += e.name + " at " + e.location + "\n";
+      } 
     }
 
     detail += "\nBest Regards,\n Team Chaoz - Project Approaching"
