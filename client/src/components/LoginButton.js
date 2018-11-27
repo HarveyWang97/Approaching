@@ -23,7 +23,7 @@ class LoginButton extends Component{
     responseFacebook (response)  {
         console.log(response);
         insertUser(response);
-        this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken});
+        this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken, name:response.name, email:response.email});
         this.props.history.push('/dashboard');
     }
 
