@@ -79,11 +79,11 @@ class Itemboard extends Component {
                 console.log(item);
                 return (
                     <div 
-                        className="entry" id={item._id}  key={index} 
+                        className="entry" key={index} 
                         onClick = {() => this.props.togglePopup({
                             contentType:'item',
                             isAdd:false,
-                            id:this.props.id
+                            id:item._id
                         })} 
                      >
                         <span style={{marginLeft:'18px'}}>{item.name}</span>

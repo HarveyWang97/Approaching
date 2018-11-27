@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/Popup.css';
 import Icon from './Icon';
-
 /**
  * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
  * 
@@ -27,14 +26,25 @@ class Row extends Component {
 	 */
     handleChange(event) {
         const { handleEditResult, field } = this.props;
-        handleEditResult(field, event.target.value);
+        if(field === 'time' || field === 'expireDate'){
+            const time = document.getElementById("datepicker");
+            const d = new Date(time.value);
+            const mtime = d.getTime();
+            console.log("time",mtime);
+            handleEditResult(field,mtime);
+        }
+        else{
+            handleEditResult(field, event.target.value);
+        }
+        
     }
 
     submitDate(e){
         e.preventDefault();
         const time = document.getElementById("datepicker");
-        console.log("time",time.value);
-        console.log("date value",e.target);
+        var d = new Date(time.value);
+        var mtime = d.getTime();
+        console.log("time",mtime);
     }
 
     /**
@@ -53,16 +63,17 @@ class Row extends Component {
         return (
             <div className='popup_row'>
                 <Icon iconName={iconName}/>
-                {editing ? (<input type="text" value={details} placeholder="Input"
+                {editing && iconName != "clock" ? (<input type="text" value={details} placeholder="Input"
                         onChange={this.handleChange.bind(this)} />)
-                        : (<span>{details}</span>)
+                        : (editing && iconName == "clock" ? null : (<span>{details}</span>))
                 }
                 {
                     iconName == "clock" && editing ? 
-                    (<form  onSubmit={e => this.submitDate(e)}>
+                    /*(<form  onSubmit={e => this.submitDate(e)}>
                         <input id="datepicker" type="datetime-local" min="2018-11" max="2030-12"/>
                         <input type="submit"/>
-                    </form>) : null
+                    </form>) : null*/
+                    (<input id="datepicker" type="datetime-local" min="2018-11" max="2030-12" onChange={this.handleChange.bind(this)}/>) : null
                 }
                 {
                     iconName == "list-ul" & editing ? (<button type="button" style={{marginLeft:'5px'}}>Add</button>) : null
