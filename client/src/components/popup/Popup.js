@@ -23,21 +23,30 @@ class Popup extends Component {
     constructor(props){
         super(props);
 
-        const { isAdd, id } = this.props.payload;
+        const { contentType,isAdd, id } = this.props.payload;
         if (isAdd) {
             this.state = {
                 editing: true,
                 payload: {}
             };
         } else {
-            const payload = this.props.events.filter(event => event._id === id)[0];
-            this.state = {
-                editing: false,
-                payload: payload
-            };
+            if(contentType == 'event'){
+                const payload = this.props.events.filter(event => event._id === id)[0];
+                this.state = {
+                    editing: false,
+                    payload: payload
+                };
+            }
+
+            else if(contentType == 'item'){
+                const payload = this.props.rawItems.filter(item => item._id === id);
+                this.state = {
+                    editing: false,
+                    payload: payload
+                };
+            }         
         }
-        
-        
+          
     }
 
     /**
@@ -182,7 +191,8 @@ function mapStateToProps(state){
     return {
         user: state.auth,
         payload: state.popup.payload,
-        events: state.events.rawEvents
+        events: state.events.rawEvents,
+        rawItems:state.items['rawItems']
     }
 }
 

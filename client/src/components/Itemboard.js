@@ -76,11 +76,7 @@ class Itemboard extends Component {
             });
             
             concrete_items = current.items.map((item,index) => {
-<<<<<<< HEAD
-                console.log("individual item",item);
-=======
                 console.log(item);
->>>>>>> 73eeea4813d858fdc99d21240fa3b0fb6afbad4d
                 return (
                     <div 
                         className="entry" id={item._id}  key={index} 
