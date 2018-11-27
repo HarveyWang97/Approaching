@@ -55,3 +55,10 @@ export const fetchItems = (facebookId,accessToken) => async (dispatch) => {
      dispatch({type:FETCH_ITEMS,payload:res.data.items});
      console.log('items',res);
 }
+
+export const updateEmail = (email,facebookId,accessToken) => async (dispatch) => {
+    const url = 
+    `http://localhost:3000/users/update?facebookId=${facebookId}&accessToken=${accessToken}&email=${email}`;
+    const res = await axios.get(url);
+    console.log('update email', res)
+}

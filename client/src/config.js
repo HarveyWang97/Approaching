@@ -20,7 +20,9 @@ module.exports = {
     expireDate: 'clock',
     location: 'map-marker-alt',
     itemList: 'list-ul',
-    eventList: 'calendar-alt'
+    eventList: 'calendar-alt',
+    reminder: 'bell',
+    email: 'envelope'
   },
   // the size should be consistent with the css styles for Popup top section
   picture: {

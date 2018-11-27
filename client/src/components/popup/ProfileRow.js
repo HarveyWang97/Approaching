@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import '../../css/Popup.css';
+import '../../css/Profile.css';
 import Icon from './Icon';
 
 /**
  * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
  * 
  */
-class Row extends Component {
+class ProfileRow extends Component {
     /**
 	 * Currently we manually construct datas for popup to display since we do not have communication with others.
      * Initialize the state variables with corresponding input data.
@@ -15,9 +15,13 @@ class Row extends Component {
 	 * @param {None}
 	 * @return {void} 
 	 */
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            item: this.props.details
+        };
+    }
 
     /**
 	 * This method set the value of this row's item to the new input value.
@@ -25,16 +29,11 @@ class Row extends Component {
 	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
 	 * @return {void} 
 	 */
-    handleChange(event) {
-        const { handleEditResult, field } = this.props;
-        handleEditResult(field, event.target.value);
-    }
-
-    submitDate(e){
-        e.preventDefault();
-        const time = document.getElementById("datepicker");
-        console.log("time",time.value);
-        console.log("date value",e.target);
+    handleChange(event){
+        this.setState({
+            item: event.target.value
+        });
+        this.props.handleEditResult(this.props.field,event.target.value);
     }
 
     /**
@@ -48,27 +47,13 @@ class Row extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const { iconName, details, editing } = this.props;        
-
+        const { field, iconName, details, editing, handleEditResult } = this.props;
         return (
-            <div className='popup_row'>
+            <div className='profile_row'>
                 <Icon iconName={iconName}/>
-                {editing ? (<input type="text" value={details} placeholder="Input"
+                {editing ? (<input type="text" value={this.state.item} placeholder="Input"
                         onChange={this.handleChange.bind(this)} />)
                         : (<span>{details}</span>)
-                }
-                {
-                    iconName == "clock" && editing ? 
-                    (<form  onSubmit={e => this.submitDate(e)}>
-                        <input id="datepicker" type="datetime-local" min="2018-11" max="2030-12"/>
-                        <input type="submit"/>
-                    </form>) : null
-                }
-                {
-                    iconName == "list-ul" & editing ? (<button type="button" style={{marginLeft:'5px'}}>Add</button>) : null
-                }
-                {
-                    iconName == "list-ul" & editing ? (<div style={{marginTop:'5px', marginLeft:'38px'}}><button type="button">Select From Item Board</button></div>) : null
                 }
             </div>
         );
@@ -76,4 +61,4 @@ class Row extends Component {
     }
 }
 
-export default Row;
+export default ProfileRow;
