@@ -105,7 +105,9 @@ class Popup extends Component {
             this.props.togglePopup();
         }
         else {
-            this.props.updateEvent(this.state.payload, 'test', 'test');
+            this.props.updateEvent(this.state.payload, 'test', 'test').then(
+                () => this.props.fetchEvents('test', 'test')
+            );
         }
     }
 
