@@ -138,20 +138,31 @@ class Itemboard extends Component {
     }
 
 
+    formatLocation(location){
+        const temp = location.replace(/\s+/, "").substring(1,location.length-2);
+        const arr = temp.split(", ");
+        let res = "";
+        for(var i=0;i<arr.length;i++){
+            res+=arr[i].replace(/"/gi,"")+"->";
+        }
+        return res.substring(0,res.length-2);
+    }
+    
 
     renderSearchResult(){
         const input_item_name =  document.getElementById("search").value;
-        const payload = this.props.rawItems.filter(item => item.name === input_item_name);
+       // const payload = this.props.rawItems.filter(item => item.name === input_item_name);
+       const payload = this.props.rawItems.filter(item => item.name.includes(input_item_name));
         if(payload.length === 0){
             return (
-                <div>
+                <h3 style={{marginLeft:'300px'}}>
                     No items found
-                </div>
+                </h3>
             );
         }
         else{
-            return (
-                <div className="showercase" style={{width:'300px',marginLeft:'220px'}}>
+            const entries = payload.map(item => {
+                return (        
                     <div 
                         className="entry"
                         style={{textAlign:'center',paddingBottom:'5px',paddingTop:'5px'}}
@@ -161,12 +172,16 @@ class Itemboard extends Component {
                             id:payload[0]._id
                         })} 
                     >
-                        {payload[0].name}
+                        {item.name}
                         <br />
-                        <span>{payload[0].location}</span>
-                    </div>
+                        <span>{this.formatLocation(item.location)}</span>
+                    </div>          
+                );
+            });
+            return (
+                <div className="showercase" style={{width:'300px',marginLeft:'220px'}}>
+                {entries}
                 </div>
-                
             );
         }
         
