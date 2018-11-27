@@ -68,13 +68,31 @@
   padding-bottom: 200px;
 }
 
-.searchbar{
+/*.searchbar{
   border-radius:8px;
   width:200px;
   height: 20px;
   margin-left: 270px;
   margin-top:50px;
   border-top-color: white !important;
+}*/
+
+.searchbar{
+  padding: 6px;
+  margin-top: 40px;
+  margin-left: 270px;
+  margin-right: 10px;
+  border: none;
+  font-size: 17px;
+  background-color: gainsboro;
+  border: 1px solid #ccc;  
+  border-radius: 10px;
+  width:200px;
+  
+}
+
+.iconSubmit:hover{
+  cursor: pointer;
 }
 
 .showercase{
@@ -99,6 +117,15 @@
   padding-top: 13px;
   font-size: 16px;
   position: relative;
+}
+
+.searchResult{
+  margin-top:50px;
+  margin-left:270px;
+  text-align:center;
+  border:1.2px solid black;
+
+  width:200px;
 }
 
 .addItemRow{

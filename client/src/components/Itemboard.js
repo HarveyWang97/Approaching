@@ -16,7 +16,8 @@ class Itemboard extends Component {
         super(props);
         this.state = {
             container:this.props.structuredItems,
-            stk:[this.props.structuredItems]
+            stk:[this.props.structuredItems],
+            searchMode:false
         };
     }
 
@@ -121,6 +122,46 @@ class Itemboard extends Component {
         );
     }
 
+    handleSearch(){
+        this.setState((prevState) => {
+            return {searchMode:!prevState.searchMode};
+        });
+    }
+
+    renderSearchResult(){
+        const input_item_name =  document.getElementById("search").value;
+        const payload = this.props.rawItems.filter(item => item.name === input_item_name);
+        if(payload.length === 0){
+            return (
+                <div>
+                    No items found
+                </div>
+            );
+        }
+        else{
+            return (
+                <div className="showercase" style={{width:'300px',marginLeft:'220px'}}>
+                    <div 
+                        className="entry"
+                        style={{textAlign:'center',paddingBottom:'5px',paddingTop:'5px'}}
+                        onClick = {() => this.props.togglePopup({
+                            contentType:'item',
+                            isAdd:false,
+                            id:payload[0]._id
+                        })} 
+                    >
+                        {payload[0].name}
+                        <br />
+                        <span>{payload[0].location}</span>
+                    </div>
+                </div>
+                
+            );
+        }
+        
+    }
+
+
     render(){
        
         console.log('container',this.state.container);
@@ -128,12 +169,22 @@ class Itemboard extends Component {
         
         return (
             <div className="split-left left">
-                <input type="text" placeholder="Search..."  className="searchbar"/>
-                <div className="showercase">
-                    <div className="vertical" />    
-                    <div className="vertical" />
-                    {this.renderLayer(this.state.container)}
+                <div>
+                    <input id="search" type="text" placeholder="Search..."  className="searchbar"/>
+                    {this.state.searchMode?  
+                        <i className="fa fa-close iconSubmit" onClick={() => this.handleSearch()}  ></i> :
+                        <i className="fa fa-search iconSubmit" onClick={() => this.handleSearch()}  ></i>
+                    }             
                 </div>
+
+                {this.state.searchMode? this.renderSearchResult():(
+                    <div className="showercase">
+                        <div className="vertical" />    
+                        <div className="vertical" />
+                        {this.renderLayer(this.state.container)}
+                    </div>
+                ) }
+                
             </div>
         );
     }
