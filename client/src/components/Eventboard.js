@@ -176,7 +176,7 @@ class Eventboard extends Component{
             events = null;
         } else {
             events = Object.keys(this.props.events).map(key => {
-                return this.renderYear(key,this.props.events[key]);
+                return this.renderYear(key, this.props.events[key]);
             });
             console.log("events",this.props.events);
         }
