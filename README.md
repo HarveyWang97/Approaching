@@ -84,7 +84,7 @@ At the same time, our mlab mongodb database should change accordingly.
 
 | Action |                                        Url                                         | Required |
 |:------:|------------------------------------------------------------------------------------|:--------:|
-| Insert | `http://localhost:3000/users/insert?facebookId={}&accessToken={}&name={}&email={}&notifyTime={}` |    `name, email`   |
+| Insert | `http://localhost:3000/users/insert?facebookId={}&accessToken={}&name={}&email={}` |    `name, email`   |
 | Update | `http://localhost:3000/users/update?facebookId={}&accessToken={}&email={}&notifyTime={}`         |          |
 | Remove | `http://localhost:3000/users/remove?facebookId={}&accessToken={}`                  |          |
 
@@ -108,6 +108,7 @@ At the same time, our mlab mongodb database should change accordingly.
 
 |  Action   |                                        Url                                         | Required |
 |:---------:|------------------------------------------------------------------------------------|:--------:|
+| fetchProfile | `http://localhost:3000/fetchProfile?facebookId={}&accessToken={}`                     |          |
 | fetchData | `http://localhost:3000/fetchData?facebookId={}&accessToken={}`                     |          |
 | fetchItems | `http://localhost:3000/fetchItems?facebookId={}&accessToken={}`                     |          |
 | fetchEvents | `http://localhost:3000/fetchEvents?facebookId={}&accessToken={}`                     |          |

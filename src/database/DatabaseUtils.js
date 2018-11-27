@@ -86,16 +86,38 @@ class DatabaseUtils {
         callback(this.failure(err));
       } else if (doc) {
         for (let field in object) {
-          if (object.hasOwnProperty(field)) {
+          if (object.hasOwnProperty(field) && field !== 'email') {
             doc[field] = object[field];
           }
         }
-        this._save(doc, callback);
+        this._save(doc, res => {
+          if (!(res.success)) {
+            callback(res);
+          } else {
+            console.log(doc);
+            callback({
+              success: res.success,
+              id: res.id,
+              email: doc.email,
+              notifyTime: doc.notifyTime
+            })
+          }
+        });
       } else {
-        if (!object.notifyTime) {
-          object.notifyTime = defaultNotifyTime;
-        }
-        this.insert(model, object, callback);
+        object.notifyTime = defaultNotifyTime;
+        this.insert(model, object, res => {
+          if (!(res.success)) {
+            callback(res);
+          } else {
+            console.log(doc);
+            callback({
+              success: res.success,
+              id: res.id,
+              email: object.email,
+              notifyTime: object.notifyTime
+            })
+          }
+        });
       }
     });
   }

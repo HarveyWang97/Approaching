@@ -14,6 +14,7 @@ export function insertUser(response) {
     .then((res) => {
         if (res.data.success === true){
            // fetchData(response.id, response.accessToken);
+           console.log("insertUser response", res.data);
         } else {
             console.log("Fail to insert user in server.")
         }
