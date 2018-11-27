@@ -128,10 +128,11 @@ class Popup extends Component {
 	 */
     render() {
         const { payload } = this.state;
+        console.log(payload);
         const displayPicture = (payload && payload.picture) ? {
             backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"
         } : null;
-        
+
         return (
             <div className='popup'>
                 <div className='popup_inner'>

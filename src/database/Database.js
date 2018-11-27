@@ -147,10 +147,7 @@ class Database {
             if (!(date in structuredEvents[year][month])) {
               structuredEvents[year][month][date] = [];
             }
-            const hour = time.getHours();
-            const minute = time.getMinutes();
-            const hourMinute = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
-            event.time = hourMinute;
+            
             structuredEvents[year][month][date].push(event);
           }
   
