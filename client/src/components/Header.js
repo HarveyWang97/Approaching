@@ -3,13 +3,16 @@ import '../css/Header.css';
 import { Navbar} from 'reactstrap';
 import ProfilePopup from './popup/ProfilePopup';
 import Icon from './popup/Icon'
+import {connect} from 'react-redux';
+import  * as actions from '../actions';
 
 
 class Header extends Component{
     constructor(props){
         super(props);
         this.state = {
-            showPopup: false
+            showPopup: false,
+            name: ""
         };
     }
 
@@ -25,14 +28,29 @@ class Header extends Component{
         });
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.user !== this.props.user){
+            this.setState(
+                {
+                    name: nextProps.user.name
+                }
+            );
+        }
+    }
+
 
     render(){
+        
+        
         return (
             <div>
-                <Navbar color="dark" className="header" expand="md">
-                    <span style={{fontSize:'22px'}}>Approaching</span>
-                    <div className="icon">
-                        <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
+                <Navbar color="dark" className="header-container" expand="md">
+                    <div className="header">
+                        <span style={{fontSize:'22px'}}>Approaching</span>
+                        <div className="icon">
+                            <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
+                            <b>{"  "}{this.state.name}</b>
+                        </div>
                     </div>
                 </Navbar>
                 {this.state.showPopup ? 
@@ -47,7 +65,13 @@ class Header extends Component{
     }
 }
 
-export default Header;
+function mapStateToProps(state){
+    return {
+        user:state.auth
+    }
+}
+
+export default connect(mapStateToProps,actions)(Header);
 
 
 

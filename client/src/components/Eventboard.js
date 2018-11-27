@@ -59,7 +59,7 @@ class Eventboard extends Component{
         return (
             <div>
                 <div style={{marginLeft:'50px',marginBottom:'10px'}}>
-                    <text ><b>{this.monthName[month]} {year}</b></text>
+                    <b>{this.monthName[month]} {year}</b>
                 </div>
                 {events}
             </div>
@@ -82,32 +82,13 @@ class Eventboard extends Component{
         }); // iterate an array
         return (
             <div>
-                <text style={{marginLeft:'60px', float:'left'}} ><b>{day}</b></text>
+                 <b style={{marginLeft:'60px', float:'left'}}>{day}</b>
                 {events}
             </div>
         );
     }
 
-   /* renderYear(year,items){
-        const events = Object.keys(items).map(key=> {
-            return this.renderMonth(key,year,items[key]);
-        }); // iterate an object
-        return events;
-    }
-
-    renderMonth(month,year,items){
-        const events = items.map(item => {
-            return this.renderItem(item.name,item.time,item.picture);
-        }); // iterate an array
-        return (
-            <div>
-                <div style={{marginLeft:'50px',marginBottom:'10px'}}>
-                    <text ><b>{this.monthName[month]} {year}</b></text>
-                </div>
-                {events}
-            </div>
-        );
-    }*/
+   
 
     /**
      * 
@@ -120,7 +101,7 @@ class Eventboard extends Component{
      */
     renderItem(id, name,time){
         return (
-            <Event id={id} name={name} time={time} key={name}/>
+            <Event key={id} id={id} name={name} time={time} key={name}/>
         );
     }
 
@@ -129,54 +110,12 @@ class Eventboard extends Component{
     }
 
     render(){
-        /*const data = {
-            2018: {
-                10: [
-                    {
-                        "name": "CS Contest",
-                        "time": "1pm - 3pm",
-                        "location": "Los Angeles",
-                        "picture": tree,
-                        "description": null 
-                    },
-                    {
-                        "name": "Onsite Interview",
-                        "time": "3pm - 5pm",
-                        "location": "Menlo Park",
-                        "picture": bg,
-                        "description": null 
-                    }
-                ],
-                12: [
-                    {
-                        "name": "Swag Dispense",
-                        "time": "10am - 12pm",
-                        "location": "Westwood",
-                        "picture": swag,
-                        "description": null
-                    },
-                    {
-                        "name": "Birthday Party",
-                        "time": "6pm",
-                        "location": "Midvale Avenue",
-                        "picture": tree,
-                        "description": null
-                    }
-                ],
-            },
-            2019: {
-
-            }
-        };
-        const events = Object.keys(data).map(key => {
-            return this.renderYear(key,data[key]);
-        });*/
         let events;
         if (this.props.events == null || this.props.events === false){
             events = null;
         } else {
             events = Object.keys(this.props.events).map(key => {
-                return this.renderYear(key,this.props.events[key]);
+                return this.renderYear(key, this.props.events[key]);
             });
             console.log("events",this.props.events);
         }

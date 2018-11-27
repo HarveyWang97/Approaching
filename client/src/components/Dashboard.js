@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import Eventboard from './Eventboard';
 import Popup from './popup/Popup';
 import Itemboard from './Itemboard';
-import bground from './bg.jpg';
+import PictureEditor from './PictureEditor';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import "../css/Dashboard.css";
@@ -16,13 +16,16 @@ class Dashboard extends Component {
     }
 
     render() {
-        const dashboardStyle = {backgroundImage:`url(${bground})`};
         return (
-            <div style={dashboardStyle}>
+            <div className='dashboard'>
                 <Itemboard />
                 <Eventboard />
                 {this.props.popup.show ? 
                     <Popup payload={this.props.popup.payload}/>
+                    : null
+                }
+                {this.props.pictureEditor.show ? 
+                    <PictureEditor payload={this.props.pictureEditor.payload}/>
                     : null
                 }
             </div>
@@ -32,7 +35,8 @@ class Dashboard extends Component {
 
 function mapStateToProps(state){
     return {
-        popup:state.popup
+        popup: state.popup,
+        pictureEditor: state.pictureEditor
     }
 }
 

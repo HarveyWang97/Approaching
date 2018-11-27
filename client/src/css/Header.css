@@ -1,41 +1,42 @@
-.header{
-    background-color:darkgray;
-    padding-left: 100px;
-    padding-right:100px;
-    padding-top:20px;
-    padding-bottom:20px;
+.header-container {
+    width: 100%;
+    height: 10vh;
+    background-color: darkgray;
+    position: relative;
 }
 
-.icon{
-    float:right;
-    font-size:22px;
+.header {
+    width: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
-/*.login{
-    height:100%;
-    width:100%;    
-    padding-top:70px;
-    left:50%;
-    margin-left:-119px !important ;
-    position: absolute !important; 
-}*/
+.icon {
+    float: right;
+    font-size: 22px;
+}
 
-.login{
-    width:100%;
-    height:100vh;
-    padding-top:70px;
+.login {
+    width: 100%;
+    height: 90vh;
     background-image: url("../components/autumn.jpg") ;
     
     -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .login-btn{
-    left:50%;
-    margin-left:-119px !important ;
-    position: absolute !important; 
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: 56%;
 }
 
 

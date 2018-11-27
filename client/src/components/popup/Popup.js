@@ -23,21 +23,34 @@ class Popup extends Component {
     constructor(props){
         super(props);
 
-        const { isAdd, id } = this.props.payload;
+        const { contentType,isAdd, id } = this.props.payload;
         if (isAdd) {
             this.state = {
                 editing: true,
                 payload: {}
             };
         } else {
-            const payload = this.props.events.filter(event => event._id === id)[0];
-            this.state = {
-                editing: false,
-                payload: payload
-            };
+            // set event popup data
+            if(contentType == 'event'){
+                const payload = this.props.events.filter(event => event._id === id)[0];
+                this.state = {
+                    editing: false,
+                    payload: payload
+                };
+            }
+
+            // set item popup data
+            else if(contentType == 'item'){
+
+                const payload = this.props.rawItems.filter(item => item._id === id)[0];
+                console.log("item payload",payload);
+                this.state = {
+                    editing: false,
+                    payload: payload
+                };
+            }         
         }
-        
-        
+          
     }
 
     /**
@@ -87,13 +100,14 @@ class Popup extends Component {
          */
         
         if (this.props.payload.isAdd === true) {
-            console.log("tttt", this.state.payload);
-            this.props.insertEvent(this.state.payload,'test','test');
-            this.props.fetchEvents('test','test');
+            this.props.insertEvent(this.state.payload, 'test', 'test');
+            this.props.fetchEvents('test', 'test');
             this.props.togglePopup();
         }
-        else{
-
+        else {
+            this.props.updateEvent(this.state.payload, 'test', 'test').then(
+                () => this.props.fetchEvents('test', 'test')
+            );
         }
     }
 
@@ -112,7 +126,6 @@ class Popup extends Component {
         })
     }
 
-
     /**
 	 * Render the popup based on input data type and value. 
      * 
@@ -121,11 +134,15 @@ class Popup extends Component {
 	 */
     render() {
         const { payload } = this.state;
-        console.log("---------", this.state.payload.description, payload);
+        console.log(payload);
+        const displayPicture = (payload && payload.picture) ? {
+            backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"
+        } : null;
+
         return (
             <div className='popup'>
                 <div className='popup_inner'>
-                    <div className='top'>
+                    <div className='top' id='top' style={displayPicture}>
                         <span>
                             <Icon iconName='times' onClick={() => this.props.togglePopup()} />
                             { this.state.editing ? 
@@ -135,6 +152,18 @@ class Popup extends Component {
                                         placeholder="Input item name here"
                                         onChange={this.handleChange.bind(this)} />) : 
                                 (<div className='title'>{payload.name}</div>)
+                            }
+                            { this.state.editing ? 
+                                <div
+                                    className='upload-picture-guide'
+                                    onClick={() => this.props.togglePictureEditor({
+                                        id: payload._id,
+                                        handleSubmit: this.handleEditResult.bind(this)
+                                    })}
+                                >
+                                    Click Here to Upload a Picture ...
+                                </div> :
+                                null
                             }
                         </span>
                     </div>
@@ -169,7 +198,8 @@ function mapStateToProps(state){
     return {
         user: state.auth,
         payload: state.popup.payload,
-        events: state.events.rawEvents
+        events: state.events.rawEvents,
+        rawItems:state.items['rawItems']
     }
 }
 

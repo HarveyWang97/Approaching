@@ -1,34 +1,44 @@
 import React, { Component } from 'react';
 import '../../css/Profile.css';
-import Row from './Row';
+import ProfileRow from './ProfileRow';
 import Icon from './Icon';
+import {connect} from 'react-redux';
+import  * as actions from '../../actions';
+import config from '../../config';
 
 class Profile extends Component {
     constructor(props){
         super(props);
 
-        this.fieldToIcon = {
-        	reminder: 'bell',
-        	name: 'user',
-            email: 'envelope'
+        // this.fieldToIcon = {
+        // 	reminder: 'bell',
+        //     email: 'envelope'
             
-        };
-        this.data = {
+        // };
+        /*this.data = {
             editing: false,
             data: {
                 title: 'Settings',
-                name: 'Joe Bruin',
-                email: 'JoeBruin@ucla.edu',                
+                email: 'Please enter email.',                
                 reminder: '24 h'           
             }
-        };
+        };*/
 
         this.state = {
-            editing: this.data.editing,
+            editing: false,
+            validEmail: true,
+            title: 'Settings',
+            email: 'Please enter email.', 
+            reminder: '24' 
         };
-        for (let key in this.data.data) {
+        /*for (let key in this.data.data) {
             this.state[key] = this.data.data[key];
-        }
+        }*/
+    }
+
+    validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
 
     /**
@@ -44,9 +54,9 @@ class Profile extends Component {
 	 */
 
     changeEditingState(){
-        this.setState({
-            editing: !this.state.editing
-        });
+        this.setState(prevState => ({
+            editing: !prevState.editing
+        }));
     }
 
     /**
@@ -61,7 +71,16 @@ class Profile extends Component {
 	 */
 
     handleSubmit() {
-        this.changeEditingState();
+        if (this.validateEmail(this.state.email))
+        {
+            this.changeEditingState();
+            this.props.updateEmail(this.state.email, "test", "test");
+            this.setState({validEmail: true});
+        }
+        else{
+            this.setState({validEmail: false});
+        }
+        
     }
 
     /**
@@ -74,11 +93,64 @@ class Profile extends Component {
 	 *     handleEditResult(key, value)
 	 */
     handleEditResult(key, value) {
-        this.state[key] = value;
+        if (key == "email"){
+            this.setState({email: value});
+        } 
+        if (key == "reminder"){
+            this.setState({reminder: value});
+        }         
+        
     }
 
+
+    logout(){
+        this.props.history.push("/");
+    }
+
+    /*componentWillReceiveProps(nextProps){
+        if(nextProps.user !== this.props.user){
+            this.state["email"] = nextProps.user.email
+        }
+    }*/
+
     render() {
-        const data = this.data.data;
+        const data = ["email", "reminder"];
+
+        /*return (
+            <div className='profile'>
+                <div className='profile_inner'>
+                    <div className='top' id='top'>
+                        <span>
+                            <Icon iconName='times' onClick={() => this.props.togglePopup()} />
+                            <div className='profile_title'>{this.state.title}</div>
+                            
+                        </span>
+                    </div>
+                    <div className='middle'>
+                        { Object.keys(data).map(key => (
+                            <Row key={key} 
+                                field={key}
+                                iconName={config.icons[key]}
+                                details={this.state[key]}
+                                editing={this.state.editing}
+                                handleEditResult={this.handleEditResult.bind(this)} />
+                        ))}
+                    </div>
+                    <div className='bottom'>
+                        <div className='left'>
+                            { this.state.editing ? 
+                                (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />) : 
+                                (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
+                            }
+                        </div>
+                        <div className='right'>
+                            <Icon iconName='trash-alt' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );*/
+
         return (
             <div className='profile'>
                 <div className='profile_inner'>
@@ -89,18 +161,23 @@ class Profile extends Component {
                         </div>
                     </div>
                     <div className='middle'>
-                        {Object.keys(data).map(key => {
+                        {data.map(key => {
                             if (key !== 'title') {
                                 return (
-                                    <Row key={key} 
+                                    <ProfileRow 
+                                         key={key} 
                                          field={key}
-                                         iconName={this.fieldToIcon[key]}
+                                         iconName={config.icons[key]}
                                          details={this.state[key]}
                                          editing={this.state.editing}
-                                         handleEditResult={this.handleEditResult.bind(this)} />
+                                         handleEditResult={this.handleEditResult.bind(this)} 
+                                    />
                                 );
                             }
                         })}
+                        { this.state.validEmail ?
+                            <span></span> : <span style={{color:'red'}}>Invalid Email Address!</span>
+                        }
                     </div>
                     <div className='bottom'>
                         <div className='left'>
@@ -108,9 +185,10 @@ class Profile extends Component {
                             (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />)
                             : (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
                             }
+                            
                         </div>
                         <div className='right'>
-                            <Icon iconName='sign-out-alt' />
+                            <Icon iconName='sign-out-alt'/>
                         </div>
                     </div>
                 </div>
@@ -119,7 +197,13 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+function mapStateToProps(state){
+    return {
+        user:state.auth
+    }
+}
+
+export default connect(mapStateToProps,actions)(Profile);
 
 
 

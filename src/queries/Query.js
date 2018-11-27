@@ -15,7 +15,11 @@ class Query {
     this.query = {};
     for (let property in object) {
       if (object.hasOwnProperty(property)) {
-        this.query[property] = object[property];
+        if (property === 'picture') {
+          this.query[property] = object[property].replace(/(\r\n|\n|\r| )/gm, "+");          
+        } else {
+          this.query[property] = object[property];          
+        }
       }
     }
   }
