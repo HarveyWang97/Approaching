@@ -265,6 +265,55 @@ static getEvents(owner, callback = () => {}) {
       utils.remove(model, primaryKey, details, callback);
     });
   }
+
+  /**
+   * Iterate through all users and find if they have expiring item/event.
+   * Send email to users who have expiring items or events according to their notification settings.
+   * @param {Integer} timeInterval - delay between two runs of checkExpiration in miliseconds
+   */
+  static checkExpiration(timeInterval) {
+    models.User.find( {}, (err, user) => {
+      if (!err && user) {
+        user.forEach((element) => {
+          const userName = element.name;
+          const userEmail = element.email;
+          const notifyTime = element.notifyTime;
+          let itemList = [];
+          let eventList = [];
+          models.Item.find( {}, (err, item) => {
+            if (!err && item) {
+              item.forEach((object) => {
+              if (object.owner === element.facebookId) {
+                // perform all date calculations in miliseconds
+                if (!isNaN(object.expireDate)) {
+                  const time_diff = Number(object.expireDate)-Number(new Date());
+                  if (time_diff >= 0 && time_diff <= notifyTime && (!timeInterval || time_diff > (notifyTime-timeInterval))){
+                    itemList.push(object);
+                  }
+                }
+              }})
+              models.Event.find( {}, (err, event) => {
+                if (!err && event) {
+                  event.forEach((object) => {
+                  if (object.owner === element.facebookId) {
+                    if (!isNaN(object.time)) {
+                      const time_diff = Number(object.time)-Number(new Date());
+                      if (time_diff >= 0 && time_diff <= notifyTime && (!timeInterval || time_diff > (notifyTime-timeInterval))){
+                        eventList.push(object);
+                      }
+                    }
+                  }})
+                }
+                if (itemList.length > 0 || eventList.length > 0){
+                  utils.sendNotification(itemList, eventList, userName, userEmail);
+                }
+              });
+            }
+          });
+        });
+      }
+    });
+  }
 }
 
 /**
