@@ -119,7 +119,7 @@ class Popup extends Component {
 	 */
     render() {
         const { payload } = this.state;
-        console.log("---------", payload, {backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"});
+        //console.log("---------", payload, {backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"});
         
         return (
             <div className='popup'>
