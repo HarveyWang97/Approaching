@@ -84,7 +84,7 @@ At the same time, our mlab mongodb database should change accordingly.
 
 | Action |                                        Url                                         | Required |
 |:------:|------------------------------------------------------------------------------------|:--------:|
-| Insert | `http://localhost:3000/users/insert?facebookId={}&accessToken={}&name={}&email={}` |    All   |
+| Insert | `http://localhost:3000/users/insert?facebookId={}&accessToken={}&name={}&email={}&notifyTime={}` |    All except`notifyTime`   |
 | Update | `http://localhost:3000/users/update?facebookId={}&accessToken={}&email={}`         |          |
 | Remove | `http://localhost:3000/users/remove?facebookId={}&accessToken={}`                  |          |
 

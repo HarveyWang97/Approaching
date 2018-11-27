@@ -10,6 +10,7 @@ const smtp = email.server.connect({
    tls: false,
    port: 465
 });
+const defaultNotifyTime = 86400000; // one day
 
 
 /**
@@ -91,6 +92,9 @@ class DatabaseUtils {
         }
         this._save(doc, callback);
       } else {
+        if (!object.notifyTime) {
+          object.notifyTime = defaultNotifyTime;
+        }
         this.insert(model, object, callback);
       }
     });
