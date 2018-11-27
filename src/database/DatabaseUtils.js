@@ -216,36 +216,39 @@ class DatabaseUtils {
    * @param {string} email - User email
    */
   static sendNotification(itemList, eventList, name, email){
-    let detail = "Hello " + name + ",\n";
+    let detail = "Hello " + name + ",\n\n";
     // itemList is not empty
     if (itemList.length > 0) {
       detail += "Some items in your home are approaching expiration dates: \n";
-      for (let i in itemList){
+      for (let i of itemList){
         const loc_arr = JSON.parse(i.location);
-        detail += i.name + " stored at " + loc_arr.join('/') + "\n";
+        detail += "\t" + i.name + " stored at " + loc_arr.join('/') + "\n";
       } 
+      detail += "\n";
     }
     // eventList is not empty
     if (eventList.length > 0) {
       detail += "Some events are approaching their deadlines: \n";
-      for (let e in eventList){
-        detail += e.name + " at " + e.location + "\n";
+      for (let e of eventList){
+        if (e.location){
+          detail += "\t" + e.name + " at " + e.location + "\n";
+        } else {
+          detail += "\t" + e.name +  "\n";
+        }
       } 
     }
 
-    detail += "\nBest Regards,\n Team Chaoz - Project Approaching"
+    detail += "\nBest Regards,\nTeam Chaoz - Project Approaching"
 
     let message	= {
       text:	detail,
       from:	"Team Chaoz <cs130.approaching@gmail.com>",
-      to:		"<"+email+">",
+      to: `<${email}>`,
       subject:	"Expiration Notification from Approaching",
     };
     
     smtp.send(message, function(err, message) { console.log(err || message); });
   }
 }
-
-//setTimeout(function(){DatabaseUtils.sendNotification([],[],"Cecilia","celia1997@icloud.com")}, 1000);
 
 module.exports = DatabaseUtils;

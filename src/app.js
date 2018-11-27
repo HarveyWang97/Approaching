@@ -4,6 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('morgan');
+const database = require('./database/Database');
+const timeInterval = 3600000; // one hour in miliseconds
+const notificationOn = false; // set notification on to enable email service
 
 const indexRouter = require('./routers/IndexRouter');
 const usersRouter = require('./routers/UsersRouter');
@@ -43,5 +46,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send('error: Something wrong');
 });
+
+// run checkExpiration in a loop
+if (notificationOn) {
+  database.checkExpiration(0);
+  setInterval(function(){database.checkExpiration(timeInterval)}, timeInterval); 
+}
 
 module.exports = app;
