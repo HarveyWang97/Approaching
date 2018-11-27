@@ -122,11 +122,22 @@ class Itemboard extends Component {
         );
     }
 
+
+
     handleSearch(){
         this.setState((prevState) => {
             return {searchMode:!prevState.searchMode};
         });
     }
+
+    handleClose(){
+        this.setState((prevState) => {
+            return {searchMode:!prevState.searchMode};
+        });
+        document.getElementById("search").value="";
+    }
+
+
 
     renderSearchResult(){
         const input_item_name =  document.getElementById("search").value;
@@ -172,7 +183,7 @@ class Itemboard extends Component {
                 <div>
                     <input id="search" type="text" placeholder="Search..."  className="searchbar"/>
                     {this.state.searchMode?  
-                        <i className="fa fa-close iconSubmit" onClick={() => this.handleSearch()}  ></i> :
+                        <i className="fa fa-close iconSubmit" onClick={() => this.handleClose()}  ></i> :
                         <i className="fa fa-search iconSubmit" onClick={() => this.handleSearch()}  ></i>
                     }             
                 </div>
