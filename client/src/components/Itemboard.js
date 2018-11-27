@@ -76,10 +76,17 @@ class Itemboard extends Component {
             });
             
             concrete_items = current.items.map((item,index) => {
+                console.log(item);
                 return (
-                    <div className="entry" key={index}  >
+                    <div 
+                        className="entry" id={item._id}  key={index} 
+                        onClick = {() => this.props.togglePopup({
+                            contentType:'item',
+                            isAdd:false,
+                            id:this.props.id
+                        })} 
+                     >
                         <span style={{marginLeft:'18px'}}>{item.name}</span>
-                        <span></span>
                     </div>
                 );
             });

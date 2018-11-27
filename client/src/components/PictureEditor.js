@@ -7,6 +7,7 @@ import Icon from './popup/Icon';
 import { connect } from 'react-redux';
 import  * as actions from '../actions';
 
+// reference: https://codesandbox.io/s/o68joy0p5
 class PictureEditor extends Component {
     constructor(props){
         super(props);
@@ -88,7 +89,6 @@ class PictureEditor extends Component {
         return new Promise((resolve, reject) => {
             canvas.toBlob(blob => {
                 const quality = Math.min(20000 / blob.size, 1);
-                console.log('blob size', blob.size, quality);
                 resolve(canvas.toDataURL("image/jpeg", quality));
             }, "image/jpeg");
         });
@@ -100,8 +100,6 @@ class PictureEditor extends Component {
     }
 
     render() {
-        console.log('+++++', this.props.payload);
-        const { croppedImageUrl } = this.state;
         return (
             <div className='picture-editor'>
                 <div className='picture-editor-inner'>
@@ -122,7 +120,6 @@ class PictureEditor extends Component {
                             className='cropscreen'
                         />
                     )}
-                    {/* {croppedImageUrl && <img alt="Crop" style={{width: '100%'}} src={croppedImageUrl} />} */}
                     <div className='submit' onClick={this.handleSubmit.bind(this)}>
                         <Icon iconName='save'/>
                     </div>
