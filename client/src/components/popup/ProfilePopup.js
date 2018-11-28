@@ -4,25 +4,13 @@ import ProfileRow from './ProfileRow';
 import Icon from './Icon';
 import {connect} from 'react-redux';
 import  * as actions from '../../actions';
+import ls from 'local-storage';
 import config from '../../config';
+import {Link} from 'react-router-dom';
 
 class Profile extends Component {
     constructor(props){
         super(props);
-
-        // this.fieldToIcon = {
-        // 	reminder: 'bell',
-        //     email: 'envelope'
-            
-        // };
-        /*this.data = {
-            editing: false,
-            data: {
-                title: 'Settings',
-                email: 'Please enter email.',                
-                reminder: '24 h'           
-            }
-        };*/
 
         this.state = {
             editing: false,
@@ -104,7 +92,10 @@ class Profile extends Component {
 
 
     logout(){
-        this.props.history.push("/");
+        //this.props.history.push("/");
+        ls.clear();
+        this.props.closePopup();
+
     }
 
     /*componentWillReceiveProps(nextProps){
@@ -188,7 +179,7 @@ class Profile extends Component {
                             
                         </div>
                         <div className='right'>
-                            <Icon iconName='sign-out-alt'/>
+                            <Link to="/"><Icon style={{color:'black'}} iconName='sign-out-alt' onClick={() => this.logout()}/></Link>
                         </div>
                     </div>
                 </div>

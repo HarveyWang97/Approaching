@@ -4,6 +4,7 @@ import { Navbar} from 'reactstrap';
 import ProfilePopup from './popup/ProfilePopup';
 import Icon from './popup/Icon'
 import {connect} from 'react-redux';
+import ls from 'local-storage';
 import  * as actions from '../actions';
 
 
@@ -49,7 +50,7 @@ class Header extends Component{
                         <span style={{fontSize:'22px'}}>Approaching</span>
                         <div className="icon">
                             <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
-                            <b>{"  "}{this.state.name}</b>
+                            <b>{"  "}{ls.get('username')}</b>
                         </div>
                     </div>
                 </Navbar>

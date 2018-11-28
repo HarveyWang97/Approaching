@@ -5,6 +5,7 @@ import '../css/Header.css';
 import {insertUser} from '../Request.js';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
+import ls from 'local-storage';
 
  /**
   * @classdesc Create a login button that get user logged in with facebook.
@@ -23,6 +24,12 @@ class LoginButton extends Component{
     responseFacebook (response)  {
         console.log(response);
         insertUser(response);
+        // record the user information in the local storage
+        ls.set('username',response.name);
+        ls.set('accessToken',response.accessToken);
+        ls.set('facebookId',response.userID);
+        ls.set('email',response.email);
+
         this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken, name:response.name, email:response.email});
         this.props.history.push('/dashboard');
     }
