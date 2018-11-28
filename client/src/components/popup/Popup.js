@@ -159,7 +159,7 @@ class Popup extends Component {
                             { this.state.editing ? 
                                 <div
                                     className='upload-picture-guide'
-                                    onClick={() => this.props.togglePictureSelector({
+                                    onClick={() => this.props.togglePictureEditor({
                                         id: payload._id,
                                         handleSubmit: this.handleEditResult.bind(this)
                                     })}
