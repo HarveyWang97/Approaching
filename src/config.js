@@ -21,33 +21,35 @@ module.exports = {
     Item: {
       collection: 'Items',
       fields: {
-        owner:       { type: String, required: true },
-        name:        { type: String, required: true },
+        owner:       { type: String, required: true  },
+        name:        { type: String, required: true  },
         picture:     { type: String, required: false },
         expireDate:  { type: String, required: false },
-        location:    { type: String, required: true },
+        location:    { type: String, required: true  },
         description: { type: String, required: false },
+        eventList:   { type: String, required: false }
       },
       primaryKey: '_id',
-      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'expireDate', 'location', 'description' ],
+      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'expireDate', 'location', 'description', 'eventList' ],
       updateRequired: [ 'facebookId', 'accessToken', '_id' ],
-      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'expireDate', 'location', 'description' ],
+      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'expireDate', 'location', 'description', 'eventList' ],
       remove: [ 'facebookId', 'accessToken', '_id' ]
     },
     Event: {
       collection: 'Events',
       fields: {
-        owner:       { type: String, required: true },
-        name:        { type: String, required: true },
+        owner:       { type: String, required: true  },
+        name:        { type: String, required: true  },
         picture:     { type: String, required: false },
-        time:        { type: String, required: true },
+        time:        { type: String, required: true  },
         location:    { type: String, required: false },
         description: { type: String, required: false },
+        itemList:    { type: String, required: false }
       },
       primaryKey: '_id',
-      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'time', 'location', 'description' ],
+      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'time', 'location', 'description', 'itemList' ],
       updateRequired: [ 'facebookId', 'accessToken', '_id' ],
-      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'time', 'location', 'description' ],
+      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'time', 'location', 'description', 'itemList' ],
       remove: [ 'facebookId', 'accessToken', '_id' ]
     }
   }

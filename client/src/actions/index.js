@@ -50,7 +50,7 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     }
     const res = await axios.get(url);
     // TODO: check res.success and console.log only if it fails
-    console.log("insert", res);
+    console.log("update", res);
 }
 
 export const fetchItems = (facebookId,accessToken) => async (dispatch) => {

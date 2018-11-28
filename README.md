@@ -82,33 +82,33 @@ At the same time, our mlab mongodb database should change accordingly.
 
 ### User
 
-| Action |                                        Url                                         | Required |
-|:------:|------------------------------------------------------------------------------------|:--------:|
-| Insert | `http://localhost:3000/users/insert?facebookId={}&accessToken={}&name={}&email={}` |    `name, email`   |
-| Update | `http://localhost:3000/users/update?facebookId={}&accessToken={}&email={}&notifyTime={}`         |          |
-| Remove | `http://localhost:3000/users/remove?facebookId={}&accessToken={}`                  |          |
+| Action |                                        Url                                       |   Required    |
+|:------:|----------------------------------------------------------------------------------|:-------------:|
+| Insert | `http://localhost:3000/users/insert?facebookId=&accessToken=&name=&email=`       | `name, email` |
+| Update | `http://localhost:3000/users/update?facebookId=&accessToken=&email=&notifyTime=` |               |
+| Remove | `http://localhost:3000/users/remove?facebookId=&accessToken=`                    |               |
 
 ### Item
 
-| Action |                                        Url                                         | Required |
-|:------:|------------------------------------------------------------------------------------|:--------:|
-| Insert | `http://localhost:3000/items/insert?facebookId={}&accessToken={}&name={}&picture={}&expireDate={}&location={}&description={}` |    All   |
-| Update | `http://localhost:3000/items/update?facebookId={}&accessToken={}&_id={}&name={}&picture={}&expireDate={}&location={}&description={}` |   `_id`  |
-| Remove | `http://localhost:3000/items/remove?facebookId={}&accessToken={}&_id={}`           |   `_id`  |
+| Action |                                        Url                                                                                      | Required |
+|:------:|---------------------------------------------------------------------------------------------------------------------------------|:--------:|
+| Insert | `http://localhost:3000/items/insert?facebookId=&accessToken=&name=&picture=&expireDate=&location=&description=&eventList=`      |    All   |
+| Update | `http://localhost:3000/items/update?facebookId=&accessToken=&_id=&name=&picture=&expireDate=&location=&description=&eventList=` |   `_id`  |
+| Remove | `http://localhost:3000/items/remove?facebookId=&accessToken=&_id=`                                                              |   `_id`  |
 
 ### Event
 
-| Action |                                        Url                                         | Required |
-|:------:|------------------------------------------------------------------------------------|:--------:|
-| Insert | `http://localhost:3000/events/insert?facebookId={}&accessToken={}&name={}&picture={}&time={}&location={}&description={}` |    All   |
-| Update | `http://localhost:3000/events/update?facebookId={}&accessToken={}&_id={}&name={}&picture={}&time={}&location={}&description={}` |   `_id`  |
-| Remove | `http://localhost:3000/events/remove?facebookId={}&accessToken={}&_id={}`                  |   `_id`  |
+| Action |                                        Url                                                                                | Required |
+|:------:|---------------------------------------------------------------------------------------------------------------------------|:--------:|
+| Insert | `http://localhost:3000/events/insert?facebookId=&accessToken=&name=&picture=&time=&location=&description=&itemList=`      |    All   |
+| Update | `http://localhost:3000/events/update?facebookId=&accessToken=&_id=&name=&picture=&time=&location=&description=&itemList=` |   `_id`  |
+| Remove | `http://localhost:3000/events/remove?facebookId=&accessToken=&_id=`                                                       |   `_id`  |
 
 ### Get All Items and Events
 
-|  Action   |                                        Url                                         | Required |
-|:---------:|------------------------------------------------------------------------------------|:--------:|
-| fetchProfile | `http://localhost:3000/fetchProfile?facebookId={}&accessToken={}`                     |          |
-| fetchData | `http://localhost:3000/fetchData?facebookId={}&accessToken={}`                     |          |
-| fetchItems | `http://localhost:3000/fetchItems?facebookId={}&accessToken={}`                     |          |
-| fetchEvents | `http://localhost:3000/fetchEvents?facebookId={}&accessToken={}`                     |          |
+|  Action   |                                        Url                       | Required |
+|:---------:|------------------------------------------------------------------|:--------:|
+| fetchProfile | `http://localhost:3000/fetchProfile?facebookId=&accessToken=` |          |
+| fetchData | `http://localhost:3000/fetchData?facebookId=&accessToken=`       |          |
+| fetchItems | `http://localhost:3000/fetchItems?facebookId=&accessToken=`     |          |
+| fetchEvents | `http://localhost:3000/fetchEvents?facebookId=&accessToken=`   |          |
