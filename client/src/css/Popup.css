@@ -79,13 +79,41 @@
 
 .popup_row {
     padding: 20px 0;
+    height: 50px;
+    position: relative;
 }
 
+
 .popup_inner .middle .popup_icon {
+    line-height: 50px;
     display: inline-block;
     width: 25px;
     text-align: center;
-    margin-right: 15px;
+    /* margin-right: 15px; */
+    position: absolute;
+}
+
+.row-content {
+    position: absolute;
+    left: 40px;
+    width: calc(100% - 40px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.row-content
+input {
+    font-size: 16px;
+    padding: 8px;
+}
+
+.row-content-time input,
+.row-content-expireDate input {
+    padding: 5px 8px;
+}
+
+.row-content-location {
+    z-index: 999;
 }
 
 .popup_inner .bottom {

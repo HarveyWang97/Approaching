@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../css/Popup.css';
 import Icon from './Icon';
+import Select from 'react-select';
 import config from '../../config';
 import {connect} from 'react-redux';
 import  * as actions from '../../actions';
@@ -36,8 +37,8 @@ class Row extends Component {
             const time = document.getElementById("datepicker");
             const d = new Date(time.value);
             const mtime = d.getTime();
-            console.log("time",mtime);
-            handleEditResult(field,mtime);
+            console.log("time", mtime);
+            handleEditResult(field, mtime);
         } else {
             handleEditResult(field, event.target.value);
         }
@@ -62,6 +63,10 @@ class Row extends Component {
         var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min ;
         return time;
     }
+    
+    reformatItemLocation(location) {
+        return location ? JSON.parse(location).join('/') : '';
+    }
 
     renderDescription(editing, details) {
         return editing ? (
@@ -77,6 +82,7 @@ class Row extends Component {
     renderTime(editing, details) {
         const showTime = this.timeConverter(details);
         const dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null;
+
         return editing ? (
             <input 
                 id="datepicker"
@@ -90,14 +96,48 @@ class Row extends Component {
     }
 
     renderLocation(editing, details) {
+        const { contentType, items } = this.props;
+        if (contentType === 'event') {
+            return editing ? (
+                <input 
+                    type="text"
+                    value={details}
+                    placeholder="Input"
+                    onChange={this.handleChange.bind(this)}
+                />
+            ) : <span>{details}</span>;
+        }
+        
+        const paths = [];
+        const pathsSet = new Set([]);
+        
+        items.forEach(item => pathsSet.add(item.location));
+        pathsSet.forEach(path => paths.push(path));
+        paths.forEach((path, index) => paths[index] = {
+            label: this.reformatItemLocation(path),
+            value: path
+        });
+        paths.sort((a, b) => a.label - b.label);
+        const currentLocation = this.reformatItemLocation(details);
+        
         return editing ? (
-            <input 
-                type="text"
-                value={details}
-                placeholder="Input"
-                onChange={this.handleChange.bind(this)}
-            />
-        ) : <span>{details}</span>;
+            // <div className='location-content'>
+                <Select
+                    className="basic-single"
+                    // styles={{ control: (base, _state) => ({...base, minHeight: '20px', height: '20px'})}}
+                    classNamePrefix="select"
+                    defaultValue={{ label: currentLocation, value: details}}
+                    isSearchable={true}
+                    name="color"
+                    options={paths}
+                    maxMenuHeight={100}
+                    onChange={data => {
+                        const { handleEditResult, field } = this.props;
+                        handleEditResult(field, data.value);
+                    }}
+                />
+            // </div>
+        ) : <span>{currentLocation}</span>;
     }
 
     renderItemList(editing, details) {
@@ -171,13 +211,19 @@ class Row extends Component {
         return (
             <div className='popup_row'>
                 <Icon iconName={iconName}/>
-                {content}
+                <div className={`row-content row-content-${field}`}>
+                    {content}
+                </div>
             </div>
         );
         
     }
 }
 
+function mapStateToProps(state){
+    return {
+        items: state.items['rawItems']
+    }
+}
 
-
-export default connect(null,actions)(Row);
+export default connect(mapStateToProps, actions)(Row);

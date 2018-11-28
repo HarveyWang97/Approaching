@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import swal from 'sweetalert2'
 import '../../css/Popup.css';
 import Row from './Row';
 import Icon from './Icon';
@@ -41,7 +43,6 @@ class Popup extends Component {
 
             // set item popup data
             else if(contentType === 'item'){
-
                 const payload = this.props.rawItems.filter(item => item._id === id)[0];
                 console.log("item payload",payload);
                 this.state = {
@@ -62,6 +63,7 @@ class Popup extends Component {
 	 *
 	 */
     changeEditingState(){
+        ReactDOM.findDOMNode(this).getElementsByClassName('middle')[0].scrollTop = 0;
         this.setState({
             editing: !this.state.editing
         });
@@ -89,7 +91,6 @@ class Popup extends Component {
 	 * @return {void}
 	 */
     handleSubmit() {
-        this.changeEditingState();
         /**
          * if this.props.payload.isAdd === true, send an insert item/event 
          * request to server.
@@ -98,18 +99,38 @@ class Popup extends Component {
          * if this.props.payload.isAdd === false, send an update item/event 
          * request to server.
          */
-        if(this.state.payload.time !== null && this.state.payload.time !== undefined ){
-            console.log("payload time",this.state.payload.time);
-            if (this.props.payload.isAdd === true) {
-                this.props.insertEvent(this.state.payload, 'test', 'test').then(
-                    () => this.props.fetchEvents('test', 'test')
-                );
-                this.props.togglePopup();
+        const { contentType, isAdd } = this.props.payload;
+        const { expireDate, location, time } = this.state.payload;
+        if (contentType === 'item') {
+            if (expireDate && location) {
+                this.changeEditingState();
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    html: 'Please fill in the <b>expiration date</b> and the <b>location</b>!'
+                });
             }
-            else {
-                this.props.updateEvent(this.state.payload, 'test', 'test').then(
-                    () => this.props.fetchEvents('test', 'test')
-                );
+        } else {
+            if (time) {
+                this.changeEditingState();
+                console.log("payload time", time);
+                if (isAdd) {
+                    this.props.insertEvent(this.state.payload, 'test', 'test').then(
+                        () => this.props.fetchEvents('test', 'test')
+                    );
+                    this.props.togglePopup();
+                } else {
+                    this.props.updateEvent(this.state.payload, 'test', 'test').then(
+                        () => this.props.fetchEvents('test', 'test')
+                    );
+                }
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    html: 'Please fill in the <b>event time</b>!'
+                });
             }
         }
     }
@@ -137,7 +158,6 @@ class Popup extends Component {
 	 */
     render() {
         const { payload } = this.state;
-        console.log(payload);
         const displayPicture = (payload && payload.picture) ? {
             backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"
         } : null;
@@ -172,7 +192,9 @@ class Popup extends Component {
                     </div>
                     <div className='middle'>
                         { config.fields[this.props.payload.contentType].map(key => (
-                            <Row key={key} 
+                            <Row
+                                key={key} 
+                                contentType={this.props.payload.contentType}
                                 field={key}
                                 iconName={config.icons[key]}
                                 details={payload[key]}
