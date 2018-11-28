@@ -1,0 +1,75 @@
+.item-selector {
+    position: absolute;
+    width: 100%;
+    height: 90vh;
+    background-color: rgba(0,0,0, 0.5);
+    z-index: 3;
+}
+
+.item-selector-inner {
+    position: absolute;
+    width: calc(500px - 30px * 2);
+    height: calc(600px - 30px * 2);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: rgb(200, 200, 172);
+    padding: 30px;
+}
+
+.item-selector-inner .close-icon {
+    position: absolute;    
+    right: 30px;
+}
+
+.item-selector-inner .caption {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+    padding: 20px 50px;
+}
+
+.item-selector-inner .listItem {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+    padding: 20px 50px;
+}
+
+.item-selector-inner .submit {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+}
+
+.upload-picture {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+    z-index: -1;
+}
+
+.upload-picture + label {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f1e5e6;
+    background-color: #d3394c;
+    display: inline-block;
+    cursor: pointer;
+    max-width: 80%;
+    padding: 10px 20px;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+}
+
+.upload-picture + label:hover {
+    background-color: #722040;
+}

@@ -3,7 +3,8 @@ import {
     TOGGLE_POPUP,
     TOGGLE_PICTURE_EDITOR,
     FETCH_EVENTS,
-    FETCH_ITEMS
+    FETCH_ITEMS,
+    TOGGLE_ITEM_SELECTOR
 } from './types.js';
 import axios from 'axios';
 
@@ -19,6 +20,10 @@ export const togglePopup = (payload) => dispatch => {
 export const togglePictureEditor = (payload) => dispatch => {
     dispatch({type: TOGGLE_PICTURE_EDITOR, payload: payload});
 };
+
+export const toggleItemSelector = (payload) => dispatch => {
+    dispatch({type: TOGGLE_ITEM_SELECTOR, payload: payload});
+}
 
 export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
     const url = 

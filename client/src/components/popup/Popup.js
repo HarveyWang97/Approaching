@@ -98,17 +98,19 @@ class Popup extends Component {
          * if this.props.payload.isAdd === false, send an update item/event 
          * request to server.
          */
-        
-        if (this.props.payload.isAdd === true) {
-            this.props.insertEvent(this.state.payload, 'test', 'test').then(
-                () => this.props.fetchEvents('test', 'test')
-            );
-            this.props.togglePopup();
-        }
-        else {
-            this.props.updateEvent(this.state.payload, 'test', 'test').then(
-                () => this.props.fetchEvents('test', 'test')
-            );
+        if(this.state.payload.time !== null && this.state.payload.time !== undefined ){
+            console.log("payload time",this.state.payload.time);
+            if (this.props.payload.isAdd === true) {
+                this.props.insertEvent(this.state.payload, 'test', 'test').then(
+                    () => this.props.fetchEvents('test', 'test')
+                );
+                this.props.togglePopup();
+            }
+            else {
+                this.props.updateEvent(this.state.payload, 'test', 'test').then(
+                    () => this.props.fetchEvents('test', 'test')
+                );
+            }
         }
     }
 
@@ -157,7 +159,7 @@ class Popup extends Component {
                             { this.state.editing ? 
                                 <div
                                     className='upload-picture-guide'
-                                    onClick={() => this.props.togglePictureEditor({
+                                    onClick={() => this.props.togglePictureSelector({
                                         id: payload._id,
                                         handleSubmit: this.handleEditResult.bind(this)
                                     })}

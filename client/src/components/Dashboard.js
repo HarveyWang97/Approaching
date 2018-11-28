@@ -3,6 +3,7 @@ import Eventboard from './Eventboard';
 import Popup from './popup/Popup';
 import Itemboard from './Itemboard';
 import PictureEditor from './PictureEditor';
+import ItemSelector from './ItemSelector';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import "../css/Dashboard.css";
@@ -28,6 +29,10 @@ class Dashboard extends Component {
                     <PictureEditor payload={this.props.pictureEditor.payload}/>
                     : null
                 }
+                {this.props.itemSelector.show ? 
+                    <ItemSelector payload={this.props.itemSelector.payload}/>
+                    : null
+                }
             </div>
         );
     }
@@ -36,7 +41,8 @@ class Dashboard extends Component {
 function mapStateToProps(state){
     return {
         popup: state.popup,
-        pictureEditor: state.pictureEditor
+        pictureEditor: state.pictureEditor,
+        itemSelector:state.itemSelector
     }
 }
 

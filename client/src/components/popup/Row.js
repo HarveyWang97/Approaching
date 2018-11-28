@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import '../../css/Popup.css';
 import Icon from './Icon';
+import config from '../../config';
+import {connect} from 'react-redux';
+import  * as actions from '../../actions';
 
 var today = new Date();
 var todayISO = today.toISOString().slice(0,16);
@@ -56,7 +59,7 @@ class Row extends Component {
         var date = a.getDate();
         var hour = a.getHours() < 10 ? ('0'+a.getHours()) : a.getHours();
         var min = a.getMinutes() < 10 ? ('0'+a.getMinutes()) : a.getMinutes();
-        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min ;
+        var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min ;
         return time;
     }
 
@@ -74,7 +77,6 @@ class Row extends Component {
     renderTime(editing, details) {
         const showTime = this.timeConverter(details);
         const dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null;
-        
         return editing ? (
             <input 
                 id="datepicker"
@@ -109,7 +111,10 @@ class Row extends Component {
                 />
                 <button type="button" style={{marginLeft:'5px'}}>Add</button>
                 <div style={{marginTop:'5px', marginLeft:'38px'}}>
-                    <button type="button">Select From Item Board</button>
+                    <button type="button" onClick={() => this.props.toggleItemSelector({
+                                        id:this.props.field._id,
+                                        handleSubmit: this.handleChange.bind(this)
+                                    })}>Select From Item Board</button>
                 </div>
             </span>
         ) : <span>{details}</span>;
@@ -173,4 +178,6 @@ class Row extends Component {
     }
 }
 
-export default Row;
+
+
+export default connect(null,actions)(Row);
