@@ -47,11 +47,11 @@ class ProfileRow extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const { field, iconName, details, editing, handleEditResult } = this.props;
+        const { field, iconName, placeholder, details, editing, handleEditResult } = this.props;
         return (
             <div className='profile_row'>
                 <Icon iconName={iconName}/>
-                {editing ? (<input type="text" value={this.state.item} placeholder="Input"
+                {editing ? (<input type="text" value={this.state.item} placeholder={placeholder}
                         onChange={this.handleChange.bind(this)} />)
                         : (<span>{details}</span>)
                 }

@@ -14,28 +14,29 @@
     position: absolute;
     left: 70%;
     right: 0%;
-    top: 9.7%;
-    bottom: 20%;
+    top: 10%;
+    bottom: 40%;
     margin: auto;
     background: rgb(255, 255, 255, 1);
 }
 
 .profile_inner .top {
-    height: 20%;
-    background: rgb(255, 255, 0, 0.5);
+    height: 10%;
+    background: rgb(161, 160, 160);
 }
 
 .profile_title {
     display: inline-block;
-    /*text-align: left;*/
-    margin-top: 5%;
-    margin-left: 5%;
-    font-size: small;
+    text-align: center;
+    margin-top: 2%;
+    margin-left: 24%;
+    font-size: large;
+    font-weight: bold;
 }
 
 .profile_inner .top .profile_icon {
     display: inline-block;
-    width: 50px;
+    width: 10px;
     text-align: right;
     padding: 2% 0% 0% 92%;
 }
@@ -78,7 +79,7 @@
     width: 100%;
     /* border-top: 2px solid; */
     padding: 5% 0%;
-    background: rgb(255, 255, 0, 0.5);
+    background: rgb(161, 160, 160);
 }
 
 .profile_inner .bottom .left {

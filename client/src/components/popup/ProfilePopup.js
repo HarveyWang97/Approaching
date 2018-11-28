@@ -15,13 +15,10 @@ class Profile extends Component {
         this.state = {
             editing: false,
             validEmail: true,
-            title: 'Settings',
-            email: 'Please enter email.', 
+            title: 'Account Settings',
+            email: ls.get('email'), 
             reminder: '24' 
         };
-        /*for (let key in this.data.data) {
-            this.state[key] = this.data.data[key];
-        }*/
     }
 
     validateEmail(email) {
@@ -98,67 +95,55 @@ class Profile extends Component {
 
     }
 
-    /*componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps){
         if(nextProps.user !== this.props.user){
-            this.state["email"] = nextProps.user.email
+            if (nextProps.user.email !== null){
+                this.setState({
+                    email: nextProps.user.email
+                }); 
+            }
+            
         }
-    }*/
+    }
 
     render() {
         const data = ["email", "reminder"];
-
-        /*return (
-            <div className='profile'>
-                <div className='profile_inner'>
-                    <div className='top' id='top'>
-                        <span>
-                            <Icon iconName='times' onClick={() => this.props.togglePopup()} />
-                            <div className='profile_title'>{this.state.title}</div>
-                            
-                        </span>
-                    </div>
-                    <div className='middle'>
-                        { Object.keys(data).map(key => (
-                            <Row key={key} 
-                                field={key}
-                                iconName={config.icons[key]}
-                                details={this.state[key]}
-                                editing={this.state.editing}
-                                handleEditResult={this.handleEditResult.bind(this)} />
-                        ))}
-                    </div>
-                    <div className='bottom'>
-                        <div className='left'>
-                            { this.state.editing ? 
-                                (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />) : 
-                                (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
-                            }
-                        </div>
-                        <div className='right'>
-                            <Icon iconName='trash-alt' />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );*/
 
         return (
             <div className='profile'>
                 <div className='profile_inner'>
                     <div className='top'>
+                        <span>
                         <div>
+                            <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                             <Icon iconName='times' onClick={this.props.closePopup} />
+                            
                             <div className='profile_title'>{this.state.title}</div>
                         </div>
+                        </span>
                     </div>
                     <div className='middle'>
                         {data.map(key => {
-                            if (key !== 'title') {
+                            if (key == 'email') {
                                 return (
                                     <ProfileRow 
                                          key={key} 
                                          field={key}
                                          iconName={config.icons[key]}
+                                         placeholder={"Enter Email Address."}
+                                         details={this.state[key]}
+                                         editing={this.state.editing}
+                                         handleEditResult={this.handleEditResult.bind(this)} 
+                                    />
+                                );
+                            }
+                            if (key == 'reminder') {
+                                return (
+                                    <ProfileRow 
+                                         key={key} 
+                                         field={key}
+                                         iconName={config.icons[key]}
+                                         placeholder={"Enter default reminder time."}
                                          details={this.state[key]}
                                          editing={this.state.editing}
                                          handleEditResult={this.handleEditResult.bind(this)} 
