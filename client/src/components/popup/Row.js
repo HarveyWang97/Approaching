@@ -29,17 +29,15 @@ class Row extends Component {
 	 */
     handleChange(event) {
         const { handleEditResult, field } = this.props;
-        if(field === 'time' || field === 'expireDate'){
+        if (field === 'time' || field === 'expireDate') {
             const time = document.getElementById("datepicker");
             const d = new Date(time.value);
             const mtime = d.getTime();
             console.log("time",mtime);
             handleEditResult(field,mtime);
-        }
-        else{
+        } else {
             handleEditResult(field, event.target.value);
         }
-        
     }
 
     submitDate(e){
@@ -60,7 +58,73 @@ class Row extends Component {
         var min = a.getMinutes() < 10 ? ('0'+a.getMinutes()) : a.getMinutes();
         var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min ;
         return time;
-      }
+    }
+
+    renderDescription(editing, details) {
+        return editing ? (
+            <input 
+                type="text"
+                value={details}
+                placeholder="Input"
+                onChange={this.handleChange.bind(this)}
+            />
+        ) : <span>{details}</span>;
+    }
+
+    renderTime(editing, details) {
+        const showTime = this.timeConverter(details);
+        const dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null;
+        
+        return editing ? (
+            <input 
+                id="datepicker"
+                type="datetime-local"
+                min={todayISO}
+                max="2030-12-31T00:00"
+                defaultValue={dTime}
+                onChange={this.handleChange.bind(this)}
+            />
+        ) : <span>{showTime}</span>;
+    }
+
+    renderLocation(editing, details) {
+        return editing ? (
+            <input 
+                type="text"
+                value={details}
+                placeholder="Input"
+                onChange={this.handleChange.bind(this)}
+            />
+        ) : <span>{details}</span>;
+    }
+
+    renderItemList(editing, details) {
+        return editing ? (
+            <span>
+                <input 
+                    type="text"
+                    value={details}
+                    placeholder="Input"
+                    onChange={this.handleChange.bind(this)}
+                />
+                <button type="button" style={{marginLeft:'5px'}}>Add</button>
+                <div style={{marginTop:'5px', marginLeft:'38px'}}>
+                    <button type="button">Select From Item Board</button>
+                </div>
+            </span>
+        ) : <span>{details}</span>;
+    }
+
+    renderEventList(editing, details) {
+        return editing ? (
+            <input 
+                type="text"
+                value={details}
+                placeholder="Input"
+                onChange={this.handleChange.bind(this)}
+            />
+        ) : <span>{details}</span>;
+    }
 
     /**
 	 * Render the row based on the given input. 
@@ -73,31 +137,36 @@ class Row extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const { iconName, details, editing } = this.props;
-        var showTime;
-        var dTime;
-        if (this.props.field === "time") { 
-            showTime = this.timeConverter(details); 
-            dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null; 
+        const { field, iconName, details, editing } = this.props;
+        let content = null;
+        switch (field) {
+            case 'description':
+                content = this.renderDescription(editing, details);
+                break;
+            case 'time':
+                content = this.renderTime(editing, details); 
+                break;
+            case 'expireDate':
+                content = this.renderTime(editing, details); 
+                break;
+            case 'location':
+                content = this.renderLocation(editing, details); 
+                break;
+            case 'itemList':
+                content = this.renderItemList(editing, details);
+                break;
+            case 'eventList':
+                content = this.renderEventList(editing, details);
+                break;
+        
+            default:
+                break;
         }
 
         return (
             <div className='popup_row'>
                 <Icon iconName={iconName}/>
-                {editing && this.props.field !== "time" ? (<input type="text" value={details} placeholder="Input"
-                        onChange={this.handleChange.bind(this)} />)
-                        : (editing && this.props.field === "time" ? null : (this.props.field === "time" ? <span>{showTime}</span> : <span>{details}</span>))
-                }
-                {
-                    this.props.field == "time" && editing ? 
-                    (<input id="datepicker" type="datetime-local" min={todayISO} max="2030-12-31T00:00" defaultValue={dTime} onChange={this.handleChange.bind(this)}/>) : null
-                }
-                {
-                    this.props.field === "itemList" & editing ? (<button type="button" style={{marginLeft:'5px'}}>Add</button>) : null
-                }
-                {
-                    this.props.field === "itemList" & editing ? (<div style={{marginTop:'5px', marginLeft:'38px'}}><button type="button">Select From Item Board</button></div>) : null
-                }
+                {content}
             </div>
         );
         

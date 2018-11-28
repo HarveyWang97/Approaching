@@ -92,8 +92,8 @@ At the same time, our mlab mongodb database should change accordingly.
 
 | Action |                                        Url                                         | Required |
 |:------:|------------------------------------------------------------------------------------|:--------:|
-| Insert | `http://localhost:3000/items/insert?facebookId={}&accessToken={}&name={}&picture={}&expireDate={}&location={}&quantity={}&description={}` |    All   |
-| Update | `http://localhost:3000/items/update?facebookId={}&accessToken={}&_id={}&name={}&picture={}&expireDate={}&location={}&quantity={}&description={}` |   `_id`  |
+| Insert | `http://localhost:3000/items/insert?facebookId={}&accessToken={}&name={}&picture={}&expireDate={}&location={}&description={}` |    All   |
+| Update | `http://localhost:3000/items/update?facebookId={}&accessToken={}&_id={}&name={}&picture={}&expireDate={}&location={}&description={}` |   `_id`  |
 | Remove | `http://localhost:3000/items/remove?facebookId={}&accessToken={}&_id={}`           |   `_id`  |
 
 ### Event

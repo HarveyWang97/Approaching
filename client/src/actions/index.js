@@ -29,7 +29,7 @@ export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
 
 export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     const url = 
-    `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture={}&time=${data.time}&location=${data.location}&description=${data.description}`;
+    `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture=${data.picture}&time=${data.time}&location=${data.location}&description=${data.description}`;
     const res = await axios.get(url);
     // TODO: check res.success and console.log only if it fails
     console.log("insert", res);

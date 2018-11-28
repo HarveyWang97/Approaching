@@ -4,7 +4,6 @@ module.exports = {
         'description',
         'expireDate',
         'location',
-        'quantity',
         'eventList'
     ],
     event: [

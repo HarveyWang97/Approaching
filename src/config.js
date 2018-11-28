@@ -26,13 +26,12 @@ module.exports = {
         picture:     { type: String, required: false },
         expireDate:  { type: String, required: false },
         location:    { type: String, required: true },
-        quantity:    { type: String, required: true },
         description: { type: String, required: false },
       },
       primaryKey: '_id',
-      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'expireDate', 'location', 'quantity', 'description' ],
+      insert: [ 'facebookId', 'accessToken', 'name', 'picture', 'expireDate', 'location', 'description' ],
       updateRequired: [ 'facebookId', 'accessToken', '_id' ],
-      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'expireDate', 'location', 'quantity', 'description' ],
+      updateOptional: [ 'facebookId', 'accessToken', '_id', 'name', 'picture', 'expireDate', 'location', 'description' ],
       remove: [ 'facebookId', 'accessToken', '_id' ]
     },
     Event: {

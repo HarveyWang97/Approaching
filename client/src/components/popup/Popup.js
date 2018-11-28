@@ -31,7 +31,7 @@ class Popup extends Component {
             };
         } else {
             // set event popup data
-            if(contentType == 'event'){
+            if(contentType === 'event'){
                 const payload = this.props.events.filter(event => event._id === id)[0];
                 this.state = {
                     editing: false,
@@ -40,7 +40,7 @@ class Popup extends Component {
             }
 
             // set item popup data
-            else if(contentType == 'item'){
+            else if(contentType === 'item'){
 
                 const payload = this.props.rawItems.filter(item => item._id === id)[0];
                 console.log("item payload",payload);
@@ -100,8 +100,9 @@ class Popup extends Component {
          */
         
         if (this.props.payload.isAdd === true) {
-            this.props.insertEvent(this.state.payload, 'test', 'test');
-            this.props.fetchEvents('test', 'test');
+            this.props.insertEvent(this.state.payload, 'test', 'test').then(
+                () => this.props.fetchEvents('test', 'test')
+            );
             this.props.togglePopup();
         }
         else {
