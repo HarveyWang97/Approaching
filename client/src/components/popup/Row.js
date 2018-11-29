@@ -149,7 +149,7 @@ class Row extends Component {
     renderItemList(editing, details) {
         let output;
         let formatted_details;
-        if(details === undefined ){
+        if(details === undefined || details.length === 0){
             output = (<div/>);
         }
         else{
