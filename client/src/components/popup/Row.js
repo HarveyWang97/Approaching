@@ -38,7 +38,8 @@ class Row extends Component {
             const mtime = d.getTime();
             console.log("time", mtime);
             handleEditResult(field, mtime);
-        } else {
+        }
+        else {
             handleEditResult(field, event.target.value);
         }
     }
@@ -146,7 +147,7 @@ class Row extends Component {
                     type="text"
                     value={details}
                     placeholder="Input"
-                    onChange={this.handleChange.bind(this)}
+                    
                 />
                 <button type="button" style={{marginLeft:'5px'}}>Add</button>
                 <div style={{marginTop:'5px', marginLeft:'38px'}}>
