@@ -40,6 +40,10 @@ class Row extends Component {
             console.log("time", mtime);
             handleEditResult(field, mtime);
         }
+        else if(field === 'itemList'){
+            const formatted_data = JSON.stringify(event);
+            handleEditResult(field,formatted_data);
+        }
         else {
             handleEditResult(field, event.target.value);
         }
@@ -141,24 +145,42 @@ class Row extends Component {
         ) : <span>{currentLocation}</span>;
     }
 
+
+    // the itemList is in the format [{lable:xxx,id:xxx}.....] 
     renderItemList(editing, details) {
+        let output;
+        let formatted_details;
+        if(details === undefined ){
+            output = (<div/>);
+        }
+        else{
+            formatted_details = JSON.parse(details);
+            output = formatted_details.map((item,idx) => {
+                return (
+                    <div key={idx}>
+                        {item.label}
+                    </div>
+                );
+            });
+        }
+        
+
         return editing ? (
             <span>
                 <input 
                     type="text"
-                    value={details}
                     placeholder="Input"
-                    
                 />
                 <button type="button" style={{marginLeft:'5px'}}>Add</button>
                 <div style={{marginTop:'5px', marginLeft:'38px'}}>
                     <button type="button" onClick={() => this.props.toggleItemSelector({
                                         id:this.props.field._id,
-                                        handleSubmit: this.handleChange.bind(this)
+                                        handleSubmit: this.handleChange.bind(this),
+                                        formatted_details:formatted_details
                                     })}>Select From Item Board</button>
                 </div>
             </span>
-        ) : <span>{details}</span>;
+        ) : <div>{output}</div>;
     }
 
     renderEventList(editing, details) {
