@@ -18,14 +18,15 @@ class Header extends Component{
     }
 
     togglePopup() {
+        console.log("hey");
         this.setState({
-          showPopup: !this.state.showPopup
+            showPopup: !this.state.showPopup
         });
     }
 
     setPopupState(){
         this.setState({
-          showPopup: true
+            showPopup: true
         });
     }
 
@@ -49,7 +50,7 @@ class Header extends Component{
                     <div className="header">
                         <span style={{fontSize:'22px'}}>Approaching</span>
                         <div className="icon">
-                            <Icon iconName='user-circle' onClick={this.setPopupState.bind(this)}/>
+                            <Icon iconName='user-circle' onClick={this.togglePopup.bind(this)}/>
                             <b>{"  "}{ls.get('username')}</b>
                         </div>
                     </div>

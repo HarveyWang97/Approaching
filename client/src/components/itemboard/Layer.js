@@ -50,8 +50,10 @@ class Layer extends Component {
                     />
                     <span className="layer-title">{content ? content.name : 'Home' }</span>
                 </div>
-                {sublayers}
-                {concrete_items}
+                <div className="layer-middle">
+                    {sublayers}
+                    {concrete_items}
+                </div>
                 <div className="addItemRow">
                     <i
                         className="fa fa-plus add"
