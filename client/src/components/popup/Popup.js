@@ -106,12 +106,12 @@ class Popup extends Component {
                 this.changeEditingState();
                 if (isAdd) {
                     this.props.insertItem(this.state.payload, 'test', 'test').then(
-                        () => this.props.fetchEvents('test', 'test')
+                        () => this.props.fetchItems('test', 'test')
                     );
                     this.props.togglePopup();
                 } else {
                     this.props.updateItem(this.state.payload, 'test', 'test').then(
-                        () => this.props.fetchEvents('test', 'test')
+                        () => this.props.fetchItems('test', 'test')
                     );
                 }
             } else {
