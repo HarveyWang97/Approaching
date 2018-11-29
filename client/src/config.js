@@ -27,5 +27,6 @@ module.exports = {
   picture: {
     width: 100,
     height: 30
-  }
+  },
+  layerOffset: { x: -80, y: 15 }
 }

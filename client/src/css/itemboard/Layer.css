@@ -1,0 +1,77 @@
+.top-layer,
+.second-layer,
+.base-layer {
+    width: 400px;
+    height: 500px;
+    border: black solid 1px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.top-layer {
+    background-color: white;
+}
+
+.second-layer {
+    background-color: lightgrey;
+    filter: blur(1px);
+}
+
+.base-layer {
+    background-color: rgb(165, 165, 165);
+    filter: blur(1px);
+}
+
+.layer-header {
+    border-bottom: black solid 1px;
+    height: 60px;
+    font-size: 21px;
+    line-height: 60px;
+    position: relative;
+}
+
+.layer-back-icon {
+    width: 60px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 60px;
+}
+
+.layer-title {
+    position: absolute;
+    width: calc(100% - 60px * 2);
+    text-align: center;
+}
+
+.entry {
+    border-bottom: black solid 1px;
+    height:50px;
+    font-size: 18px;
+    line-height: 50px;
+    position: relative;
+}
+
+.layer-row-content {
+    margin-left: 30px;
+    width: calc(400px - 30px - 60px);
+    overflow: hidden;
+    display: inline-block;
+}
+
+.layer-row-icon {
+    position: absolute;
+    right: 0px;
+    width: 60px;
+    text-align: center;
+    font-size: 30px;    
+}
+
+.addItemRow {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-top:solid 1px;
+  }

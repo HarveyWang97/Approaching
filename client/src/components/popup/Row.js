@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import '../../css/Popup.css';
 import Icon from './Icon';
 import Select from 'react-select';
-import config from '../../config';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import  * as actions from '../../actions';
 
 var today = new Date();
@@ -65,7 +64,7 @@ class Row extends Component {
     }
     
     reformatItemLocation(location) {
-        return location ? JSON.parse(location).join('/') : '';
+        return location ? JSON.parse(location).join(' / ') : '';
     }
 
     renderDescription(editing, details) {
