@@ -92,7 +92,6 @@ class Profile extends Component {
         //this.props.history.push("/");
         ls.clear();
         this.props.closePopup();
-
     }
 
     componentWillReceiveProps(nextProps){
@@ -102,7 +101,6 @@ class Profile extends Component {
                     email: nextProps.user.email
                 }); 
             }
-            
         }
     }
 
@@ -110,8 +108,8 @@ class Profile extends Component {
         const data = ["email", "reminder"];
 
         return (
-            <div className='profile'>
-                <div className='profile_inner'>
+            <div className='profile' onClick={this.props.closePopup}>
+                <div className='profile_inner' onClick={e => e.stopPropagation()}>
                     <div className='top'>
                         <span>
                         <div>
