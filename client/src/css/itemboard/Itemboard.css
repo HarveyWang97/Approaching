@@ -43,6 +43,7 @@
     position: absolute;
     width: 100%;
     top: 120px;
+    height: calc(100% - 120px);
 }
 
 .no-item-found-prompt {

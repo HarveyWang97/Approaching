@@ -2,7 +2,7 @@
 .second-layer,
 .base-layer {
     width: 400px;
-    height: 500px;
+    height: calc((90vh - 120px) * 0.9);
     border: black solid 1px;
     position: absolute;
     left: 50%;
