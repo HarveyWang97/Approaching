@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 import '../css/ItemSelector.css';
-import config from '../config';
 import Icon from './popup/Icon';
 import { connect } from 'react-redux';
 import  * as actions from '../actions';
 import MultiSelect from "@kenshooui/react-multi-select";
 
-
-// reference: https://codesandbox.io/s/o68joy0p5
 class ItemSelector extends Component {
     componentDidMount(){
         let arr = [];
@@ -28,18 +23,25 @@ class ItemSelector extends Component {
         };
       }
     
-      handleChange(selectedItems) {
+    handleChange(selectedItems) {
         this.setState({ selectedItems });
-      }
-      render() {
+    }
+
+    handleSubmit() {
+        this.props.toggleItemSelector();
+        
+    }
+
+    render() {
         const { items, selectedItems } = this.state;
+        console.log("items", selectedItems);
         return (
           <div className="item-selector">
           <div className='item-selector-inner'>
                     <div className='close-icon'>
                         <Icon iconName='times' onClick={() => this.props.toggleItemSelector()} />
                     </div>
-                    <div className='submit'>
+                    <div className='submit' onClick={this.handleSubmit.bind(this)}>
                         <Icon iconName='save'/>
                     </div>
                     <div className='caption' >
@@ -48,10 +50,10 @@ class ItemSelector extends Component {
                     <div style={{marginTop:'70px'}}>
                         {this.state.items.length > 0 ?
                          <MultiSelect
-                         items={items}
-                         selectedItems={selectedItems}
-                         onChange={this.handleChange}
-                     />: <h1>no items</h1>
+                            items={items}
+                            selectedItems={selectedItems}
+                            onChange={this.handleChange}
+                        />: <h1>no items</h1>
                         } 
                         
                     </div>
@@ -60,7 +62,7 @@ class ItemSelector extends Component {
           
           </div>
         );
-      }
+    }
 
 
 }
