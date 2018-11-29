@@ -21,28 +21,28 @@
 }
 
 .profile_inner .top {
-    height: 10%;
+    height: 20%;
     background: rgb(161, 160, 160);
 }
 
 .profile_title {
     display: inline-block;
     text-align: center;
-    margin-top: 2%;
-    margin-left: 24%;
-    font-size: large;
+    margin-top: 0%;
+    margin-left: 27%;
+    font-size: 130%;
     font-weight: bold;
 }
 
 .profile_inner .top .profile_icon {
     display: inline-block;
-    width: 10px;
+    width: 0px;
     text-align: right;
-    padding: 2% 0% 0% 92%;
+    padding: 3% 10% 0% 90%;
 }
 
 .profile_inner .top .profile_icon:hover {
-    color:rgb(0,255,255);
+    color: red;
     cursor: pointer;
 }
 
@@ -63,14 +63,14 @@
 }
 
 .profile_row {
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 .profile_inner .middle .profile_icon {
     display: inline-block;
-    width: 25px;
+    width: 30px;
     text-align: center;
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 .profile_inner .bottom {

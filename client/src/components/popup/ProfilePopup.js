@@ -115,9 +115,11 @@ class Profile extends Component {
                     <div className='top'>
                         <span>
                         <div>
-                            <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                            <Icon iconName='times' onClick={this.props.closePopup} />
-                            
+                            {/* <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> */}
+                            <div className='profile_icon'>
+                                <Icon iconName='times' onClick={this.props.closePopup} />
+                            </div>
+        
                             <div className='profile_title'>{this.state.title}</div>
                         </div>
                         </span>
