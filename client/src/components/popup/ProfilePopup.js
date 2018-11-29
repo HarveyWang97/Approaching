@@ -164,7 +164,9 @@ class Profile extends Component {
                             
                         </div>
                         <div className='right'>
-                            <Link to="/"><Icon style={{color:'black'}} iconName='sign-out-alt' onClick={() => this.logout()}/></Link>
+                            <Link to="/" style={{textDecoration: 'none', color:'black'}}>
+                                <Icon style={{color:'black'}} iconName='sign-out-alt' onClick={() => this.logout()}/>
+                            </Link>
                         </div>
                     </div>
                 </div>

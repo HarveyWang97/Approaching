@@ -139,13 +139,15 @@ class Itemboard extends Component {
 
 
     formatLocation(location){
-        const temp = location.replace(/\s+/, "").substring(1,location.length-2);
+        return JSON.parse(location).join('/');
+
+      /*  const temp = location.replace(/\s+/, "").substring(1,location.length-2);
         const arr = temp.split(", ");
         let res = "";
         for(var i=0;i<arr.length;i++){
             res+=arr[i].replace(/"/gi,"")+"->";
         }
-        return res.substring(0,res.length-2);
+        return res.substring(0,res.length-2);*/
     }
     
 
@@ -165,7 +167,7 @@ class Itemboard extends Component {
                 return (        
                     <div 
                         className="entry"
-                        style={{textAlign:'center',paddingBottom:'5px',paddingTop:'5px'}}
+                        style={{textAlign:'center',paddingBottom:'8px',paddingTop:'8px'}}
                         onClick = {() => this.props.togglePopup({
                             contentType:'item',
                             isAdd:false,
@@ -174,7 +176,7 @@ class Itemboard extends Component {
                     >
                         {item.name}
                         <br />
-                        <span>{this.formatLocation(item.location)}</span>
+                        <span style={{marginTop:'4px'}}>{this.formatLocation(item.location)}</span>
                     </div>          
                 );
             });
