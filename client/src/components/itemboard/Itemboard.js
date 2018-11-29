@@ -87,14 +87,14 @@ class Itemboard extends Component {
             );
         }
         else {
-            const entries = payload.map(item => {
+            const entries = payload.map((item,idx) => {
                 return (
                     <div 
                         className="search-result-entry"
                         onClick = {() => this.props.togglePopup({
                             contentType:'item',
                             isAdd:false,
-                            id:payload[0]._id
+                            id:payload[idx]._id
                         })} 
                     >
                         <div className="search-result-item-name">{item.name}</div>
