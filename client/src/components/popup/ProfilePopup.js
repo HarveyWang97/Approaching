@@ -153,6 +153,7 @@ class Profile extends Component {
                                 );
                             }
                         })}
+                        
                         { this.state.validEmail ?
                             <span></span> : <span style={{color:'red'}}>Invalid Email Address!</span>
                         }

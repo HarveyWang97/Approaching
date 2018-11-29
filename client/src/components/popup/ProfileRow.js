@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../../config';
 import '../../css/Profile.css';
 import Icon from './Icon';
 
@@ -56,10 +57,9 @@ class ProfileRow extends Component {
                 
                     {editing ? (<input type="text" value={this.state.item} placeholder={placeholder}
                             onChange={this.handleChange.bind(this)} />)
-                            : (<span>{details}</span>)
+                            : iconName == config.icons["reminder"] ? (<span>{details} hour(s)</span>) : (<span>{details}</span>)
                     }
                 </div>
-            // </div>
         );
         
     }
