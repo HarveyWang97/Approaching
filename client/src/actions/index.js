@@ -53,6 +53,27 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     console.log("update", res);
 }
 
+export const insertItem = (data,facebookId,accessToken) => async (dispatch) =>{
+    const url = 
+    `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture=${data.picture}&expireDate=${data.time}&location=${data.location}&description=${data.description}&eventList=${data.itemlist}`;
+    const res = await axios.get(url);
+    // TODO: check res.success and console.log only if it fails
+    console.log("insert", res);
+}
+
+export const updateItem = (data,facebookId,accessToken) => async (dispatch) =>{
+    let url = 
+    `http://localhost:3000/items/update?facebookId=${facebookId}&accessToken=${accessToken}`;
+    for (let key in data) {
+        if (key !== '__v' && key !== 'owner') {
+            url += `&${key}=${data[key]}`;
+        }
+    }
+    const res = await axios.get(url);
+    // TODO: check res.success and console.log only if it fails
+    console.log("update", res);
+}
+
 export const fetchItems = (facebookId,accessToken) => async (dispatch) => {
      const url = 
     `http://localhost:3000/fetchItems?facebookId=${facebookId}&accessToken=${accessToken}`;

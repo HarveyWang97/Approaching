@@ -104,6 +104,16 @@ class Popup extends Component {
         if (contentType === 'item') {
             if (expireDate && location) {
                 this.changeEditingState();
+                if (isAdd) {
+                    this.props.insertItem(this.state.payload, 'test', 'test').then(
+                        () => this.props.fetchEvents('test', 'test')
+                    );
+                    this.props.togglePopup();
+                } else {
+                    this.props.updateItem(this.state.payload, 'test', 'test').then(
+                        () => this.props.fetchEvents('test', 'test')
+                    );
+                }
             } else {
                 swal({
                     type: 'error',
@@ -133,6 +143,16 @@ class Popup extends Component {
                 });
             }
         }
+    }
+
+    /**
+	 * This method delete the current item/event when invoked.
+	 * 
+	 * @param {None}
+	 * @return {void}
+	 */
+    handleDelete() {
+
     }
 
     /**
@@ -210,7 +230,7 @@ class Popup extends Component {
                             }
                         </div>
                         <div className='right'>
-                            <Icon iconName='trash-alt' />
+                            <Icon iconName='trash-alt' onClick={this.handleDelete.bind(this)} />
                         </div>
                     </div>
                 </div>
