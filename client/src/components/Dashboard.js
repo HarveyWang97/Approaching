@@ -6,6 +6,7 @@ import PictureEditor from './PictureEditor';
 import ItemSelector from './ItemSelector';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
+import ls from 'local-storage';
 import "../css/Dashboard.css";
 
 class Dashboard extends Component {
@@ -16,7 +17,15 @@ class Dashboard extends Component {
         };
     }
 
+    componentDidMount(){
+        
+        if(ls.get('username') === null || ls.get('username') === undefined){
+            this.props.history.push('/');
+        }
+    }
+
     render() {
+        
         return (
             <div className='dashboard'>
                 <Itemboard />
