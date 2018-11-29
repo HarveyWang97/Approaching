@@ -12,6 +12,7 @@ class ItemSelector extends Component {
             arr.push({label:this.props.rawItems[i].name,id:this.props.rawItems[i]._id});
         }
         this.setState({items:arr});
+        this.setState({selectedItems:this.props.payload.formatted_details});
     }
 
     constructor(props) {
@@ -28,8 +29,8 @@ class ItemSelector extends Component {
     }
 
     handleSubmit() {
+        this.props.payload.handleSubmit(this.state.selectedItems);
         this.props.toggleItemSelector();
-        
     }
 
     render() {
@@ -69,7 +70,8 @@ class ItemSelector extends Component {
 
 function mapStateToProps(state){
     return {
-        rawItems:state.items['rawItems']
+        rawItems:state.items['rawItems'],
+        events: state.events.rawEvents
     }
 }
 
