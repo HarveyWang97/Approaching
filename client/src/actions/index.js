@@ -50,8 +50,9 @@ export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     const url = 
     `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&time=${time}&location=${location}&description=${description}&itemList=${itemlist}`;
     const res = await axios.get(url);
-    // TODO: check res.success and console.log only if it fails
-    console.log("insert", res);
+    if (!(res.success)) {
+        console.log("fail to insert event: ", res);
+    }
 }
 
 export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
@@ -63,9 +64,21 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
         }
     }
     const res = await axios.get(url);
-    // TODO: check res.success and console.log only if it fails
-    console.log("update", res);
+    if (!(res.success)) {
+        console.log("fail to update event: ", res);
+    }
 }
+
+export const deleteEvent = (eventId,facebookId,accessToken) => async (dispatch) =>{
+    let url = 
+    `http://localhost:3000/events/remove?facebookId=${facebookId}&accessToken=${accessToken}&_id=${eventId}`;
+    const res = await axios.get(url);
+    if (!(res.success)) {
+        console.log("fail to delete event: ", res);
+    }
+}
+
+
 
 export const insertItem = (data,facebookId,accessToken) => async (dispatch) => {
     // name & location is mandatory for an event object
@@ -78,8 +91,9 @@ export const insertItem = (data,facebookId,accessToken) => async (dispatch) => {
     const url = 
     `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&expireDate=${expireDate}&location=${location}&description=${description}&eventList=${eventlist}`;
     const res = await axios.get(url);
-    // TODO: check res.success and console.log only if it fails
-    console.log("insert", res);
+    if (!(res.success)) {
+        console.log("fail to insert item: ", res);
+    }
 }
 
 export const updateItem = (data,facebookId,accessToken) => async (dispatch) =>{
@@ -91,8 +105,18 @@ export const updateItem = (data,facebookId,accessToken) => async (dispatch) =>{
         }
     }
     const res = await axios.get(url);
-    // TODO: check res.success and console.log only if it fails
-    console.log("update", res);
+    if (!(res.success)) {
+        console.log("fail to update item: ", res);
+    }
+}
+
+export const deleteItem = (itemId,facebookId,accessToken) => async (dispatch) =>{
+    let url = 
+    `http://localhost:3000/items/remove?facebookId=${facebookId}&accessToken=${accessToken}&_id=${itemId}`;
+    const res = await axios.get(url);
+    if (!(res.success)) {
+        console.log("fail to delete item: ", res);
+    }
 }
 
 export const fetchItems = (facebookId,accessToken) => async (dispatch) => {
