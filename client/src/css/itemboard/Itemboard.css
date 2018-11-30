@@ -19,8 +19,8 @@
     padding: 6px 15px;
     outline: none;
     font-size: 17px;
-    background-color: gainsboro;
-    border: 2px solid #ccc;  
+    background-color: #d8c3a5;
+    border: 2px solid #8e8d8a;  
     border-radius: 10px;
     margin-left: 60px;
     width: calc(100% - 15px * 2 - 2px * 2 - 60px * 2);
@@ -51,7 +51,7 @@
 }
 
 .search-result-entry {
-    border-bottom: black solid 1px;
+    border-bottom: #8e8d8a solid 1px;
     height: 70px;
     font-size: 18px;
     line-height: 70px;
@@ -60,6 +60,11 @@
 
 .search-result-item-name {
     text-align: center;
+}
+
+.search-result-entry:hover{
+    text-shadow: 1px 1px 2px #8e8d8a;
+    cursor: pointer;
 }
 
 .search-result-location {
