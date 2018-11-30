@@ -184,7 +184,10 @@ class Row extends Component {
         } else {
             formatted_items = JSON.parse(items);
             output = formatted_items.map((item,idx) => (
-                <li key={idx} className={'popup-field-content-row popup-list-field-content-row'}>
+                <li
+                    key={idx}
+                    className={'popup-field-content-row popup-list-field-content-row popup-list-display'}
+                >
                     {item.label}
                 </li>
             ));
@@ -265,7 +268,10 @@ class Row extends Component {
         } else {
             formatted_details = JSON.parse(details);
             output = formatted_details.map((item,idx) => (
-                <li key={idx} className={'popup-field-content-row popup-list-field-content-row'}>
+                <li
+                    key={idx}
+                    className={'popup-field-content-row popup-list-field-content-row popup-list-display'}
+                >
                     {item.label}
                 </li>
             ));
@@ -274,20 +280,18 @@ class Row extends Component {
 
         return editing ? (
             <div>
-                {/* <form onSubmit={(e) => this.handleManuallyAddItem(e)}>
-                    <input 
-                        type='text'
-                        placeholder='Input'
-                        name = 'newItem'
-                    />
-                    <button 
-                        type='submit' 
+                <form className={className} onSubmit={(e) => this.handleManuallyAddItem(e)}>
+                    <input type='text' placeholder='Input' name = 'newItem'/>
+                    <button
+                        type='submit'
+                        className='popup-field-content-row-autosize-button'
                     >
                         add
                     </button>
-                </form> */}
+                </form>
                 <div className={className}>
-                    <button type='button' onClick={() => this.props.toggleItemSelector({
+                    <button type='button' className='popup-field-content-row-fullsize-button'
+                            onClick={() => this.props.toggleItemSelector({
                         id:this.props.field._id,
                         handleSubmit: this.handleChange.bind(this),
                         formatted_details:formatted_details
@@ -306,7 +310,10 @@ class Row extends Component {
         } else {
             formatted_details = JSON.parse(details);
             output = formatted_details.map((item,idx) => (
-                <li key={idx} className={'popup-field-content-row popup-list-field-content-row'}>
+                <li
+                    key={idx}
+                    className={'popup-field-content-row popup-list-field-content-row popup-list-display'}
+                >
                     {item.label}
                 </li>
             ));
@@ -316,7 +323,8 @@ class Row extends Component {
         return editing ? (
             <div>
                 <div className={className}>
-                    <button type='button' onClick={() => this.props.toggleEventSelector({
+                    <button type='button' className='popup-field-content-row-fullsize-button'
+                            onClick={() => this.props.toggleEventSelector({
                         id:this.props.field._id,
                         handleSubmit: this.handleChange.bind(this),
                         formatted_details:formatted_details

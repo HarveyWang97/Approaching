@@ -94,7 +94,6 @@ class DatabaseUtils {
           if (!(res.success)) {
             callback(res);
           } else {
-            console.log(doc);
             callback({
               success: res.success,
               id: res.id,
@@ -109,7 +108,6 @@ class DatabaseUtils {
           if (!(res.success)) {
             callback(res);
           } else {
-            console.log(doc);
             callback({
               success: res.success,
               id: res.id,
