@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { connect } from 'react-redux';
 import  * as actions from '../../actions';
 import { isArray } from 'util';
-import idGenerator from 'react-id-generator';
+import uuidv4 from 'uuid/v4';
 
 var today = new Date();
 var todayISO = today.toISOString().slice(0,16);
@@ -23,10 +23,11 @@ class Row extends Component {
 	 * @param {None}
 	 * @return {void} 
 	 */
+    /*
      constructor(props) {
          super(props);
-         this.htmlId = idGenerator();
      }
+     */
 
     /**
 	 * This method set the value of this row's item to the new input value.
@@ -66,8 +67,8 @@ class Row extends Component {
                     raw_data = JSON.parse(this.props.details);
                 }
                 console.log("new added",event.target.newItem.value);
-                const temp = this.htmlId;
-                raw_data.push({label:event.target.newItem.value,id:temp});
+               
+                raw_data.push({label:event.target.newItem.value,id:uuidv4()});
                 handleEditResult(field,JSON.stringify(raw_data));
             }    
         }
@@ -236,7 +237,7 @@ class Row extends Component {
         }
 
         return editing ? (
-            <div>
+            <div style={{marginTop:'10px'}} >
                 <form onSubmit={(e) => this.handleManuallyAddItem(e)}>
                     <input 
                         type="text"
@@ -261,7 +262,7 @@ class Row extends Component {
                 </div>
                 {this.renderRemovable(details)}
             </div>
-        ) : <div>{output}</div>;
+        ) : <div style={{marginTop:'10px'}}>{output}</div>;
     }
 
     renderEventList(editing, details) {
