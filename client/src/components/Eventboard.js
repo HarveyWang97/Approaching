@@ -100,7 +100,7 @@ class Eventboard extends Component{
      */
     renderItem(id, name,time){
         return (
-            <Event key={id} id={id} name={name} time={time} key={name}/>
+            <Event key={id} id={id} name={name} time={time}/>
         );
     }
 
@@ -122,7 +122,7 @@ class Eventboard extends Component{
             <div className="split-right right">  
             <div className="events">          
                 <h2 style = {{marginTop:'40px', marginLeft:'50px', color:"#61605d"}}>Events Calendar
-                <img style = {{marginLeft:'5px'}} src={calendar} width="30" height="26" />
+                <img style = {{marginLeft:'5px'}} src={calendar} width="30" height="26" alt="calendarIcon"/>
                 </h2>
                 {events}
            </div>
