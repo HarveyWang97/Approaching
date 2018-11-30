@@ -87,11 +87,11 @@
 .popup_inner .middle {
     position: absolute;
     top: 150px;
-    width: calc(100% - 100px * 2);
+    width: calc(100% - 80px - 70px);
     height: calc(100% - 150px - 80px - 50px * 2);
 
     overflow-y: scroll;
-    margin: 50px 100px;
+    margin: 50px 80px 50px 70px;
 }
 
 ::-webkit-scrollbar {
@@ -99,12 +99,11 @@
     background: transparent;  /* optional: just make scrollbar invisible */
 }
 
-.popup_row {
+.popup-field {
     padding: 10px 0;
-    height: 50px;
     position: relative;
+    /* overflow-y: -webkit-paged-y; */
 }
-
 
 .popup_inner .middle .popup_icon {
     line-height: 50px;
@@ -113,35 +112,49 @@
     text-align: center;
     /* margin-right: 15px; */
     position: absolute;
+    font-size: 20px;    
 }
 
-.row-content {
-    position: absolute;
+.popup-field-content-row {
+    position: relative;
     left: 40px;
     width: calc(100% - 40px);
-    top: 50%;
-    transform: translateY(-50%);
+    height: 50px;
+    line-height: 50px;
+    /* top: 50%;
+    transform: translateY(-50%); */
 }
 
-.row-content
+.popup-field-content-row
 input {
     font-size: 16px;
     padding: 8px;
+    width: calc(100% - 20px);
 }
 
-.row-content-time input,
-.row-content-expireDate input {
+.popup-time-field-content-row input,
+.popup-expireDate-field-content-row input {
     padding: 5px 8px;
 }
 
-.row-content-location {
-    z-index: 999;
+.popup-field-select {
+    line-height: 20px;
+    margin: 5px 0;
+    z-index: 999;    
 }
 
-/* .row-content-itemList {
-    top: 0;
-} */
+.popup-list-field-content-row button {
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+    border: outset;
+}
 
+.popup-list-field-content-row button:hover {
+    cursor: pointer;
+}
 
 .popup_inner .bottom {
     position: absolute;

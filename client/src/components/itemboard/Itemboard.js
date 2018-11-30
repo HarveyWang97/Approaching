@@ -103,7 +103,7 @@ class Itemboard extends Component {
                 );
             });
             return (
-                <div className="top-layer">
+                <div className="top-layer" style={{overflowY:'scroll'}}>
                     {entries}
                 </div>
             );

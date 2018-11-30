@@ -20,7 +20,7 @@ class Header extends Component{
     togglePopup() {
         this.setState({
             showPopup: !this.state.showPopup
-        });
+        });  
     }
 
     setPopupState(){
@@ -39,6 +39,11 @@ class Header extends Component{
         }
     }
 
+    userLoggedIn()
+    {
+        return (ls.get('username') !== undefined && ls.get('username') !== null)
+    }
+
 
     render(){
         return (
@@ -52,10 +57,10 @@ class Header extends Component{
                         </div>
                     </div>
                 </Navbar>
-                {this.state.showPopup ? 
+                {this.state.showPopup ? (this.userLoggedIn() ? 
                     <ProfilePopup
                         closePopup={this.togglePopup.bind(this)}
-                    />
+                    /> : null)
                     : null
                 }
                 
