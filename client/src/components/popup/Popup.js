@@ -154,7 +154,19 @@ class Popup extends Component {
 	 * @return {void}
 	 */
     handleDelete() {
-
+        const { contentType } = this.props.payload;
+        const { _id } = this.state.payload;
+        if (contentType === 'item') {
+            this.props.deleteItem(_id, 'test', 'test').then(
+                () => this.props.fetchItems('test', 'test')
+            );
+            this.props.togglePopup();
+        } else {
+            this.props.deleteEvent(_id, 'test', 'test').then(
+                () => this.props.fetchEvents('test', 'test')
+            );
+            this.props.togglePopup();
+        }
     }
 
     /**
@@ -225,15 +237,26 @@ class Popup extends Component {
                         ))}
                     </div>
                     <div className='bottom'>
-                        <div className='left'>
-                            { this.state.editing ? 
-                                (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />) : 
-                                (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
-                            }
-                        </div>
-                        <div className='right'>
-                            <Icon iconName='trash-alt' onClick={this.handleDelete.bind(this)} />
-                        </div>
+                        {   this.props.payload.isAdd?
+                                (
+                                <div className='editModeIcon'>
+                                    <Icon iconName='save' onClick={this.handleSubmit.bind(this)} />
+                                </div>    
+                                ) :
+                                ( 
+                                <React.Fragment>
+                                <div className='left'>
+                                    { this.state.editing ? 
+                                        (<Icon iconName='save' onClick={this.handleSubmit.bind(this)} />) : 
+                                        (<Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
+                                    }
+                                </div>
+                                <div className='right'>
+                                    <Icon iconName='trash-alt' onClick={this.handleDelete.bind(this)} />
+                                </div>
+                                </React.Fragment>
+                                )
+                        }
                     </div>
                 </div>
             </div>

@@ -44,10 +44,9 @@ class Layer extends Component {
         return (
             <div className={className} style={offsetStyle}>
                 <div className="layer-header">
-                    <i 
-                        className="fas fa-angle-left layer-back-icon"
-                        onClick={ enable ? goBack : null }
-                    />
+                    <i className="fas fa-angle-left layer-back-icon"
+                        onClick={ enable ? goBack : null } 
+                        style={{visibility: (content&&content.name==='home') ?"hidden" :"visible"}}/>
                     <span className="layer-title">{content ? content.name : 'Home' }</span>
                 </div>
                 <div className="layer-middle">
