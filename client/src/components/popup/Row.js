@@ -26,9 +26,10 @@ class Row extends Component {
     constructor(props) {
         super(props);
 
-        const { field, details } = this.props;
+        const { contentType, field, details } = this.props;
         this.state = {
-            diyLocation: field === 'location' ? this.reformatItemLocation(details) : ''
+            diyLocation: field === 'location' && contentType === 'item' ? 
+                this.reformatItemLocation(details) : ''
         }
     }
 
