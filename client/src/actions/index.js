@@ -40,8 +40,15 @@ export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
 };
 
 export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
+    // name & time is mandatory for an event object
+    let { name, picture, time, location, description, itemlist } = data;
+    picture = picture || "";
+    location = location || "";
+    description = description || "";
+    itemlist = itemlist || "";
+
     const url = 
-    `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture=${data.picture}&time=${data.time}&location=${data.location}&description=${data.description}&itemList=${data.itemlist}`;
+    `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&time=${time}&location=${location}&description=${description}&itemList=${itemlist}`;
     const res = await axios.get(url);
     // TODO: check res.success and console.log only if it fails
     console.log("insert", res);
@@ -60,9 +67,16 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     console.log("update", res);
 }
 
-export const insertItem = (data,facebookId,accessToken) => async (dispatch) =>{
+export const insertItem = (data,facebookId,accessToken) => async (dispatch) => {
+    // name & location is mandatory for an event object
+    let { name, picture, expireDate, location, description, eventlist } = data;
+    picture = picture || "";
+    expireDate = expireDate || "";
+    description = description || "";
+    eventlist = eventlist || "";
+    
     const url = 
-    `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture=${data.picture}&expireDate=${data.expireDate}&location=${data.location}&description=${data.description}&eventList=${data.eventlist}`;
+    `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&expireDate=${expireDate}&location=${location}&description=${description}&eventList=${eventlist}`;
     const res = await axios.get(url);
     // TODO: check res.success and console.log only if it fails
     console.log("insert", res);
