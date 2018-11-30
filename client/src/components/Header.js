@@ -52,7 +52,9 @@ class Header extends Component{
                     <div className='header'>
                         <span className='header-logo'>Approaching</span>
                         <div className='header-user'>
-                            <Icon iconName='user-circle' onClick={this.togglePopup.bind(this)}/>
+                            <span className='header-user-icon'>
+                                <Icon iconName='user-circle' onClick={this.togglePopup.bind(this)}/>
+                            </span>
                             <span className='header-user-name'>{ls.get('username')}</span>
                         </div>
                     </div>
