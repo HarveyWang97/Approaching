@@ -22,7 +22,6 @@ class LoginButton extends Component{
      * @return {void}
      */
     responseFacebook (response)  {
-        console.log(response);
         insertUser(response);
         // record the user information in the local storage
         ls.set('username',response.name);
