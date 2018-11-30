@@ -49,6 +49,11 @@
   background-color: lightblue;
 }
 
+.footer :hover{
+  color:rgb(250,0,72);
+  cursor: pointer;
+}
+
 .add{
   line-height: 50px;
   font-size: 20px;
@@ -66,6 +71,10 @@
   border-left: solid 0.5px;
   background-color: azure;
   padding-bottom: 200px;
+}
+
+.events :hover{
+  cursor: pointer;
 }
 
 .searchResult{

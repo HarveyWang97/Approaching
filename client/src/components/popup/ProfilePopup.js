@@ -15,6 +15,7 @@ class Profile extends Component {
         this.state = {
             editing: false,
             validEmail: true,
+            validReminder: true,
             title: 'Account Settings',
             email: ls.get('email'), 
             reminder: '24' 
@@ -24,6 +25,10 @@ class Profile extends Component {
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
+    }
+
+    validateReminder(time){
+        return !isNaN(time)
     }
 
     /**
@@ -56,14 +61,28 @@ class Profile extends Component {
 	 */
 
     handleSubmit() {
+        // check validity of email input
         if (this.validateEmail(this.state.email))
         {
-            this.changeEditingState();
             this.props.updateEmail(this.state.email, "test", "test");
             this.setState({validEmail: true});
         }
         else{
             this.setState({validEmail: false});
+        }
+
+        if (this.validateReminder(this.state.reminder)){
+                
+            // ls.set("reminder", this.convertHourstoMs(this.state.reminder))
+            this.props.updateNotifyTime(this.convertHourstoMs(this.state.reminder).toString(), "test", "test");
+            this.setState({validReminder: true});        
+        }
+        else{
+            this.setState({validReminder: false}); 
+        }
+        
+        if (this.state.validEmail  && this.state.validReminder){
+            this.changeEditingState();
         }
         
     }
@@ -80,16 +99,31 @@ class Profile extends Component {
     handleEditResult(key, value) {
         if (key == "email"){
             this.setState({email: value});
+            if (!this.validateEmail(value)){
+                this.setState({validEmail: false});
+            }
+            else{
+                this.setState({validEmail: true});
+            }
         } 
         if (key == "reminder"){
             this.setState({reminder: value});
+            if (!this.validateReminder(value)){
+                this.setState({validReminder: false});
+            }
+            else{
+                this.setState({validReminder: true});
+            }
         }         
         
     }
 
+    convertHourstoMs(hour){
+        return parseFloat(hour) * 3600000
+    }
+
 
     logout(){
-        //this.props.history.push("/");
         ls.clear();
         this.props.closePopup();
     }
@@ -113,7 +147,6 @@ class Profile extends Component {
                     <div className='top'>
                         <span>
                         <div>
-                            {/* <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> */}
                             <div className='profile_icon'>
                                 <Icon iconName='times' onClick={this.props.closePopup} />
                             </div>
@@ -124,7 +157,7 @@ class Profile extends Component {
                     </div>
                     <div className='middle'>
                         {data.map(key => {
-                            if (key == 'email') {
+                            if (key === 'email') {
                                 return (
                                     <ProfileRow 
                                          key={key} 
@@ -137,7 +170,8 @@ class Profile extends Component {
                                     />
                                 );
                             }
-                            if (key == 'reminder') {
+                            
+                            if (key === 'reminder') {
                                 return (
                                     <ProfileRow 
                                          key={key} 
@@ -151,10 +185,14 @@ class Profile extends Component {
                                 );
                             }
                         })}
-                        
+                    
                         { this.state.validEmail ?
-                            <span></span> : <span style={{color:'red'}}>Invalid Email Address!</span>
+                            (this.state.validReminder ?
+                                <span></span> : <span style={{color:'red'}}>Invalid Reminder Time!</span>
+                            ): (this.state.validReminder ?
+                                <span style={{color:'red'}}>Invalid Email Address!</span> : <span style={{color:'red'}}>Invalid Email and Reminder Time!</span>)
                         }
+                        
                     </div>
                     <div className='bottom'>
                         <div className='left'>

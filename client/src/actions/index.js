@@ -133,3 +133,10 @@ export const updateEmail = (email,facebookId,accessToken) => async (dispatch) =>
     const res = await axios.get(url);
     console.log('update email', res)
 }
+
+export const updateNotifyTime = (time,facebookId,accessToken) => async (dispatch) => {
+    const url = 
+    `http://localhost:3000/users/update?facebookId=${facebookId}&accessToken=${accessToken}&notifyTime=${time}`;
+    const res = await axios.get(url);
+    console.log('update notify time', res)
+}
