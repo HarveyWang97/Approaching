@@ -26,9 +26,10 @@ class Row extends Component {
     constructor(props) {
         super(props);
 
-        const { field, details } = this.props;
+        const { contentType, field, details } = this.props;
         this.state = {
-            diyLocation: field === 'location' ? this.reformatItemLocation(details) : ''
+            diyLocation: field === 'location' && contentType === 'item' ? 
+                this.reformatItemLocation(details) : ''
         }
     }
 
@@ -143,8 +144,8 @@ class Row extends Component {
     }
 
     renderDate(editing, details) {
-        const showTime = details? this.dateConverter(details*1+86400000) : "";
-        const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
+        const showTime = details && !isNaN(details) ? this.dateConverter(details*1+86400000) : "";
+        const dTime = details !== undefined && details.length>0 && !isNaN(details) ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
 
         return editing ? (
             <input 
@@ -301,7 +302,7 @@ class Row extends Component {
         return editing ? (
             <span>
                 <div style={{marginTop:'5px'}}>
-                    <button type="button" onClick={() => this.props.toggleEventSelector({
+                    <button style={{width:'220px',height:'40px',fontSize:'15px'}} type="button" onClick={() => this.props.toggleEventSelector({
                                         id:this.props.field._id,
                                         handleSubmit: this.handleChange.bind(this),
                                         formatted_details:formatted_details
