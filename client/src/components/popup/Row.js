@@ -141,22 +141,16 @@ class Row extends Component {
     }
 
     renderDate(editing, details) {
-        const showTime = details ? this.dateConverter(details*1+86400000) : "";
-        //const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
-        if(details.length>0) {
-            console.log("current time",details);
-        }
-        else {
-            console.log("omg", details);
-        }
-        
+        const showTime = details && !isNaN(details) ? this.dateConverter(details*1+86400000) : "";
+        const dTime = details !== undefined && details.length>0 && !isNaN(details) ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
+
         return editing ? (
             <input 
                 id="datepicker"
                 type="date"
                 min={todayDateISO}
                 max="2030-12-31"
-                defaultValue="null"
+                defaultValue={dTime}
                 onChange={this.handleChange.bind(this)}
             />
         ) : <span>{showTime}</span>;
