@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 import '../css/Header.css';
 // import autumn from './autumn.jpg';
-import {insertUser} from '../Request.js';
+//import {insertUser} from '../Request.js';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import ls from 'local-storage';
@@ -30,7 +30,7 @@ class LoginButton extends Component{
      * @return {void}
      */
     responseFacebook (response)  {
-        insertUser(response);
+        //insertUser(response);
         // record the user information in the local storage
         ls.set('username',response.name);
         ls.set('accessToken',response.accessToken);

@@ -6,6 +6,7 @@ import Row from './Row';
 import Icon from './Icon';
 import config from '../../config';
 import {connect} from 'react-redux';
+import ls from 'local-storage';
 import  * as actions from '../../actions';
 
 
@@ -101,19 +102,22 @@ class Popup extends Component {
          * if this.props.payload.isAdd === false, send an update item/event 
          * request to server.
          */
+
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
         const { contentType, isAdd } = this.props.payload;
         const { name, location, time } = this.state.payload;
         if (contentType === 'item') {
             if (name && location) {
                 this.changeEditingState();
                 if (isAdd) {
-                    this.props.insertItem(this.state.payload, 'test', 'test').then(
-                        () => this.props.fetchItems('test', 'test')
+                    this.props.insertItem(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchItems(facebookId, accessToken)
                     );
                     this.props.togglePopup();
                 } else {
-                    this.props.updateItem(this.state.payload, 'test', 'test').then(
-                        () => this.props.fetchItems('test', 'test')
+                    this.props.updateItem(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchItems(facebookId, accessToken)
                     );
                 }
             } else {
@@ -128,13 +132,13 @@ class Popup extends Component {
                 this.changeEditingState();
                 console.log("payload time", time);
                 if (isAdd) {
-                    this.props.insertEvent(this.state.payload, 'test', 'test').then(
-                        () => this.props.fetchEvents('test', 'test')
+                    this.props.insertEvent(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchEvents(facebookId, accessToken)
                     );
                     this.props.togglePopup();
                 } else {
-                    this.props.updateEvent(this.state.payload, 'test', 'test').then(
-                        () => this.props.fetchEvents('test', 'test')
+                    this.props.updateEvent(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchEvents(facebookId, accessToken)
                     );
                 }
             } else {
@@ -154,16 +158,18 @@ class Popup extends Component {
 	 * @return {void}
 	 */
     handleDelete() {
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
         const { contentType } = this.props.payload;
         const { _id } = this.state.payload;
         if (contentType === 'item') {
-            this.props.deleteItem(_id, 'test', 'test').then(
-                () => this.props.fetchItems('test', 'test')
+            this.props.deleteItem(_id, facebookId, accessToken).then(
+                () => this.props.fetchItems(facebookId, accessToken)
             );
             this.props.togglePopup();
         } else {
-            this.props.deleteEvent(_id, 'test', 'test').then(
-                () => this.props.fetchEvents('test', 'test')
+            this.props.deleteEvent(_id, facebookId, accessToken).then(
+                () => this.props.fetchEvents(facebookId, accessToken)
             );
             this.props.togglePopup();
         }

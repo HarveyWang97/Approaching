@@ -3,6 +3,7 @@ import Layer from './Layer';
 import "../../css/Dashboard.css";
 import "../../css/itemboard/Itemboard.css";
 import config from '../../config';
+import ls from 'local-storage';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
@@ -21,7 +22,8 @@ class Itemboard extends Component {
     }
 
     componentDidMount(){
-        this.props.fetchItems('test','test');
+        //this.props.fetchItems('test','test');
+        this.props.fetchItems(ls.get('facebookId'),ls.get('accessToken'));
     }
 
     componentWillReceiveProps(nextProps){

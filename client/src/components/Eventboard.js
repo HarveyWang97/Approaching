@@ -8,7 +8,9 @@ import "../css/Dashboard.css";
 // import swag from './swag.jpg';
 import calendar from './calendar.jpeg';
 import {connect} from 'react-redux';
+import ls from 'local-storage';
 import  * as actions from '../actions';
+import { lchown } from 'fs';
 
 
 
@@ -105,7 +107,8 @@ class Eventboard extends Component{
     }
 
     componentDidMount(){
-        this.props.fetchEvents('test','test');
+       // this.props.fetchEvents('test','test');
+       this.props.fetchEvents(ls.get('facebookId'),ls.get('accessToken'));
     }
 
     render(){
@@ -117,6 +120,7 @@ class Eventboard extends Component{
                 return this.renderYear(key, this.props.events[key]);
             });
             console.log("events",this.props.events);
+            console.log("rawEvents",this.props.rawEvents);
         }
         return (
             <div className="split-right right">  
@@ -144,7 +148,8 @@ class Eventboard extends Component{
 function mapStateToProps(state){
     return {
         user:state.auth,
-        events:state.events.structuredEvents
+        events:state.events.structuredEvents,
+        rawEvents:state.events.rawEvents
     }
 }
 

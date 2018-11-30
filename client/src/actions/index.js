@@ -30,7 +30,11 @@ export const toggleEventSelector = (payload) => dispatch => {
     dispatch({type: TOGGLE_EVENT_SELECTOR, payload: payload});
 }
 
-
+export const fetchProfile = (facebookId,accessToken) => async(dispatch) => {
+    const url = `http://localhost:3000/fetchProfile?facebookId=${facebookId}&accessToken=${accessToken}`;
+    const res = await axios.get(url);
+    console.log(res);
+};
 
 export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
     const url = 
