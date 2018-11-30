@@ -295,7 +295,7 @@ class Row extends Component {
                         id:this.props.field._id,
                         handleSubmit: this.handleChange.bind(this),
                         formatted_details:formatted_details
-                    })}>Select From Item Board</button>
+                    })}>Open Item Selector</button>
                 </div>
                 {this.renderRemovable(details)}
             </div>
@@ -328,7 +328,7 @@ class Row extends Component {
                         id:this.props.field._id,
                         handleSubmit: this.handleChange.bind(this),
                         formatted_details:formatted_details
-                    })}>Select From Event Board</button>
+                    })}>Open Event Selector</button>
                 </div>
                 {this.renderRemovable(details)}
             </div>

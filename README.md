@@ -21,9 +21,7 @@ npm run server      // run only the server
 
 npm run client      // run only the client
 
-npm test            // run backend test
-// or
-npm run test        // run backend test
+npm run test-server // run backend test
 
 npm run test-react  // run frontend test
 
@@ -109,6 +107,5 @@ At the same time, our mlab mongodb database should change accordingly.
 |  Action   |                                        Url                       | Required |
 |:---------:|------------------------------------------------------------------|:--------:|
 | fetchProfile | `http://localhost:3000/fetchProfile?facebookId=&accessToken=` |          |
-| fetchData | `http://localhost:3000/fetchData?facebookId=&accessToken=`       |          |
 | fetchItems | `http://localhost:3000/fetchItems?facebookId=&accessToken=`     |          |
 | fetchEvents | `http://localhost:3000/fetchEvents?facebookId=&accessToken=`   |          |

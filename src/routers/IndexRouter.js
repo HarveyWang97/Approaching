@@ -8,21 +8,11 @@ const FetchQuery = require('../queries/FetchQuery');
  */
 class IndexRouter extends Router {
   /**
-   * Construct a router to handle fetchData requests.
+   * Construct a router to handle fetchItems, fetchEvents requests.
    * @constructor
    */
   constructor() {
     super();
-
-    this.get('/fetchData', (req, res, next) => {
-      const query = new FetchQuery(null, req.query);
-      if (query.isValid()) {
-        Database.fetchData(query, response => res.send(response));
-      } else {
-        res.status(400);
-        res.send({ success: false, message: 'invalid parameters' });
-      }
-    });
 
     this.get('/fetchItems', (req, res, next) => {
       const query = new FetchQuery(null, req.query);

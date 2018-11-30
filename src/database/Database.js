@@ -178,35 +178,6 @@ static getEvents(owner, callback = () => {}) {
   */
 
   /**
-   * Fetch and reformat Items and Events data for a given user from database.
-   * @param {Query} query - The Query object wrapped from client request.
-   * @param {DatabaseCallback} callback - Called after all other operations 
-   * are done.
-   */
-  fetchData(query, callback = () => {}) {
-    const user = query.getAuth();
-    utils.authorize(user, callback, () => {
-      utils.getItems(user.facebookId, itemsResult => {
-        if (!(itemsResult.success)) {
-          callback(itemsResult);
-        } else {
-          utils.getEvents(user.facebookId, eventsResult => {
-            if (!(eventsResult.success)) {
-              callback(eventsResult);
-            } else {
-              callback({
-                success: true,
-                items: itemsResult.items,
-                events: eventsResult.events
-              });
-            }
-          })
-        }
-      });
-    });
-  }
-
-  /**
    * Insert a user/item/event into the database.
    * @param {Query} query - The Query object wrapped from client request.
    * @param {DatabaseCallback} callback - Called after all other operations 
