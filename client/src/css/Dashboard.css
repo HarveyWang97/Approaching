@@ -83,7 +83,8 @@
   margin-bottom: 20px;
 }
 
-.singleEvent :hover{
+.singleEvent:hover{
   cursor: pointer;
-  text-shadow: 1px 1px 2px #8e8d8a;
+  box-shadow: 5px 5px 4px #8e8d8a;
+  font-weight: bold;
 }

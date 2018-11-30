@@ -22,7 +22,7 @@
 
 .profile_inner .top {
     height: 20%;
-    background:  #f1685e;
+    background:  #e85a4f;
 }
 
 .profile_title {
@@ -31,7 +31,7 @@
     margin-top: 0%;
     margin-left: 27%;
     font-size: 130%;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .profile_inner .top .profile_icon {
@@ -41,7 +41,7 @@
     padding: 3% 10% 0% 90%;
 }
 
-.profile_inner .top .profile_icon:hover {
+.profile_inner .top .profile_icon :hover {
     color: red;
     cursor: pointer;
 }
@@ -77,7 +77,7 @@
     bottom: 0;
     width: 100%;
     padding: 5% 0%;
-    background:#f1685e;
+    background:#e85a4f;
 }
 
 .profile_inner .bottom .left {
