@@ -23,11 +23,15 @@ class Row extends Component {
 	 * @param {None}
 	 * @return {void} 
 	 */
-    /*
-     constructor(props) {
-         super(props);
-     }
-     */
+    constructor(props) {
+        super(props);
+
+        const { contentType, field, details } = this.props;
+        this.state = {
+            diyLocation: field === 'location' && contentType === 'item' ? 
+                this.reformatItemLocation(details) : ''
+        }
+    }
 
     /**
 	 * This method set the value of this row's item to the new input value.
@@ -137,8 +141,8 @@ class Row extends Component {
     }
 
     renderDate(editing, details) {
-        const showTime = details? this.dateConverter(details*1+86400000) : "";
-        const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
+        const showTime = details && !isNaN(details) ? this.dateConverter(details*1+86400000) : "";
+        const dTime = details !== undefined && details.length>0 && !isNaN(details) ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
 
         return editing ? (
             <input 
@@ -162,7 +166,7 @@ class Row extends Component {
             formatted_items = JSON.parse(items);
             output = formatted_items.map((item,idx) => {
                 return (
-                   <li key={idx} >
+                    <li key={idx} >
                         {item.label}
                     </li>
                 );
@@ -196,12 +200,12 @@ class Row extends Component {
         });
         paths.sort((a, b) => a.label - b.label);
         const currentLocation = this.reformatItemLocation(details);
-        
+
         return editing ? (
-            // <div className='location-content'>
+            <div>
+                <div>Write the location if it's new</div>
                 <Select
                     className="basic-single"
-                    // styles={{ control: (base, _state) => ({...base, minHeight: '20px', height: '20px'})}}
                     classNamePrefix="select"
                     defaultValue={{ label: currentLocation, value: details}}
                     isSearchable={true}
@@ -213,10 +217,20 @@ class Row extends Component {
                         handleEditResult(field, data.value);
                     }}
                 />
-            // </div>
+                <input type="text" value={this.state.diyLocation} onChange={e => {
+                    this.setState({
+                        diyLocation: e.target.value
+                    })
+                    // the user inputed location can use '/' or ' / ' as separators
+                    const newLocation = e.target.value.split(' / ').join('/').split('/');
+                    if (newLocation && newLocation.length > 0 && newLocation[0] === 'home') {
+                        const { handleEditResult, field } = this.props;
+                        handleEditResult(field, JSON.stringify(newLocation));
+                    }
+                }}/>
+            </div>
         ) : <span>{currentLocation}</span>;
     }
-
 
     // the itemList is in the format [{lable:xxx,id:xxx}.....] 
     renderItemList(editing, details) {
@@ -268,8 +282,7 @@ class Row extends Component {
     renderEventList(editing, details) {
         let output;
         let formatted_details;
-        console.log("details: " + details);
-        if(details === undefined || details.length === 0){
+        if (details === undefined || details.length === 0){
             output = (<div/>);
         }
         else{
@@ -286,7 +299,7 @@ class Row extends Component {
         return editing ? (
             <span>
                 <div style={{marginTop:'5px'}}>
-                    <button type="button" onClick={() => this.props.toggleEventSelector({
+                    <button style={{width:'220px',height:'40px',fontSize:'15px'}} type="button" onClick={() => this.props.toggleEventSelector({
                                         id:this.props.field._id,
                                         handleSubmit: this.handleChange.bind(this),
                                         formatted_details:formatted_details

@@ -31,8 +31,8 @@
 }
 
 .popup_inner .top .upload-picture-guide {
-    top: 40px;
     position: absolute;
+    bottom: 58px;
     text-align: center;
     width: 100%;
     color: lightgrey;

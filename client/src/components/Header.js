@@ -18,7 +18,6 @@ class Header extends Component{
     }
 
     togglePopup() {
-        console.log("hey");
         this.setState({
             showPopup: !this.state.showPopup
         });
@@ -42,16 +41,14 @@ class Header extends Component{
 
 
     render(){
-        
-        
         return (
             <div>
-                <Navbar color="dark" className="header-container" expand="md">
-                    <div className="header">
-                        <span style={{fontSize:'22px'}}>Approaching</span>
-                        <div className="icon">
+                <Navbar color='dark' className='header-container' expand='md'>
+                    <div className='header'>
+                        <span className='header-logo'>Approaching</span>
+                        <div className='header-user'>
                             <Icon iconName='user-circle' onClick={this.togglePopup.bind(this)}/>
-                            <b>{"  "}{ls.get('username')}</b>
+                            <span className='header-user-name'>{ls.get('username')}</span>
                         </div>
                     </div>
                 </Navbar>
