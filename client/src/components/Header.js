@@ -46,8 +46,8 @@ class Header extends Component{
                 <Navbar color='dark' className='header-container' expand='md'>
                     <div className='header'>
                         <span className='header-logo'>Approaching</span>
-                        <div className='header-user'>
-                            <Icon iconName='user-circle' onClick={this.togglePopup.bind(this)}/>
+                        <div className='header-user' onClick={this.togglePopup.bind(this)}>
+                            <Icon iconName='user-circle'/>
                             <span className='header-user-name'>{ls.get('username')}</span>
                         </div>
                     </div>
