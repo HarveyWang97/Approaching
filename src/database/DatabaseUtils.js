@@ -175,6 +175,20 @@ class DatabaseUtils {
     });
   }
 
+  static getProfile(owner, callback = () => {}) {
+    console.log("getProfile");
+    models.User.findOne({ facebookId: owner }, (err, userProfile) => {
+      if (err) {
+        callback({ success: false });
+      } else {
+        callback({
+          success: true,
+          userProfile: userProfile
+        });
+      }
+    });
+  }
+
   /**
    * Get all the items from a given user.
    * @param {string} owner - The user's facebookId. Used to filter which items

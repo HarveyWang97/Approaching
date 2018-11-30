@@ -15,7 +15,7 @@
     top: 50%;
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    background: rgb(200, 200, 172);
+    background-color: #eae7dc;
     padding: 30px;
 }
 
@@ -26,6 +26,7 @@
 }
 
 .item-selector-inner .close-icon :hover{
+    color: red;
     cursor: pointer;
 }
 
@@ -46,8 +47,14 @@
 }
 
 .item-selector-inner .submit {
+    font-size: 22px;
     position: absolute;
     bottom: 30px;
     left: 50%;
     -webkit-transform: translateX(-50%);
+}
+
+.item-selector-inner .submit :hover{
+    color: red;
+    cursor: pointer;
 }

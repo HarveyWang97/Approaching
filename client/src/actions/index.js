@@ -30,11 +30,34 @@ export const toggleEventSelector = (payload) => dispatch => {
     dispatch({type: TOGGLE_EVENT_SELECTOR, payload: payload});
 }
 
+<<<<<<< HEAD
 export const fetchProfile = (facebookId,accessToken) => async(dispatch) => {
     const url = `http://localhost:3000/fetchProfile?facebookId=${facebookId}&accessToken=${accessToken}`;
     const res = await axios.get(url);
     console.log(res);
 };
+=======
+
+/**
+ * When user is logged in, pass user information from facebook to server.
+ * Check if server correctly handle this user, then fetch all user data from server.
+ * @function
+ * @param {Object} response The response from facebook that includes the account settings of that user. 
+ * @returns {void}
+ */
+export const insertUser = (response) => async (dispatch) => {
+    const url = 
+    `http://localhost:3000/users/insert?facebookId=${response.id}&accessToken=${response.accessToken}&name=${response.name}&email=${response.email}`;
+    axios.get(url)
+    .then((res) => {
+        if (res.data.success === true){
+           console.log("insertUser response", res.data);
+        } else {
+            console.log("Fail to insert user in server.")
+        }
+    });
+}
+>>>>>>> cf0bd3a8849f0833bac66af3fb03f96d96b7bbed
 
 export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
     const url = 
