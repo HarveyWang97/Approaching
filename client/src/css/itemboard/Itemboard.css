@@ -44,6 +44,7 @@
     position: absolute;
     width: 100%;
     top: 120px;
+    overflow-y:scroll;
     height: calc(100% - 120px);
 }
 
