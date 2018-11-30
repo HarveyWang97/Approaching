@@ -72,8 +72,6 @@ class Profile extends Component {
         }
 
         if (this.validateReminder(this.state.reminder)){
-                
-            // ls.set("reminder", this.convertHourstoMs(this.state.reminder))
             this.props.updateNotifyTime(this.convertHourstoMs(this.state.reminder).toString(), "test", "test");
             this.setState({validReminder: true});        
         }

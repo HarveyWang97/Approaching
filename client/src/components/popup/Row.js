@@ -63,6 +63,9 @@ class Row extends Component {
                 handleEditResult(field,formatted_data);
             }
             else{
+                if(event.target.newItem.value === ''){
+                    return;
+                }
                 let raw_data;
                 if(this.props.details === null || this.props.details === undefined || this.props.details.length === 0){
                     raw_data = [];
@@ -149,8 +152,8 @@ class Row extends Component {
     }
 
     renderDate(editing, details) {
-        const showTime = details? this.dateConverter(details*1+86400000) : '';
-        const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
+        const showTime = details && !isNaN(details) ? this.dateConverter(details*1+86400000) : "";
+        const dTime = details !== undefined && details.length>0 && !isNaN(details) ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
 
         return (
             <div className={'popup-field-content-row popup-date-field-content-row'}>

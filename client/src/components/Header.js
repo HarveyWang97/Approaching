@@ -20,7 +20,7 @@ class Header extends Component{
     togglePopup() {
         this.setState({
             showPopup: !this.state.showPopup
-        });
+        });  
     }
 
     setPopupState(){
@@ -39,6 +39,11 @@ class Header extends Component{
         }
     }
 
+    userLoggedIn()
+    {
+        return (ls.get('username') !== undefined && ls.get('username') !== null)
+    }
+
 
     render(){
         return (
@@ -47,15 +52,17 @@ class Header extends Component{
                     <div className='header'>
                         <span className='header-logo'>Approaching</span>
                         <div className='header-user'>
-                            <Icon iconName='user-circle' onClick={this.togglePopup.bind(this)}/>
+                            <span className='header-user-icon'>
+                                <Icon iconName='user-circle' onClick={this.togglePopup.bind(this)}/>
+                            </span>
                             <span className='header-user-name'>{ls.get('username')}</span>
                         </div>
                     </div>
                 </Navbar>
-                {this.state.showPopup ? 
+                {this.state.showPopup ? (this.userLoggedIn() ? 
                     <ProfilePopup
                         closePopup={this.togglePopup.bind(this)}
-                    />
+                    /> : null)
                     : null
                 }
                 

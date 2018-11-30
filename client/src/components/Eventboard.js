@@ -121,7 +121,7 @@ class Eventboard extends Component{
         return (
             <div className="split-right right">  
             <div className="events">          
-                <h2 style = {{marginTop:'40px', marginLeft:'50px', color:"green"}}>Events Calendar
+                <h2 style = {{marginTop:'40px', marginLeft:'50px', color:"#61605d"}}>Events Calendar
                 <img style = {{marginLeft:'5px'}} src={calendar} width="30" height="26" />
                 </h2>
                 {events}

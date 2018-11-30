@@ -16,6 +16,14 @@ class LoginButton extends Component{
         this.responseFacebook = this.responseFacebook.bind(this);
     }
 
+    componentDidMount(){
+        if(ls.get('username') !== undefined && ls.get('username') !== null){
+            this.props.history.push('/dashboard');
+        }
+    }
+
+
+
     /**
      * This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page
      * @param {JsonObject} response response sent back by facebook, contains information such as userId,email,name....
