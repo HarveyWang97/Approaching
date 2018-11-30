@@ -39,7 +39,7 @@ class Row extends Component {
             console.log("time", mtime);
             handleEditResult(field, mtime);
         }
-        else if(field === 'itemList'){
+        else if(field === 'itemList' || field === 'eventList'){
             const formatted_data = JSON.stringify(event);
             handleEditResult(field,formatted_data);
         }
@@ -183,14 +183,38 @@ class Row extends Component {
     }
 
     renderEventList(editing, details) {
+        let output;
+        let formatted_details;
+        if(details === undefined || details.length === 0){
+            output = (<div/>);
+        }
+        else{
+            formatted_details = JSON.parse(details);
+            output = formatted_details.map((item,idx) => {
+                return (
+                    <div key={idx}>
+                        {item.label}
+                    </div>
+                );
+            });
+        }
+        
         return editing ? (
-            <input 
-                type="text"
-                value={details}
-                placeholder="Input"
-                onChange={this.handleChange.bind(this)}
-            />
-        ) : <span>{details}</span>;
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Input"
+                />
+                <button type="button" style={{marginLeft:'5px'}}>Add</button>
+                <div style={{marginTop:'5px', marginLeft:'38px'}}>
+                    <button type="button" onClick={() => this.props.toggleEventSelector({
+                                        id:this.props.field._id,
+                                        handleSubmit: this.handleChange.bind(this),
+                                        formatted_details:formatted_details
+                                    })}>Select From Event Board</button>
+                </div>
+            </span>
+        ) : <div>{output}</div>;
     }
 
     /**
