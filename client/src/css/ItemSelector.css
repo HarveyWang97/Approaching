@@ -22,6 +22,7 @@
 .item-selector-inner .close-icon {
     position: absolute;    
     right: 30px;
+    z-index: 999;
 }
 
 .item-selector-inner .close-icon :hover{

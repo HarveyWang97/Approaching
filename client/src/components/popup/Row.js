@@ -4,6 +4,8 @@ import Icon from './Icon';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import  * as actions from '../../actions';
+import { isArray } from 'util';
+import idGenerator from 'react-id-generator';
 
 var today = new Date();
 var todayISO = today.toISOString().slice(0,16);
@@ -21,9 +23,10 @@ class Row extends Component {
 	 * @param {None}
 	 * @return {void} 
 	 */
-    // constructor(props) {
-    //     super(props);
-    // }
+     constructor(props) {
+         super(props);
+         this.htmlId = idGenerator();
+     }
 
     /**
 	 * This method set the value of this row's item to the new input value.
@@ -50,12 +53,32 @@ class Row extends Component {
             handleEditResult(field, mtime);
         }
         else if(field === 'itemList' || field === 'eventList'){
-            const formatted_data = JSON.stringify(event);
-            handleEditResult(field,formatted_data);
+            if(isArray(event)){
+                const formatted_data = JSON.stringify(event);
+                handleEditResult(field,formatted_data);
+            }
+            else{
+                let raw_data;
+                if(this.props.details === null || this.props.details === undefined || this.props.details.length === 0){
+                    raw_data = [];
+                }
+                else{
+                    raw_data = JSON.parse(this.props.details);
+                }
+                console.log("new added",event.target.newItem.value);
+                const temp = this.htmlId;
+                raw_data.push({label:event.target.newItem.value,id:temp});
+                handleEditResult(field,JSON.stringify(raw_data));
+            }    
         }
         else {
             handleEditResult(field, event.target.value);
         }
+    }
+
+    handleManuallyAddItem(e){
+        e.preventDefault();
+        this.handleChange(e);
     }
 
 
@@ -211,15 +234,25 @@ class Row extends Component {
                 );
             });
         }
-        
 
         return editing ? (
-            <span>
-                <input 
-                    type="text"
-                    placeholder="Input"
-                />
-                <div style={{marginTop:'5px'}}>
+            <div>
+                <form onSubmit={(e) => this.handleManuallyAddItem(e)}>
+                    <input 
+                        type="text"
+                        placeholder="Input"
+                        name = "newItem"
+                        style={{marginTop:'30px'}}
+                    />
+                    <button 
+                        type="submit" 
+                        style={{marginLeft:'10px'}}
+                    >
+                        add
+                    </button>
+                </form>
+                
+                <div style={{marginTop:'10px'}}>
                     <button type="button" onClick={() => this.props.toggleItemSelector({
                                         id:this.props.field._id,
                                         handleSubmit: this.handleChange.bind(this),
@@ -227,7 +260,7 @@ class Row extends Component {
                                     })}>Select From Item Board</button>
                 </div>
                 {this.renderRemovable(details)}
-            </span>
+            </div>
         ) : <div>{output}</div>;
     }
 

@@ -39,8 +39,8 @@ class EventSelector extends Component {
         return (
           <div className="item-selector">
           <div className='item-selector-inner'>
-                    <div className='close-icon'>
-                        <Icon  iconName='times' onClick={() => this.props.toggleEventSelector()} />
+                    <div className='close-icon' onClick={() => this.props.toggleEventSelector()}>
+                        <Icon  iconName='times'  />
                     </div>
                     <div className='submit' onClick={this.handleSubmit.bind(this)}>
                         <Icon iconName='save'/>

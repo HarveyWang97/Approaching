@@ -5,19 +5,20 @@
 
 /* Split the screen in half */
 .split-left {
+  background-color: azure;
   height: 100%;
-  width: 60%;
+  width:55%;
   position: fixed;
   z-index: 1;
   overflow-x: hidden;
   /*background-color:red;*/
-  border-right:solid 0.5px;
-  /*padding-top: 20px;*/
+   border-right:solid 0.5px;
+  padding-top: 5px;
 }
 
 .split-right {
   height: 100%;
-  width: 40%;
+  width: 45%;
   position: fixed;
   z-index: 1;
   overflow-x: hidden;
@@ -40,9 +41,9 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  width: 40%;
+  width: 45%;
   text-align: center;
-  border-top: solid 0.5px;
+  /*border-top: solid 0.5px;*/
   border-left: solid 0.5px;
   height:50px;
   background-color: lightblue;
@@ -51,6 +52,10 @@
 .add{
   line-height: 50px;
   font-size: 20px;
+}
+
+.add:hover{
+  cursor: pointer;
 }
 
 .events{
