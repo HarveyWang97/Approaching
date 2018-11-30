@@ -21,12 +21,14 @@
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 40px;
     top: -5px;
+    color: #eae7dc;
 }
 
 .header-user {
     position: absolute;
     right: 0;
     font-size: 22px;
+    color: #eae7dc;
 }
 
 .header-user-name {

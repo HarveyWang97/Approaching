@@ -15,14 +15,14 @@
     top: 50%;
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    background: rgb(200, 200, 172);
+    background: #eae7dc;
 }
 
 .popup_inner .top {
     position: absolute;
     width: 100%;
     height: 150px;
-    background: rgb(250, 204, 172);
+    background: #d8c3a5;
     background-image: url('../components/bg.jpg');
     -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
@@ -31,8 +31,8 @@
 }
 
 .popup_inner .top .upload-picture-guide {
+    top: 40px;
     position: absolute;
-    bottom: 58px;
     text-align: center;
     width: 100%;
     color: lightgrey;
@@ -69,7 +69,6 @@
 
 .popup_inner .top .popup_icon {
     position: absolute;
-
     width: 40px;
     height: 40px;
     text-align: center;
@@ -81,7 +80,7 @@
 }
 
 .popup_inner .top .popup_icon:hover {
-    color:rgb(250,0,72);
+    color:red;
     cursor: pointer;
 }
 
@@ -151,7 +150,7 @@ input {
     height: 80px;
     line-height: 80px;
     /* border-top: 2px solid; */
-    background: rgb(250, 155, 150);
+    background: #e98074;
 }
 
 .popup_inner .bottom .left {
@@ -163,7 +162,7 @@ input {
 }
 
 .popup_inner .bottom .left :hover {
-    color:rgb(250,0,72);
+    color:red;
     cursor: pointer;
 }
 
@@ -176,7 +175,7 @@ input {
 }
 
 .popup_inner .bottom .right :hover {
-    color:rgb(250,0,72);
+    color:red;
     cursor: pointer;
 }
 
@@ -187,6 +186,6 @@ input {
 }
 
 .popup_inner .bottom .editModeIcon :hover {
-    color:rgb(250,0,72);
+    color:red;
     cursor: pointer;
 }

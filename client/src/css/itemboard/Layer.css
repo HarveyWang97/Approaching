@@ -45,7 +45,7 @@
 }
 
 .layer-back-icon:hover{
-    color:#e85a4f;
+    color:red;
     cursor: pointer;
 }
 
@@ -104,6 +104,6 @@
 }
 
 .addItemRow :hover{
-    color:rgb(250,0,72);
+    color:red;
     cursor: pointer;
 }
