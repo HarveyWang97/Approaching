@@ -31,8 +31,8 @@
 }
 
 .popup_inner .top .upload-picture-guide {
-    top: 40px;
-    position: absolute;
+    position: absolute;    
+    bottom: 58px;
     text-align: center;
     width: 100%;
     color: lightgrey;
@@ -88,7 +88,7 @@
     position: absolute;
     top: 150px;
     width: calc(100% - 80px - 70px);
-    height: calc(100% - 150px - 80px - 50px * 2);
+    height: calc(100% - 150px - 70px - 50px * 2);
 
     overflow-y: scroll;
     margin: 50px 80px 50px 70px;
@@ -132,6 +132,25 @@ input {
     width: calc(100% - 20px);
 }
 
+.popup-field-content-row button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);    
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    outline: none;
+    border: outset;
+}
+
+.popup-field-content-row button:hover {
+    cursor: pointer;
+}
+
+.popup-field-content-row button:active {
+    border: none;
+}
+
 .popup-time-field-content-row input,
 .popup-expireDate-field-content-row input {
     padding: 5px 8px;
@@ -143,31 +162,36 @@ input {
     z-index: 999;    
 }
 
-.popup-list-field-content-row button {
-    font-size: 16px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    outline: none;
+.popup-list-field-content-row input {
+    width: calc(100% - 20px - 80px);
+}
+
+.popup-field-content-row-fullsize-button {
     width: 100%;
-    border: outset;
 }
 
-.popup-list-field-content-row button:hover {
-    cursor: pointer;
+.popup-field-content-row-autosize-button {
+    position: absolute;
+    right: 0;
 }
 
+.popup-list-display {
+    height: 40px;
+    line-height: 40px;
+}
 .popup_inner .bottom {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 80px;
-    line-height: 80px;
+    height: 70px;
+    line-height: 70px;
     /* border-top: 2px solid; */
     background: #e98074;
+    font-size: 22px;
+    text-align: center;
 }
 
 .popup_inner .bottom .left {
-    font-size: 25px;
     display: inline-block;
     width: 50%;
     position: relative;
@@ -180,11 +204,9 @@ input {
 }
 
 .popup_inner .bottom .right {
-    font-size: 25px;
-    display: inline-block;
+    display: inline-block;    
     width: 50%;
     position: relative;
-    text-align: center;
 }
 
 .popup_inner .bottom .right :hover {
