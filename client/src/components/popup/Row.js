@@ -28,9 +28,10 @@ class Row extends Component {
 
         const { contentType, field, details } = this.props;
         this.state = {
+            description: field === 'description' ? details : '',
             diyLocation: field === 'location' && contentType === 'item' ? 
                 this.reformatItemLocation(details) : ''
-        }
+        }        
     }
 
     /**
@@ -117,14 +118,18 @@ class Row extends Component {
     }
 
     renderDescription(editing, details) {
+        console.log(this.state.description);
         return (
             <div className={'popup-field-content-row popup-description-field-content-row'}>
                 {editing ? (
                     <input 
                         type='text'
-                        value={details}
+                        value={this.state.description}
                         placeholder='Input'
-                        onChange={this.handleChange.bind(this)}
+                        onChange={e => {
+                            this.setState({ description: e.target.value });
+                            this.handleChange(e);
+                        }}
                     />
                 ) : <span>{details}</span>}
             </div>
