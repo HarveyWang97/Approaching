@@ -177,3 +177,13 @@ input {
     color:rgb(250,0,72);
     cursor: pointer;
 }
+
+.popup_inner .bottom .editModeIcon {
+    position: relative;
+    text-align: center;
+}
+
+.popup_inner .bottom .editModeIcon:hover {
+    color:rgb(250,0,72);
+    cursor: pointer;
+}
