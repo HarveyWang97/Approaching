@@ -28,9 +28,10 @@ class Row extends Component {
 
         const { contentType, field, details } = this.props;
         this.state = {
+            description: field === 'description' ? details : '',
             diyLocation: field === 'location' && contentType === 'item' ? 
                 this.reformatItemLocation(details) : ''
-        }
+        }        
     }
 
     /**
@@ -42,19 +43,19 @@ class Row extends Component {
     handleChange(event) {
         const { handleEditResult, field } = this.props;
         if (field === 'time') {
-            const time = document.getElementById("timepicker");
+            const time = document.getElementById('timepicker');
 
             const d = new Date(time.value);
             const mtime = d.getTime();
-            console.log("mtime", mtime);
+            console.log('mtime', mtime);
             handleEditResult(field, mtime);
         }
         else if (field === 'expireDate') {
-            const time = document.getElementById("datepicker");
+            const time = document.getElementById('datepicker');
             console.log(time.value);
             const d = new Date(time.value);
             const mtime = d.getTime();
-            console.log("expire time", mtime);
+            console.log('expire time', mtime);
             handleEditResult(field, mtime);
         }
         else if(field === 'itemList' || field === 'eventList'){
@@ -73,7 +74,7 @@ class Row extends Component {
                 else{
                     raw_data = JSON.parse(this.props.details);
                 }
-                console.log("new added",event.target.newItem.value);
+                console.log('new added',event.target.newItem.value);
                
                 raw_data.push({label:event.target.newItem.value,id:uuidv4()});
                 handleEditResult(field,JSON.stringify(raw_data));
@@ -117,46 +118,62 @@ class Row extends Component {
     }
 
     renderDescription(editing, details) {
-        return editing ? (
-            <input 
-                type="text"
-                value={details}
-                placeholder="Input"
-                onChange={this.handleChange.bind(this)}
-            />
-        ) : <span>{details}</span>;
+        console.log(this.state.description);
+        return (
+            <div className={'popup-field-content-row popup-description-field-content-row'}>
+                {editing ? (
+                    <input 
+                        type='text'
+                        value={this.state.description}
+                        placeholder='Input'
+                        onChange={e => {
+                            this.setState({ description: e.target.value });
+                            this.handleChange(e);
+                        }}
+                    />
+                ) : <span>{details}</span>}
+            </div>
+        );
     }
 
     renderTime(editing, details) {
         const showTime = this.timeConverter(details);
         const dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null;
 
-        return editing ? (
-            <input 
-                id="timepicker"
-                type="datetime-local"
-                min={todayISO}
-                max="2030-12-31T00:00"
-                defaultValue={dTime}
-                onChange={this.handleChange.bind(this)}
-            />
-        ) : <span>{showTime}</span>;
+        return (
+            <div className={'popup-field-content-row popup-time-field-content-row'}>
+                {editing ? (
+                    <input 
+                        id='timepicker'
+                        type='datetime-local'
+                        min={todayISO}
+                        max='2030-12-31T00:00'
+                        defaultValue={dTime}
+                        onChange={this.handleChange.bind(this)}
+                    />
+                ) : <span>{showTime}</span>}
+            </div>
+        );
     }
 
     renderDate(editing, details) {
         const showTime = details && !isNaN(details) ? this.dateConverter(details*1+86400000) : "";
         const dTime = details !== undefined && details.length>0 && !isNaN(details) ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
 
-        return editing ? (
-            <input 
-                id="datepicker"
-                type="date"
-                min={todayDateISO}
-                max="2030-12-31"
-                defaultValue={dTime}
-                onChange={this.handleChange.bind(this)}
-            />
-        ) : <span>{showTime}</span>;
+        return (
+            <div className={'popup-field-content-row popup-date-field-content-row'}>
+                {editing ? (
+                    <input 
+                        id='datepicker'
+                        type='date'
+                        min={todayDateISO}
+                        max='2030-12-31'
+                        defaultValue={dTime}
+                        onChange={this.handleChange.bind(this)}
+                    />
+                ) : <span>{showTime}</span>}
+            </div>
+        );
     }
 
     renderRemovable(items) {
@@ -164,32 +181,32 @@ class Row extends Component {
         let output;
         if(items === undefined || items.length === 0){
             output = (<div/>);
-        }
-        else {
+        } else {
             formatted_items = JSON.parse(items);
-            output = formatted_items.map((item,idx) => {
-                return (
-                    <li key={idx} >
-                        {item.label}
-                    </li>
-                );
-            });
+            output = formatted_items.map((item,idx) => (
+                <li key={idx} className={'popup-field-content-row popup-list-field-content-row'}>
+                    {item.label}
+                </li>
+            ));
         }
         return output;
-
     }
 
     renderLocation(editing, details) {
         const { contentType, items } = this.props;
+        const className = 'popup-field-content-row popup-location-field-content-row';
+        
         if (contentType === 'event') {
             return editing ? (
-                <input 
-                    type="text"
-                    value={details}
-                    placeholder="Input"
-                    onChange={this.handleChange.bind(this)}
-                />
-            ) : <span>{details}</span>;
+                <div className={className}>
+                    <input 
+                        type='text'
+                        value={details}
+                        placeholder='Input'
+                        onChange={this.handleChange.bind(this)}
+                    />
+                </div>
+            ) : <span className={className}>{details}</span>;
         }
         
         const paths = [];
@@ -206,13 +223,15 @@ class Row extends Component {
 
         return editing ? (
             <div>
-                <div>Write the location if it's new</div>
+                <div className={className}>
+                    Write the location if it's new
+                </div>
                 <Select
-                    className="basic-single"
-                    classNamePrefix="select"
+                    className={`basic-single popup-field-select ${className}`}
+                    classNamePrefix='select'
                     defaultValue={{ label: currentLocation, value: details}}
                     isSearchable={true}
-                    name="color"
+                    name='color'
                     options={paths}
                     maxMenuHeight={100}
                     onChange={data => {
@@ -220,19 +239,21 @@ class Row extends Component {
                         handleEditResult(field, data.value);
                     }}
                 />
-                <input type="text" value={this.state.diyLocation} onChange={e => {
-                    this.setState({
-                        diyLocation: e.target.value
-                    })
-                    // the user inputed location can use '/' or ' / ' as separators
-                    const newLocation = e.target.value.split(' / ').join('/').split('/');
-                    if (newLocation && newLocation.length > 0 && newLocation[0] === 'home') {
-                        const { handleEditResult, field } = this.props;
-                        handleEditResult(field, JSON.stringify(newLocation));
-                    }
-                }}/>
+                <div className={className}>
+                    <input type='text' value={this.state.diyLocation} onChange={e => {
+                        this.setState({
+                            diyLocation: e.target.value
+                        })
+                        // the user inputed location can use '/' or ' / ' as separators
+                        const newLocation = e.target.value.split(' / ').join('/').split('/');
+                        if (newLocation && newLocation.length > 0 && newLocation[0] === 'home') {
+                            const { handleEditResult, field } = this.props;
+                            handleEditResult(field, JSON.stringify(newLocation));
+                        }
+                    }}/>
+                </div>
             </div>
-        ) : <span>{currentLocation}</span>;
+        ) : <span className={className}>{currentLocation}</span>;
     }
 
     // the itemList is in the format [{lable:xxx,id:xxx}.....] 
@@ -241,45 +262,40 @@ class Row extends Component {
         let formatted_details;
         if(details === undefined || details.length === 0){
             output = (<div/>);
-        }
-        else{
+        } else {
             formatted_details = JSON.parse(details);
-            output = formatted_details.map((item,idx) => {
-                return (
-                    <div key={idx}>
-                        {item.label}
-                    </div>
-                );
-            });
+            output = formatted_details.map((item,idx) => (
+                <li key={idx} className={'popup-field-content-row popup-list-field-content-row'}>
+                    {item.label}
+                </li>
+            ));
         }
+        const className = 'popup-field-content-row popup-list-field-content-row';
 
         return editing ? (
-            <div style={{marginTop:'10px'}} >
-                <form onSubmit={(e) => this.handleManuallyAddItem(e)}>
+            <div>
+                {/* <form onSubmit={(e) => this.handleManuallyAddItem(e)}>
                     <input 
-                        type="text"
-                        placeholder="Input"
-                        name = "newItem"
-                        style={{marginTop:'30px'}}
+                        type='text'
+                        placeholder='Input'
+                        name = 'newItem'
                     />
                     <button 
-                        type="submit" 
-                        style={{marginLeft:'10px'}}
+                        type='submit' 
                     >
                         add
                     </button>
-                </form>
-                
-                <div style={{marginTop:'10px'}}>
-                    <button type="button" onClick={() => this.props.toggleItemSelector({
-                                        id:this.props.field._id,
-                                        handleSubmit: this.handleChange.bind(this),
-                                        formatted_details:formatted_details
-                                    })}>Select From Item Board</button>
+                </form> */}
+                <div className={className}>
+                    <button type='button' onClick={() => this.props.toggleItemSelector({
+                        id:this.props.field._id,
+                        handleSubmit: this.handleChange.bind(this),
+                        formatted_details:formatted_details
+                    })}>Select From Item Board</button>
                 </div>
                 {this.renderRemovable(details)}
             </div>
-        ) : <div style={{marginTop:'10px'}}>{output}</div>;
+        ) : <div>{output}</div>;
     }
 
     renderEventList(editing, details) {
@@ -287,29 +303,27 @@ class Row extends Component {
         let formatted_details;
         if (details === undefined || details.length === 0){
             output = (<div/>);
-        }
-        else{
+        } else {
             formatted_details = JSON.parse(details);
-            output = formatted_details.map((item,idx) => {
-                return (
-                    <div key={idx}>
-                        {item.label}
-                    </div>
-                );
-            });
+            output = formatted_details.map((item,idx) => (
+                <li key={idx} className={'popup-field-content-row popup-list-field-content-row'}>
+                    {item.label}
+                </li>
+            ));
         }
+        const className = 'popup-field-content-row popup-list-field-content-row';
         
         return editing ? (
-            <span>
-                <div style={{marginTop:'5px'}}>
-                    <button style={{width:'220px',height:'40px',fontSize:'15px'}} type="button" onClick={() => this.props.toggleEventSelector({
-                                        id:this.props.field._id,
-                                        handleSubmit: this.handleChange.bind(this),
-                                        formatted_details:formatted_details
-                                    })}>Select From Event Board</button>
+            <div>
+                <div className={className}>
+                    <button type='button' onClick={() => this.props.toggleEventSelector({
+                        id:this.props.field._id,
+                        handleSubmit: this.handleChange.bind(this),
+                        formatted_details:formatted_details
+                    })}>Select From Event Board</button>
                 </div>
                 {this.renderRemovable(details)}
-            </span>
+            </div>
         ) : <div>{output}</div>;
     }
 
@@ -351,11 +365,9 @@ class Row extends Component {
         }
 
         return (
-            <div className='popup_row'>
+            <div className='popup-field'>
                 <Icon iconName={iconName}/>
-                <div className={`row-content row-content-${field}`}>
-                    {content}
-                </div>
+                {content}
             </div>
         );
         

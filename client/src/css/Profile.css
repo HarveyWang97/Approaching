@@ -27,7 +27,6 @@
 
 .profile_title {
     display: inline-block;
-    font-family: "Comic Sans MS", cursive, sans-serif;
     text-align: center;
     margin-top: 0%;
     margin-left: 27%;
@@ -88,8 +87,8 @@
     text-align: center;
 }
 
-.profile_inner .bottom .left:hover {
-    color:rgb(250,0,72);
+.profile_inner .bottom .left :hover {
+    color:red;
     cursor: pointer;
 }
 
@@ -100,7 +99,7 @@
     text-align: center;
 }
 
-.profile_inner .bottom .right:hover {
-    color:rgb(250,0,72);
+.profile_inner .bottom .right :hover {
+    color:red;
     cursor: pointer;
 }

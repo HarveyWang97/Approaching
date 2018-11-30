@@ -26,10 +26,13 @@
 
 .header-user {
     position: absolute;
-    font-family: "Comic Sans MS", cursive, sans-serif;
     right: 0;
     font-size: 22px;
     color: #eae7dc;
+}
+
+.header-user :hover{
+    cursor: pointer;
 }
 
 .header-user-name {

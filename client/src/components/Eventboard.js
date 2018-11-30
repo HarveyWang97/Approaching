@@ -57,7 +57,7 @@ class Eventboard extends Component{
         });
         return (
             <div>
-                <div style={{marginLeft:'50px',marginBottom:'10px'}}>
+                <div style={{marginLeft:'50px',marginBottom:'10px', color:'#5b5a57'}}>
                     <b>{this.monthName[month]} {year}</b>
                 </div>
                 {events}
@@ -81,7 +81,7 @@ class Eventboard extends Component{
         }); // iterate an array
         return (
             <div>
-                 <b style={{marginLeft:'60px', float:'left'}}>{day}</b>
+                 <b style={{marginLeft:'60px', float:'left', color:'#61605d', paddingTop:'5px'}}>{day}</b>
                 {events}
             </div>
         );
