@@ -140,16 +140,22 @@ class Row extends Component {
     }
 
     renderDate(editing, details) {
-        const showTime = details? this.dateConverter(details*1+86400000) : "";
-        const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
-
+        const showTime = details ? this.dateConverter(details*1+86400000) : "";
+        //const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
+        if(details.length>0) {
+            console.log("current time",details);
+        }
+        else {
+            console.log("omg", details);
+        }
+        
         return editing ? (
             <input 
                 id="datepicker"
                 type="date"
                 min={todayDateISO}
                 max="2030-12-31"
-                defaultValue={dTime}
+                defaultValue="null"
                 onChange={this.handleChange.bind(this)}
             />
         ) : <span>{showTime}</span>;
@@ -298,7 +304,7 @@ class Row extends Component {
         return editing ? (
             <span>
                 <div style={{marginTop:'5px'}}>
-                    <button style={{width:'250px',height:'40px',fontSize:'15px'}} type="button" onClick={() => this.props.toggleEventSelector({
+                    <button style={{width:'220px',height:'40px',fontSize:'15px'}} type="button" onClick={() => this.props.toggleEventSelector({
                                         id:this.props.field._id,
                                         handleSubmit: this.handleChange.bind(this),
                                         formatted_details:formatted_details
