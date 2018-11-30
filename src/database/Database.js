@@ -69,6 +69,13 @@ class Database {
     return this.uniqueTestInstance;
   }
 
+  fetchProfile(query, callback = () => {}) {
+    const user = query.getAuth();
+    utils.authorize(user, callback, () => {
+      utils.getProfile(user.facebookId, callback);
+    });
+  }
+
   fetchItems(query, callback = () => {}) {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {

@@ -14,6 +14,16 @@ class IndexRouter extends Router {
   constructor() {
     super();
 
+    this.get('/fetchProfile', (req, res, next) => {
+      const query = new FetchQuery(null, req.query);
+      if (query.isValid()) {
+        Database.fetchProfile(query, response => res.send(response));
+      } else {
+        res.status(400);
+        res.send({ success: false, message: 'invalid parameters' });
+      }
+    });
+
     this.get('/fetchItems', (req, res, next) => {
       const query = new FetchQuery(null, req.query);
       if (query.isValid()) {

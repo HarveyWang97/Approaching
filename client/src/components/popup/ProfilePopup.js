@@ -18,7 +18,7 @@ class Profile extends Component {
             validReminder: true,
             title: 'Account Settings',
             email: ls.get('email'), 
-            reminder: '24' 
+            reminder: ls.get("reminder") 
         };
     }
 

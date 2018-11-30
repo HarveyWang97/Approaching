@@ -36,6 +36,9 @@ class LoginButton extends Component{
         ls.set('facebookId',response.userID);
         ls.set('email',response.email);
 
+        //defualt reminder time manually set to 24 hours
+        ls.set('reminder', "24");
+
         this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken, name:response.name, email:response.email});
         this.props.history.push('/dashboard');
     }
