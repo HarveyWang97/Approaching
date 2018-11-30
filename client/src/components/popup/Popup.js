@@ -158,7 +158,7 @@ class Popup extends Component {
 	 */
     render() {
         const { payload } = this.state;
-        const displayPicture = (payload && payload.picture) ? {
+        const displayPicture = (payload && payload.picture && payload.picture.startsWith('data:image')) ? {
             backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"
         } : null;
 
@@ -166,29 +166,29 @@ class Popup extends Component {
             <div className='popup'>
                 <div className='popup_inner'>
                     <div className='top' id='top' style={displayPicture}>
-                        <span>
-                            <Icon iconName='times' onClick={() => this.props.togglePopup()} />
+                        <Icon iconName='times' onClick={() => this.props.togglePopup()} />
+                        <div className='popup-name-bar'>
                             { this.state.editing ? 
-                                (<input className='title' 
+                                (<input className='popup-name' 
                                         type="text"
                                         value={payload.name} 
                                         placeholder="Input item name here"
                                         onChange={this.handleChange.bind(this)} />) : 
-                                (<div className='title'>{payload.name}</div>)
+                                (<div className='popup-name'>{payload.name}</div>)
                             }
-                            { this.state.editing ? 
-                                <div
-                                    className='upload-picture-guide'
-                                    onClick={() => this.props.togglePictureEditor({
-                                        id: payload._id,
-                                        handleSubmit: this.handleEditResult.bind(this)
-                                    })}
-                                >
-                                    Click Here to Upload a Picture ...
-                                </div> :
-                                null
-                            }
-                        </span>
+                        </div>
+                        { this.state.editing ? 
+                            <div
+                                className='upload-picture-guide'
+                                onClick={() => this.props.togglePictureEditor({
+                                    id: payload._id,
+                                    handleSubmit: this.handleEditResult.bind(this)
+                                })}
+                            >
+                                Click Here to Upload a Picture ...
+                            </div> :
+                            null
+                        }
                     </div>
                     <div className='middle'>
                         { config.fields[this.props.payload.contentType].map(key => (
