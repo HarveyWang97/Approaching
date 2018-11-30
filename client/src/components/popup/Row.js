@@ -7,6 +7,7 @@ import  * as actions from '../../actions';
 
 var today = new Date();
 var todayISO = today.toISOString().slice(0,16);
+var todayDateISO = today.toISOString().slice(0,10);
 /**
  * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
  * 
@@ -32,11 +33,20 @@ class Row extends Component {
 	 */
     handleChange(event) {
         const { handleEditResult, field } = this.props;
-        if (field === 'time' || field === 'expireDate') {
-            const time = document.getElementById("datepicker");
+        if (field === 'time') {
+            const time = document.getElementById("timepicker");
+
             const d = new Date(time.value);
             const mtime = d.getTime();
-            console.log("time", mtime);
+            console.log("mtime", mtime);
+            handleEditResult(field, mtime);
+        }
+        else if (field === 'expireDate') {
+            const time = document.getElementById("datepicker");
+            console.log(time.value);
+            const d = new Date(time.value);
+            const mtime = d.getTime();
+            console.log("expire time", mtime);
             handleEditResult(field, mtime);
         }
         else if(field === 'itemList' || field === 'eventList'){
@@ -48,13 +58,6 @@ class Row extends Component {
         }
     }
 
-    submitDate(e){
-        e.preventDefault();
-        const time = document.getElementById("datepicker");
-        var d = new Date(time.value);
-        var mtime = d.getTime();
-        console.log("time",mtime);
-    }
 
     timeConverter(UNIX_timestamp){
         var a = new Date(UNIX_timestamp*1);
@@ -65,6 +68,16 @@ class Row extends Component {
         var hour = a.getHours() < 10 ? ('0'+a.getHours()) : a.getHours();
         var min = a.getMinutes() < 10 ? ('0'+a.getMinutes()) : a.getMinutes();
         var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min ;
+        return time;
+    }
+
+    dateConverter(UNIX_timestamp){
+        var a = new Date(UNIX_timestamp*1);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var time = month + ' ' + date + ' ' + year ;
         return time;
     }
     
@@ -89,7 +102,7 @@ class Row extends Component {
 
         return editing ? (
             <input 
-                id="datepicker"
+                id="timepicker"
                 type="datetime-local"
                 min={todayISO}
                 max="2030-12-31T00:00"
@@ -97,6 +110,42 @@ class Row extends Component {
                 onChange={this.handleChange.bind(this)}
             />
         ) : <span>{showTime}</span>;
+    }
+
+    renderDate(editing, details) {
+        const showTime = this.dateConverter(details*1+86400000);
+        const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
+
+        return editing ? (
+            <input 
+                id="datepicker"
+                type="date"
+                min={todayDateISO}
+                max="2030-12-31"
+                defaultValue={dTime}
+                onChange={this.handleChange.bind(this)}
+            />
+        ) : <span>{showTime}</span>;
+    }
+
+    renderRemovable(items) {
+        let formatted_items;
+        let output;
+        if(items === undefined || items.length === 0){
+            output = (<div/>);
+        }
+        else {
+            formatted_items = JSON.parse(items);
+            output = formatted_items.map((item,idx) => {
+                return (
+                   <li key={idx} >
+                        {item.label}
+                    </li>
+                );
+            });
+        }
+        return output;
+
     }
 
     renderLocation(editing, details) {
@@ -170,14 +219,14 @@ class Row extends Component {
                     type="text"
                     placeholder="Input"
                 />
-                <button type="button" style={{marginLeft:'5px'}}>Add</button>
-                <div style={{marginTop:'5px', marginLeft:'38px'}}>
+                <div style={{marginTop:'5px'}}>
                     <button type="button" onClick={() => this.props.toggleItemSelector({
                                         id:this.props.field._id,
                                         handleSubmit: this.handleChange.bind(this),
                                         formatted_details:formatted_details
                                     })}>Select From Item Board</button>
                 </div>
+                {this.renderRemovable(details)}
             </span>
         ) : <div>{output}</div>;
     }
@@ -201,18 +250,14 @@ class Row extends Component {
         
         return editing ? (
             <span>
-                <input 
-                    type="text"
-                    placeholder="Input"
-                />
-                <button type="button" style={{marginLeft:'5px'}}>Add</button>
-                <div style={{marginTop:'5px', marginLeft:'38px'}}>
+                <div style={{marginTop:'5px'}}>
                     <button type="button" onClick={() => this.props.toggleEventSelector({
                                         id:this.props.field._id,
                                         handleSubmit: this.handleChange.bind(this),
                                         formatted_details:formatted_details
                                     })}>Select From Event Board</button>
                 </div>
+                {this.renderRemovable(details)}
             </span>
         ) : <div>{output}</div>;
     }
@@ -238,7 +283,7 @@ class Row extends Component {
                 content = this.renderTime(editing, details); 
                 break;
             case 'expireDate':
-                content = this.renderTime(editing, details); 
+                content = this.renderDate(editing, details); 
                 break;
             case 'location':
                 content = this.renderLocation(editing, details); 
