@@ -126,7 +126,7 @@ class Profile extends Component {
         this.props.closePopup();
     }
 
-    componentWillReceiveProps(nextProps){
+    /*componentWillReceiveProps(nextProps){
         if(nextProps.user !== this.props.user){
             if (nextProps.user.email !== null){
                 this.setState({
@@ -134,7 +134,7 @@ class Profile extends Component {
                 }); 
             }
         }
-    }
+    }*/
 
     render() {
         const data = ["email", "reminder"];
