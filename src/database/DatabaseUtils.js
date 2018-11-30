@@ -248,7 +248,7 @@ class DatabaseUtils {
       for (let i of itemList){
         const loc_arr = JSON.parse(i.location);
         detail += "\t" + i.name + " stored at " + loc_arr.join('/') + "\n";
-      } 
+      }
       detail += "\n";
     }
     // eventList is not empty
