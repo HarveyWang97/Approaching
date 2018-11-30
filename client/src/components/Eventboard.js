@@ -3,7 +3,6 @@ import Event from './Event';
 import "../css/Dashboard.css";
 // import { INSPECT_MAX_BYTES } from 'buffer';
 // import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
-// import bg from './bg.jpg';
 // import tree from './tree.jpeg';
 // import th from './th.jpg';
 // import swag from './swag.jpg';
