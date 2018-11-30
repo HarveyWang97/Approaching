@@ -31,7 +31,8 @@
     margin-top: 0%;
     margin-left: 27%;
     font-size: 130%;
-    /*font-weight: bold;*/
+    font-weight: bold;
+    color: #eae7dc;
 }
 
 .profile_inner .top .profile_icon {
