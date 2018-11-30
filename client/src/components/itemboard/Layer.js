@@ -60,7 +60,8 @@ class Layer extends Component {
                         onClick={ enable ? () => this.props.togglePopup({
                             contentType: 'item',
                             isAdd: true,
-                            id: null
+                            id: null,
+                            currentLocation: this.props.currentLocation
                         }) : null }
                     />
                 </div>         

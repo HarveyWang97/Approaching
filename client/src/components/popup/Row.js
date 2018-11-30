@@ -80,7 +80,7 @@ class Row extends Component {
         var time = month + ' ' + date + ' ' + year ;
         return time;
     }
-    
+
     reformatItemLocation(location) {
         return location ? JSON.parse(location).join(' / ') : '';
     }

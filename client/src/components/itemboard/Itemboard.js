@@ -27,7 +27,7 @@ class Itemboard extends Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.structuredItems !== this.props.structuredItems){
             this.setState({
-                layerStack: [nextProps.structuredItems]
+                layerStack: [ nextProps.structuredItems ],
             });
         }
     }
@@ -95,11 +95,11 @@ class Itemboard extends Component {
                             contentType:'item',
                             isAdd:false,
                             id:payload[idx]._id
-                        })} 
+                        })}
                     >
                         <div className="search-result-item-name">{item.name}</div>
                         <div className="search-result-location">{this.formatLocation(item.location)}</div>
-                    </div>          
+                    </div>
                 );
             });
             return (
@@ -108,12 +108,14 @@ class Itemboard extends Component {
                 </div>
             );
         }
-        
     }
 
     render() {
         const { layerStack } = this.state;
+        const layerStackNames = [];
+        layerStack.forEach(layer => layerStackNames.push(layer && layer.name));
         const length = layerStack.length;
+
         const baseLayer = length > 2 ? (
             <div
                 className='layer base-layer'
@@ -149,6 +151,7 @@ class Itemboard extends Component {
                 goBack={this.go_back.bind(this)}
                 offset={topLayerOffset}
                 enable={true}
+                currentLocation={JSON.stringify(layerStackNames)}
             />
         );
 

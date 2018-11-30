@@ -25,11 +25,13 @@ class Popup extends Component {
     constructor(props){
         super(props);
 
-        const { contentType,isAdd, id } = this.props.payload;
+        const { contentType, isAdd, id, currentLocation } = this.props.payload;        
         if (isAdd) {
             this.state = {
                 editing: true,
-                payload: {}
+                payload: contentType === 'event' ? {} : {
+                    location: currentLocation
+                }
             };
         } else {
             // set event popup data
