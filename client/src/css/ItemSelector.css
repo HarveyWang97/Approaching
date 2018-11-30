@@ -24,6 +24,10 @@
     right: 30px;
 }
 
+.item-selector-inner .close-icon :hover{
+    cursor: pointer;
+}
+
 .item-selector-inner .caption {
     position: absolute;
     font-size: 20px;

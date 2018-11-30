@@ -40,7 +40,7 @@ class EventSelector extends Component {
           <div className="item-selector">
           <div className='item-selector-inner'>
                     <div className='close-icon'>
-                        <Icon iconName='times' onClick={() => this.props.toggleEventSelector()} />
+                        <Icon  iconName='times' onClick={() => this.props.toggleEventSelector()} />
                     </div>
                     <div className='submit' onClick={this.handleSubmit.bind(this)}>
                         <Icon iconName='save'/>
