@@ -63,6 +63,9 @@ class Row extends Component {
                 handleEditResult(field,formatted_data);
             }
             else{
+                if(event.target.newItem.value === ''){
+                    return;
+                }
                 let raw_data;
                 if(this.props.details === null || this.props.details === undefined || this.props.details.length === 0){
                     raw_data = [];
