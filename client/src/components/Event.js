@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
+import "../css/Dashboard.css";
 
 class Event extends Component{
     render() {
@@ -11,12 +12,7 @@ class Event extends Component{
         const processedTime = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
 
         return (
-            <div 
-                style={{border:'solid 1px', 
-                        width:'400px',height:'45px',
-                        paddingTop:'10px',
-                        marginLeft:'90px',
-                        marginBottom:'20px'}}
+            <div className='singleEvent' 
                 onClick={() => togglePopup({
                     contentType: 'event',
                     isAdd: false,
