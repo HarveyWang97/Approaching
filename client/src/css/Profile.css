@@ -22,11 +22,13 @@
 
 .profile_inner .top {
     height: 20%;
-    background: rgb(161, 160, 160);
+    /* background: lightgray; */
+    background:  #f1685e;
 }
 
 .profile_title {
     display: inline-block;
+    font-family: "Comic Sans MS", cursive, sans-serif;
     text-align: center;
     margin-top: 0%;
     margin-left: 27%;
@@ -79,7 +81,8 @@
     width: 100%;
     /* border-top: 2px solid; */
     padding: 5% 0%;
-    background: rgb(161, 160, 160);
+    /* background: rgb(161, 160, 160); */
+    background:#f1685e;
 }
 
 .profile_inner .bottom .left {
