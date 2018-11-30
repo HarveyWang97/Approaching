@@ -55,7 +55,7 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
 
 export const insertItem = (data,facebookId,accessToken) => async (dispatch) =>{
     const url = 
-    `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture=${data.picture}&expireDate=${data.time}&location=${data.location}&description=${data.description}&eventList=${data.itemlist}`;
+    `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${data.name}&picture=${data.picture}&expireDate=${data.expireDate}&location=${data.location}&description=${data.description}&eventList=${data.eventlist}`;
     const res = await axios.get(url);
     // TODO: check res.success and console.log only if it fails
     console.log("insert", res);
