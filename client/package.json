@@ -25,14 +25,18 @@
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
     "redux-form": "^7.4.2",
+    "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "sweetalert2": "^7.29.2",
     "uuid": "^3.3.2"
   },
+  "jest":{
+    
+  },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
