@@ -286,7 +286,7 @@ class Row extends Component {
         return editing ? (
             <span>
                 <div style={{marginTop:'5px'}}>
-                    <button type="button" onClick={() => this.props.toggleEventSelector({
+                    <button style={{width:'250px',height:'40px',fontSize:'15px'}} type="button" onClick={() => this.props.toggleEventSelector({
                                         id:this.props.field._id,
                                         handleSubmit: this.handleChange.bind(this),
                                         formatted_details:formatted_details
