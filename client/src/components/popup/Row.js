@@ -84,7 +84,7 @@ class Row extends Component {
     }
 
     renderTime(editing, details) {
-        const showTime = this.timeConverter(details);
+        const showTime = details? this.timeConverter(details) : "";
         const dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null;
 
         return editing ? (
@@ -185,6 +185,7 @@ class Row extends Component {
     renderEventList(editing, details) {
         let output;
         let formatted_details;
+        console.log("details: " + details);
         if(details === undefined || details.length === 0){
             output = (<div/>);
         }

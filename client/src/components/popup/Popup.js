@@ -100,9 +100,9 @@ class Popup extends Component {
          * request to server.
          */
         const { contentType, isAdd } = this.props.payload;
-        const { expireDate, location, time } = this.state.payload;
+        const { name, location, time } = this.state.payload;
         if (contentType === 'item') {
-            if (expireDate && location) {
+            if (name && location) {
                 this.changeEditingState();
                 if (isAdd) {
                     this.props.insertItem(this.state.payload, 'test', 'test').then(
@@ -118,11 +118,11 @@ class Popup extends Component {
                 swal({
                     type: 'error',
                     title: 'Oops...',
-                    html: 'Please fill in the <b>expiration date</b> and the <b>location</b>!'
+                    html: 'Please fill in the item <b>name</b> and <b>location</b>!'
                 });
             }
         } else {
-            if (time) {
+            if (name && time) {
                 this.changeEditingState();
                 console.log("payload time", time);
                 if (isAdd) {
@@ -139,7 +139,7 @@ class Popup extends Component {
                 swal({
                     type: 'error',
                     title: 'Oops...',
-                    html: 'Please fill in the <b>event time</b>!'
+                    html: 'Please fill in the event <b>name</b> and <b>time</b>!'
                 });
             }
         }
