@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import config from '../../config';
 import '../../css/Profile.css';
+import ls from 'local-storage';
 import Icon from './Icon';
+import { lstat } from 'fs';
 
 /**
  * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
@@ -35,6 +37,7 @@ class ProfileRow extends Component {
             item: event.target.value
         });
         this.props.handleEditResult(this.props.field,event.target.value);
+        ls.set(this.props.field,event.target.value)
     }
 
     /**
