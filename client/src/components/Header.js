@@ -18,6 +18,12 @@ class Header extends Component{
     }
 
     togglePopup() {
+        if(!this.userLoggedIn()){
+            this.setState({
+                showPopup: false
+            }); 
+            return; 
+        }
         this.setState({
             showPopup: !this.state.showPopup
         });  
@@ -27,6 +33,10 @@ class Header extends Component{
         this.setState({
             showPopup: true
         });
+    }
+
+    componentDidMount(){
+        
     }
 
     componentWillReceiveProps(nextProps){
