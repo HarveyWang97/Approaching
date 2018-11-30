@@ -97,7 +97,7 @@ class Row extends Component {
     }
 
     renderTime(editing, details) {
-        const showTime = details? this.timeConverter(details) : "";
+        const showTime = this.timeConverter(details);
         const dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null;
 
         return editing ? (
@@ -113,7 +113,7 @@ class Row extends Component {
     }
 
     renderDate(editing, details) {
-        const showTime = this.dateConverter(details*1+86400000);
+        const showTime = details? this.dateConverter(details*1+86400000) : "";
         const dTime = details ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
 
         return editing ? (
