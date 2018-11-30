@@ -154,7 +154,20 @@ class Popup extends Component {
 	 * @return {void}
 	 */
     handleDelete() {
-
+        const { contentType } = this.props.payload;
+        const { _id } = this.state.payload;
+        if (contentType === 'item') {
+            console.log(_id);
+            this.props.deleteItem(_id, 'test', 'test').then(
+                () => this.props.fetchItems('test', 'test')
+            );
+            this.props.togglePopup();
+        } else {
+            this.props.deleteEvent(_id, 'test', 'test').then(
+                () => this.props.fetchEvents('test', 'test')
+            );
+            this.props.togglePopup();
+        }
     }
 
     /**
