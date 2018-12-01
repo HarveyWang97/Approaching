@@ -11,16 +11,18 @@ var today = new Date();
 var todayISO = today.toISOString().slice(0,16);
 var todayDateISO = today.toISOString().slice(0,10);
 /**
- * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
+ * @classdesc Called by Popup to construct a pair of one Icon and one content field. 
  * 
  */
 class Row extends Component {
     /**
-	 * Currently we manually construct datas for popup to display since we do not have communication with others.
-     * Initialize the state variables with corresponding input data.
-     * (TO BE DONE) Communication with other front-end components and server.
+     * Initialize the state variables with given input data, input is passed from Popup component.
 	 * @constructor
-	 * @param {None}
+	 * @param {Object} props The properties passed in when the component is constructed.
+     * The input values are three strings (contentType, field, details). 
+     * contentType: Determine if the input is for an event object or an item object.
+     * field: Determine which field in the object is passed in, and handle different fields properly.
+     * details: The content to be rendered.
 	 * @return {void} 
 	 */
     constructor(props) {
@@ -35,9 +37,12 @@ class Row extends Component {
     }
 
     /**
-	 * This method set the value of this row's item to the new input value.
-	 * 
-	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
+	 * This method sets this row's field value to the new input value. 
+     * It handles different field differently.
+     * For time field (in event object), get input value from time picker.
+	 * For expireDate field (in item object), get input value from date picker.
+     * For itemList or eventList field, parse input from item/event selector component.
+	 * @param {Object} event A specific event that invokes this method, e.g. editing the input form.
 	 * @return {void} 
 	 */
     handleChange(event) {
@@ -337,12 +342,10 @@ class Row extends Component {
 
     /**
 	 * Render the row based on the given input. 
-     *
      * @param {String} field The data type of given text value, e.g. location, time.
      * @param {String} iconName The name of FAIcon to be constructed.
      * @param {Boolean} editing Whether the Popup is in editing mode.
-     * @param {JsonObject} handleEditResult Pass handleEditResult behavior from Popup to this object.
-     * 
+     * @param {Object} handleEditResult Pass handleEditResult behavior from Popup to this object.
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {

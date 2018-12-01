@@ -9,22 +9,29 @@ import ls from 'local-storage';
   * @classdesc Create a login button that get user logged in with facebook.
   */
 class LoginButton extends Component{
+    /**
+     * Initialize the state of responseFacebook.
+     * @constructor
+     * @param {Object} props No props needed.
+     */
     constructor(props){
         super(props);
         this.responseFacebook = this.responseFacebook.bind(this);
     }
 
+    /**
+     * Override the React function to redirect to dashboard during didMount stage.
+     * @return {void}
+     */
     componentDidMount(){
         if(ls.get('username') !== undefined && ls.get('username') !== null){
             this.props.history.push('/dashboard');
         }
     }
 
-
-
     /**
-     * This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page
-     * @param {JsonObject} response response sent back by facebook, contains information such as userId,email,name....
+     * This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page.
+     * @param {Object} response response sent back by facebook, contains user information (e.g. userId, email, name).
      * @return {void}
      */
     responseFacebook (response)  {
@@ -32,10 +39,8 @@ class LoginButton extends Component{
         .then(() => {
             // record the user information in the local storage
         ls.set('username',response.name);
-        // ls.set('accessToken',response.accessToken);
-         //ls.set('facebookId',response.userID);
- 
-         //defualt reminder time manually set to 24 hours
+
+         //default reminder time manually set to 24 hours
          ls.set('reminder', "24");
  
          ls.set('accessToken',response.accessToken);
@@ -45,21 +50,14 @@ class LoginButton extends Component{
        this.props.fetchItems(response.userID,response.accessToken)
         .then(() => this.props.fetchEvents(response.userID,response.accessToken))
         .then(() => this.props.history.push('/dashboard'));
-       /* this.props.fetchItems(response.userID,response.accessToken);
-        this.props.fetchEvents(response.userID,response.accessToken);
-        this.props.history.push('/dashboard');*/
     });
-        
-
-       
     }
 
+    /**
+     * Render the login page with facebook login button.
+     * @return {html} Returns a html block of login component. 
+     */
     render(){
-        // let content;
-        // if(this.props.user != null && this.props.user != null){
-        //     content = this.props.user.email;
-        // }
-
         return (                 
                     <div className="login">
                         <div className="login-btn">                                           
