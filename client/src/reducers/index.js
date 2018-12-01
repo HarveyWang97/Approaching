@@ -6,6 +6,7 @@ import toggleItemSelectorReducer from './toggleItemSelectorReducer';
 import toggleEventSelectorReducer from './toggleEventSelectorReducer';
 import eventsReducer from './eventsReducer';
 import itemsReducer from './itemsReducer';
+import userProfileReducer from './userProfileReducer';
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
     itemSelector:toggleItemSelectorReducer,
     eventSelector:toggleEventSelectorReducer,
     events:eventsReducer,
-    items:itemsReducer
+    items:itemsReducer,
+    userProfile:userProfileReducer
 });

@@ -5,7 +5,8 @@ import {
     FETCH_EVENTS,
     FETCH_ITEMS,
     TOGGLE_ITEM_SELECTOR,
-    TOGGLE_EVENT_SELECTOR
+    TOGGLE_EVENT_SELECTOR,
+    FETCH_PROFILE
 } from './types.js';
 import axios from 'axios';
 
@@ -47,6 +48,20 @@ export const insertUser = (response) => async (dispatch) => {
            console.log("insertUser response", res.data);
         } else {
             console.log("Fail to insert user in server.")
+        }
+    });
+}
+
+export const fetchProfile = (facebookId,accessToken) => async (dispatch) => {
+    const url = 
+    `http://localhost:3000/fetchProfile?facebookId=${facebookId}&accessToken=${accessToken}`;
+    axios.get(url)
+    .then((res) => {
+        if(res.data.success === true){
+            dispatch({type:FETCH_PROFILE,payload:res.data.userProfile})
+        }
+        else{
+            console.log("Fail to fetch the user profile")
         }
     });
 }

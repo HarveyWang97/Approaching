@@ -31,15 +31,20 @@ class LoginButton extends Component{
         this.props.insertUser(response);
         // record the user information in the local storage
         ls.set('username',response.name);
-        ls.set('accessToken',response.accessToken);
-        ls.set('facebookId',response.userID);
-        ls.set('email',response.email);
+       // ls.set('accessToken',response.accessToken);
+        //ls.set('facebookId',response.userID);
 
         //defualt reminder time manually set to 24 hours
         ls.set('reminder', "24");
 
+        ls.set('accessToken',response.accessToken);
+        ls.set('facebookId',response.userID);
+         
+
         this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken, name:response.name, email:response.email});
         this.props.history.push('/dashboard');
+
+       
     }
 
     render(){

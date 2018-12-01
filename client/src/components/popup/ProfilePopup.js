@@ -8,18 +8,35 @@ import ls from 'local-storage';
 import config from '../../config';
 import {Link} from 'react-router-dom';
 
+
+
 class Profile extends Component {
     constructor(props){
         super(props);
-
         this.state = {
             editing: false,
             validEmail: true,
             validReminder: true,
             title: 'Account Settings',
-            email: ls.get('email'), 
-            reminder: ls.get("reminder") 
+            email: this.props.userProfile.email, 
+            reminder: this.props.userProfile.notifyTime
         };
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.userProfile.email !== this.props.userProfile.email){
+            this.setState({email:nextProps.userProfile.email});
+        }
+
+        if(nextProps.userProfile.notifyTime !== this.props.userProfile.notifyTime){
+            this.setState({reminder:nextProps.userProfile.notifyTime});
+        }
+    }
+
+    componentDidMount(){
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
+        this.props.fetchProfile(facebookId,accessToken);
     }
 
     validateEmail(email) {
@@ -28,7 +45,8 @@ class Profile extends Component {
     }
 
     validateReminder(time){
-        return !isNaN(time)
+        //return !isNaN(time)
+        return true;
     }
 
     /**
@@ -61,10 +79,12 @@ class Profile extends Component {
 	 */
 
     handleSubmit() {
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
         // check validity of email input
         if (this.validateEmail(this.state.email))
         {
-            this.props.updateEmail(this.state.email, "test", "test");
+            //this.props.updateEmail(this.state.email, "test", "test");
             this.setState({validEmail: true});
         }
         else{
@@ -72,7 +92,7 @@ class Profile extends Component {
         }
 
         if (this.validateReminder(this.state.reminder)){
-            this.props.updateNotifyTime(this.convertHourstoMs(this.state.reminder).toString(), "test", "test");
+            //this.props.updateNotifyTime(this.convertHourstoMs(this.state.reminder).toString(), "test", "test");
             this.setState({validReminder: true});        
         }
         else{
@@ -80,7 +100,14 @@ class Profile extends Component {
         }
         
         if (this.state.validEmail  && this.state.validReminder){
-            this.changeEditingState();
+
+            this.props.updateEmail(this.state.email, facebookId, accessToken)
+            .then(() => this.props.updateNotifyTime(this.convertHourstoMs(this.state.reminder).toString(), facebookId, accessToken))
+            .then(() => this.props.fetchProfile(facebookId,accessToken))
+            .then( () => {
+                this.changeEditingState();
+            });
+            
         }
         
     }
@@ -97,21 +124,21 @@ class Profile extends Component {
     handleEditResult(key, value) {
         if (key === "email"){
             this.setState({email: value});
-            if (!this.validateEmail(value)){
+            /*if (!this.validateEmail(value)){
                 this.setState({validEmail: false});
             }
             else{
                 this.setState({validEmail: true});
-            }
+            }*/
         } 
         if (key === "reminder"){
             this.setState({reminder: value});
-            if (!this.validateReminder(value)){
+            /*if (!this.validateReminder(value)){
                 this.setState({validReminder: false});
             }
             else{
                 this.setState({validReminder: true});
-            }
+            }*/
         }         
         
     }
@@ -137,6 +164,10 @@ class Profile extends Component {
     }*/
 
     render() {
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
+
+        
         const data = ["email", "reminder"];
 
         return (
@@ -214,7 +245,8 @@ class Profile extends Component {
 
 function mapStateToProps(state){
     return {
-        user:state.auth
+        user:state.auth,
+        userProfile:state.userProfile
     }
 }
 
