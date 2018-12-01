@@ -51,7 +51,7 @@ class ProfileRow extends Component {
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
-        const { field, iconName, placeholder, details, editing, handleEditResult } = this.props;
+        const { iconName, placeholder, details, editing } = this.props;
         return (
             <div className='profile_row'>
                     <div className='profile_icon'>
@@ -60,7 +60,7 @@ class ProfileRow extends Component {
                 
                     {editing ? (<input type="text" value={this.state.item} placeholder={placeholder}
                             onChange={this.handleChange.bind(this)} />)
-                            : iconName == config.icons["reminder"] ? (<span>{details} hour(s)</span>) : (<span>{details}</span>)
+                            : iconName === config.icons["reminder"] ? (<span>{details} hour(s)</span>) : (<span>{details}</span>)
                     }
                 </div>
         );
