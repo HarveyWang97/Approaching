@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import '../css/Header.css';
+import '../assets/styles/Header.css';
 import { Navbar} from 'reactstrap';
 import ProfilePopup from './popup/ProfilePopup';
 import Icon from './popup/Icon'

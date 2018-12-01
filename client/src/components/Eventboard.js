@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import Event from './Event';
-import "../css/Dashboard.css";
-import calendar from './eventCalendar.png';
+import "../assets/styles/Dashboard.css";
+import calendar from '../assets/images/eventCalendar.png';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
 
@@ -114,8 +114,8 @@ class Eventboard extends Component{
             console.log("events",this.props.events);
         }
         return (
-            <div className="split-right right">  
-            <div className="events">          
+            <div className="split-right right">
+            <div className="events">
                 <h2 style = {{marginTop:'40px', marginLeft:'50px', color:"#61605d"}}>Events Calendar
                 <img style = {{marginLeft:'7px'}} src={calendar} width="23" height="23" alt="calendarIcon"/>
                 </h2>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import config from '../../config';
-import '../../css/Profile.css';
+import '../../assets/styles/Profile.css';
 import ls from 'local-storage';
 import Icon from './Icon';
 import { lstat } from 'fs';

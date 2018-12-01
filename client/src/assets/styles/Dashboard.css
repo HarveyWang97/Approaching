@@ -43,12 +43,12 @@
   background-color: #e98074;
 }
 
-.footer :hover{
+.add:hover{
   color:red;
   cursor: pointer;
 }
 
-.add{
+.add {
   line-height: 50px;
   font-size: 20px;
 }

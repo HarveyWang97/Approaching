@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/Popup.css';
+import '../../assets/styles/Popup.css';
 import Icon from './Icon';
 import Select from 'react-select';
 import { connect } from 'react-redux';

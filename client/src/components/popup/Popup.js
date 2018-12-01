@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import swal from 'sweetalert2'
-import '../../css/Popup.css';
+import '../../assets/styles/Popup.css';
 import Row from './Row';
 import Icon from './Icon';
 import config from '../../config';

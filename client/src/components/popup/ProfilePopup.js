@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/Profile.css';
+import '../../assets/styles/Profile.css';
 import ProfileRow from './ProfileRow';
 import Icon from './Icon';
 import {connect} from 'react-redux';
