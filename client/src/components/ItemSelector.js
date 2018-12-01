@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/ItemSelector.css';
+import '../assets/styles/ItemSelector.css';
 import Icon from './popup/Icon';
 import { connect } from 'react-redux';
 import  * as actions from '../actions';
@@ -54,6 +54,7 @@ class ItemSelector extends Component {
                             items={items}
                             selectedItems={selectedItems}
                             onChange={this.handleChange}
+                            responsiveHeight='100%' 
                         /> : <h1>no items</h1>
                         } 
                     </div>

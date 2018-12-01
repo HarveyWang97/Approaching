@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import Layer from './Layer';
-import "../../css/Dashboard.css";
-import "../../css/itemboard/Itemboard.css";
+import "../../assets/styles/Dashboard.css";
+import "../../assets/styles/itemboard/Itemboard.css";
 import config from '../../config';
 import ls from 'local-storage';
 import {connect} from 'react-redux';

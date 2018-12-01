@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/Popup.css';
+import '../../assets/styles/Popup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /**

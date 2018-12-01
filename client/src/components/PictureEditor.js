@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import '../css/PictureEditor.css';
+import '../assets/styles/PictureEditor.css';
 import config from '../config';
 import Icon from './popup/Icon';
 import { connect } from 'react-redux';

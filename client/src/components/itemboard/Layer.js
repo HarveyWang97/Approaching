@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "../../css/itemboard/Layer.css";
+import "../../assets/styles/itemboard/Layer.css";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 

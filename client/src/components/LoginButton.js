@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
-import '../css/Header.css';
-// import autumn from './autumn.jpg';
+import '../assets/styles/Header.css';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import ls from 'local-storage';

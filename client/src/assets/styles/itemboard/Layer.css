@@ -104,8 +104,3 @@
 .top-layer .addItemRow {
     background: #e98074;
 }
-
-.addItemRow :hover{
-    color:red;
-    cursor: pointer;
-}

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
-import "../css/Dashboard.css";
+import "../assets/styles/Dashboard.css";
 
 class Event extends Component{
     render() {

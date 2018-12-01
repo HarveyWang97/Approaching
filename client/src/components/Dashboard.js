@@ -8,7 +8,7 @@ import EventSelector from './EventSelector';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import ls from 'local-storage';
-import "../css/Dashboard.css";
+import "../assets/styles/Dashboard.css";
 
 class Dashboard extends Component {
     constructor(props){
