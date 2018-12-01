@@ -64,6 +64,10 @@ class Database {
     return this.uniqueInstance;
   }
 
+  /**
+   * Get a test sandbox database instance, initialize a new connection only when
+   * the database does not exist.
+   */
   static getTestInstance() {
     if (this.testStatus === DatabaseStatus.DISCONNECTED) {
       this.testStatus = DatabaseStatus.CONNECTING;      
@@ -73,6 +77,11 @@ class Database {
     return this.uniqueTestInstance;
   }
 
+  /**
+   * Fetch the specific user profile from database with the given query.
+   * @param {Query} query - The Query object wrapped from client request.
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   */
   fetchProfile(query, callback = () => {}) {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
@@ -80,6 +89,17 @@ class Database {
     });
   }
 
+  /**
+   * Fetch all items stored under the given user from database with the given query.
+   * Return a raw item list (get directly from database) and a structured item list.
+   * The structured item list is in following structure:
+   * { name: {layer name},
+   *   sublayers: a list of {name, sublayers, items} object,
+   *   items: all items stored under this layer
+   * }
+   * @param {Query} query - The Query object wrapped from client request.
+   * @param {DatabaseCallback} callback - Called after all other operations
+   */
   fetchItems(query, callback = () => {}) {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
@@ -133,6 +153,13 @@ class Database {
     });
   }
 
+  /**
+   * Fetch all events stored under the given user from database with the given query.
+   * Return a raw event list (get directly from database) and a structured event list.
+   * The structured event list stores all events in a 3D array with dimensions: year, month, date.
+   * @param {Query} query - The Query object wrapped from client request.
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   */
   fetchEvents(query, callback = () => {}) {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
@@ -173,20 +200,6 @@ class Database {
       });
     });
   }
-
-
-  /////
-  /*
-static getEvents(owner, callback = () => {}) {
-    models.Event.find({ owner: owner }, (err, rawEvents) => {
-      if (err) {
-        callback({ success: false });
-      } else {
-        
-      }
-    });
-  }
-  */
 
   /**
    * Insert a user/item/event into the database.

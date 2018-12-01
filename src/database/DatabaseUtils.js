@@ -245,7 +245,8 @@ class DatabaseUtils {
   }
 
   /**
-   * Send an expiration notification email to the user.
+   * Send an expiration notification email to the user, email contains 
+   * all approaching expiration items and all approaching deadline events.
    * @param {Array} itemList - An array of approaching expiration items
    * @param {Array} eventList - An array of approaching deadline events
    * @param {string} name - User name
