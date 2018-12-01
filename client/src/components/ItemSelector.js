@@ -8,8 +8,10 @@ import MultiSelect from "@kenshooui/react-multi-select";
 class ItemSelector extends Component {
     componentDidMount(){
         let arr = [];
+        if(this.props.rawItems !== null && this.props.rawItems !== undefined) {
         for(var i=0;i<this.props.rawItems.length;i++){
             arr.push({label:this.props.rawItems[i].name,id:this.props.rawItems[i]._id});
+        }
         }
         this.setState({items:arr});
         this.setState({selectedItems:this.props.payload.formatted_details});

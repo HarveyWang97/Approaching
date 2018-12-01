@@ -64,7 +64,7 @@ class Row extends Component {
                 handleEditResult(field,formatted_data);
             }
             else{
-                if(event.target.newItem.value === ''){
+                if(event === null || event === undefined || event.target.newItem.value === ''){
                     return;
                 }
                 let raw_data;
