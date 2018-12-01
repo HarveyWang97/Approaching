@@ -26,19 +26,19 @@ class Popup extends Component {
     constructor(props){
         super(props);
 
+
         const { contentType, isAdd, id, currentLocation } = this.props.payload;        
         if (isAdd) {
             this.state = {
                 editing: true,
                 payload: contentType === 'event' ? {} : {
                     location: currentLocation
-                }
-            };
+            } }
         } else {
             // set event popup data
             if(contentType === 'event'){
                 const payload = this.props.events.filter(event => event._id === id)[0];
-                this.state = {
+                this.state =  {
                     editing: false,
                     payload: payload
                 };
@@ -48,13 +48,21 @@ class Popup extends Component {
             else if(contentType === 'item'){
                 const payload = this.props.rawItems.filter(item => item._id === id)[0];
                 console.log("item payload",payload);
-                this.state = {
+                this.state =  {
                     editing: false,
                     payload: payload
                 };
             }         
         }
           
+    }
+
+    componentDidMount(){
+    }
+
+    componentWillReceiveProps(nextProps){
+        
+        
     }
 
     /**

@@ -23,6 +23,9 @@ class Eventboard extends Component{
             events:props.events
         };
     }
+
+
+
     
 
    /* componentWillReceiveProps(nextProps){
@@ -35,25 +38,33 @@ class Eventboard extends Component{
         }
     }*/
 
-    componentWillReceiveProps(nextProps){
+  /* componentWillReceiveProps(nextProps){
        // if(this.props.events === undefined){
          //   this.setState({events:nextProps.events});
         //}
-        if(nextProps.events !== this.props.events){
+
+        if(nextProps.events === undefined){
+
+        }
+        
+        else if(nextProps.events !== this.props.events){
             this.setState({events:nextProps.events});
         }
+        
+        console.log("now",this.props.events);
+        console.log("next",nextProps.events);
        /* if(!Object.is(this.props.events,nextProps.events)){
             this.setState({events:nextProps.events});
         }*/
-    }
+   /* }*/
 
     componentDidMount(){
        //this.props.fetchEvents('test','test');
        const facebookId = ls.get('facebookId');
        const accessToken = ls.get('accessToken');
        console.log("ls",facebookId);
-       this.props.fetchEvents(ls.get('facebookId'),ls.get('accessToken'));
-       console.log("prop events",this.props.events);
+       console.log("ls token",accessToken);
+       this.props.fetchEvents(facebookId,accessToken);
     }
 
     /**
@@ -144,16 +155,16 @@ class Eventboard extends Component{
 
     render(){
         let events;
-        if (this.state.events === undefined || this.state.events === null || this.state.events === false){
+        if (this.props.events === {} || this.props.events == undefined || this.props.events === false){
             events = null;
         } else {
-            events = Object.keys(this.state.events).map(key => {
-                return this.renderYear(key, this.state.events[key]);
+            events = Object.keys(this.props.events).map(key => {
+                return this.renderYear(key, this.props.events[key]);
             });
-            console.log("events",this.state.events);
+            console.log("events",this.props.events);
            // console.log("rawEvents",this.state.rawEvents);
         }
-        console.log("state events",this.state.events);
+        console.log("state events",this.props.events);
         return (
             <div className="split-right right">  
             <div className="events">          

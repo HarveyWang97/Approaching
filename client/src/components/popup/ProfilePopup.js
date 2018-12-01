@@ -150,6 +150,7 @@ class Profile extends Component {
 
     logout(){
         ls.clear();
+        
         this.props.closePopup();
     }
 
