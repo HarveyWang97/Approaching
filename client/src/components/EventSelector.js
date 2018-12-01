@@ -19,11 +19,11 @@ class EventSelector extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-          items: [],
-          selectedItems: []
+            items: [],
+            selectedItems: []
         };
       }
-    
+
     handleChange(selectedItems) {
         this.setState({ selectedItems });
     }
@@ -37,8 +37,8 @@ class EventSelector extends Component {
         const { items, selectedItems } = this.state;
         console.log("items", selectedItems);
         return (
-          <div className="item-selector">
-          <div className='item-selector-inner'>
+            <div className="item-selector">
+                <div className='item-selector-inner'>
                     <div className='close-icon' onClick={() => this.props.toggleEventSelector()}>
                         <Icon  iconName='times'  />
                     </div>
@@ -48,24 +48,20 @@ class EventSelector extends Component {
                     <div className='caption' >
                         Please select from following events:
                     </div>
-                    <div style={{marginTop:'70px'}}>
+                    <div className='multi-select-container'>
                         {this.state.items.length > 0 ?
                          <MultiSelect
                             items={items}
                             selectedItems={selectedItems}
                             onChange={this.handleChange}
+                            responsiveHeight='100%'
                         />: <h1>no items</h1>
-                        } 
-                        
+                        }
                     </div>
                 </div>
-        
-          
-          </div>
+            </div>
         );
     }
-
-
 }
 
 function mapStateToProps(state){

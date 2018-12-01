@@ -9,8 +9,7 @@
 .item-selector-inner {
     position: absolute;
     width: calc(500px - 30px * 2);
-    height: calc(600px - 30px * 2);
-    position: absolute;
+    height: calc(80% - 30px * 2);
     left: 50%;
     top: 50%;
     -webkit-transform: translateX(-50%) translateY(-50%);
@@ -57,4 +56,9 @@
 .item-selector-inner .submit :hover{
     color: red;
     cursor: pointer;
+}
+
+.item-selector-inner .multi-select-container {
+    margin-top: 70px;
+    height: calc(100% - 120px);
 }

@@ -122,7 +122,7 @@ class Profile extends Component {
 	 *     handleEditResult(key, value)
 	 */
     handleEditResult(key, value) {
-        if (key == "email"){
+        if (key === "email"){
             this.setState({email: value});
             /*if (!this.validateEmail(value)){
                 this.setState({validEmail: false});
@@ -131,7 +131,7 @@ class Profile extends Component {
                 this.setState({validEmail: true});
             }*/
         } 
-        if (key == "reminder"){
+        if (key === "reminder"){
             this.setState({reminder: value});
             /*if (!this.validateReminder(value)){
                 this.setState({validReminder: false});
