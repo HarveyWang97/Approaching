@@ -51,6 +51,10 @@ class Database {
     });
   }
 
+  /**
+   * Get singleton database instance, initialize a new connection only when
+   * the database does not exist.
+   */
   static getInstance() {
     if (this.status === DatabaseStatus.DISCONNECTED) {
       this.status = DatabaseStatus.CONNECTING;      
