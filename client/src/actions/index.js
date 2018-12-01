@@ -5,7 +5,8 @@ import {
     FETCH_EVENTS,
     FETCH_ITEMS,
     TOGGLE_ITEM_SELECTOR,
-    TOGGLE_EVENT_SELECTOR
+    TOGGLE_EVENT_SELECTOR,
+    FETCH_PROFILE
 } from './types.js';
 import axios from 'axios';
 
@@ -30,13 +31,6 @@ export const toggleEventSelector = (payload) => dispatch => {
     dispatch({type: TOGGLE_EVENT_SELECTOR, payload: payload});
 }
 
-<<<<<<< HEAD
-export const fetchProfile = (facebookId,accessToken) => async(dispatch) => {
-    const url = `http://localhost:3000/fetchProfile?facebookId=${facebookId}&accessToken=${accessToken}`;
-    const res = await axios.get(url);
-    console.log(res);
-};
-=======
 
 /**
  * When user is logged in, pass user information from facebook to server.
@@ -57,7 +51,20 @@ export const insertUser = (response) => async (dispatch) => {
         }
     });
 }
->>>>>>> cf0bd3a8849f0833bac66af3fb03f96d96b7bbed
+
+export const fetchProfile = (facebookId,accessToken) => async (dispatch) => {
+    const url = 
+    `http://localhost:3000/fetchProfile?facebookId=${facebookId}&accessToken=${accessToken}`;
+    axios.get(url)
+    .then((res) => {
+        if(res.data.success === true){
+            dispatch({type:FETCH_PROFILE,payload:res.data.userProfile})
+        }
+        else{
+            console.log("Fail to fetch the user profile")
+        }
+    });
+}
 
 export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
     const url = 

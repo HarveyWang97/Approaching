@@ -2,10 +2,6 @@ import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 import '../css/Header.css';
 // import autumn from './autumn.jpg';
-<<<<<<< HEAD
-//import {insertUser} from '../Request.js';
-=======
->>>>>>> cf0bd3a8849f0833bac66af3fb03f96d96b7bbed
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import ls from 'local-storage';
@@ -33,22 +29,23 @@ class LoginButton extends Component{
      * @return {void}
      */
     responseFacebook (response)  {
-<<<<<<< HEAD
-        //insertUser(response);
-=======
         this.props.insertUser(response);
->>>>>>> cf0bd3a8849f0833bac66af3fb03f96d96b7bbed
         // record the user information in the local storage
         ls.set('username',response.name);
-        ls.set('accessToken',response.accessToken);
-        ls.set('facebookId',response.userID);
-        ls.set('email',response.email);
+       // ls.set('accessToken',response.accessToken);
+        //ls.set('facebookId',response.userID);
 
         //defualt reminder time manually set to 24 hours
         ls.set('reminder', "24");
 
+        ls.set('accessToken',response.accessToken);
+        ls.set('facebookId',response.userID);
+         
+
         this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken, name:response.name, email:response.email});
         this.props.history.push('/dashboard');
+
+       
     }
 
     render(){

@@ -21,6 +21,46 @@ import { lchown } from 'fs';
  */
 
 class Eventboard extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            events:props.events
+        };
+    }
+    
+
+   /* componentWillReceiveProps(nextProps){
+        if(this.props.events === undefined && nextProps.events !== undefined){
+            this.setState({events:nextProps.events});
+            return;
+        }
+        if(nextProps.events !== this.props.events){
+            this.setState({events:nextProps.events});
+        }
+    }*/
+
+    componentWillReceiveProps(nextProps){
+       // if(this.props.events === undefined){
+         //   this.setState({events:nextProps.events});
+        //}
+        if(nextProps.events !== this.props.events){
+            this.setState({events:nextProps.events});
+        }
+       /* if(!Object.is(this.props.events,nextProps.events)){
+            this.setState({events:nextProps.events});
+        }*/
+    }
+
+    componentDidMount(){
+       //this.props.fetchEvents('test','test');
+       const facebookId = ls.get('facebookId');
+       const accessToken = ls.get('accessToken');
+       console.log("ls",facebookId);
+       this.props.fetchEvents(ls.get('facebookId'),ls.get('accessToken'));
+       console.log("prop events",this.props.events);
+    }
+
     /**
      * @function
      * @param {number} year 
@@ -58,7 +98,7 @@ class Eventboard extends Component{
             return this.renderDay(month,year,key,eventsData[key]);
         });
         return (
-            <div>
+            <div key={month}>
                 <div style={{marginLeft:'50px',marginBottom:'10px', color:'#5b5a57'}}>
                     <b>{this.monthName[month]} {year}</b>
                 </div>
@@ -82,7 +122,7 @@ class Eventboard extends Component{
             return this.renderItem(event._id,event.name,event.time);
         }); // iterate an array
         return (
-            <div>
+            <div key={day}>
                  <b style={{marginLeft:'60px', float:'left', color:'#61605d', paddingTop:'5px'}}>{day}</b>
                 {events}
             </div>
@@ -106,22 +146,19 @@ class Eventboard extends Component{
         );
     }
 
-    componentDidMount(){
-       // this.props.fetchEvents('test','test');
-       this.props.fetchEvents(ls.get('facebookId'),ls.get('accessToken'));
-    }
 
     render(){
         let events;
-        if (this.props.events == null || this.props.events === false){
+        if (this.state.events === undefined || this.state.events === null || this.state.events === false){
             events = null;
         } else {
-            events = Object.keys(this.props.events).map(key => {
-                return this.renderYear(key, this.props.events[key]);
+            events = Object.keys(this.state.events).map(key => {
+                return this.renderYear(key, this.state.events[key]);
             });
-            console.log("events",this.props.events);
-            console.log("rawEvents",this.props.rawEvents);
+            console.log("events",this.state.events);
+           // console.log("rawEvents",this.state.rawEvents);
         }
+        console.log("state events",this.state.events);
         return (
             <div className="split-right right">  
             <div className="events">          
@@ -149,7 +186,8 @@ function mapStateToProps(state){
     return {
         user:state.auth,
         events:state.events.structuredEvents,
-        rawEvents:state.events.rawEvents
+        rawEvents:state.events.rawEvents,
+        userProfile:state.userProfile
     }
 }
 
