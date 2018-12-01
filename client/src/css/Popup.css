@@ -10,9 +10,8 @@
     position: absolute;
     width: 500px;
     height: 80%;
-    position: absolute;
     left: 50%;
-    top: 50%;
+    top: 50%; 
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     background: #eae7dc;
@@ -149,6 +148,12 @@ input {
 
 .popup-field-content-row button:active {
     border: none;
+}
+
+.popup-description-field-content-row {
+    height: auto;
+    line-height: 30px;
+    margin-top: 10px;
 }
 
 .popup-time-field-content-row input,

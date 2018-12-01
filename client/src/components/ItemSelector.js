@@ -37,8 +37,8 @@ class ItemSelector extends Component {
         const { items, selectedItems } = this.state;
         console.log("items", selectedItems);
         return (
-          <div className="item-selector">
-          <div className='item-selector-inner'>
+            <div className="item-selector">
+                <div className='item-selector-inner'>
                     <div className='close-icon'>
                         <Icon iconName='times' onClick={() => this.props.toggleItemSelector()} />
                     </div>
@@ -48,24 +48,19 @@ class ItemSelector extends Component {
                     <div className='caption' >
                         Please select from following items:
                     </div>
-                    <div style={{marginTop:'70px'}}>
+                    <div className='multi-select-container'>
                         {this.state.items.length > 0 ?
-                         <MultiSelect
+                            <MultiSelect
                             items={items}
                             selectedItems={selectedItems}
                             onChange={this.handleChange}
-                        />: <h1>no items</h1>
+                        /> : <h1>no items</h1>
                         } 
-                        
                     </div>
                 </div>
-        
-          
-          </div>
+            </div>
         );
     }
-
-
 }
 
 function mapStateToProps(state){
