@@ -1,12 +1,7 @@
 import React,{Component} from 'react';
 import Event from './Event';
 import "../css/Dashboard.css";
-// import { INSPECT_MAX_BYTES } from 'buffer';
-// import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from 'constants';
-// import tree from './tree.jpeg';
-// import th from './th.jpg';
-// import swag from './swag.jpg';
-import calendar from './calendar.jpeg';
+import calendar from './eventCalendar.png';
 import {connect} from 'react-redux';
 import  * as actions from '../actions';
 
@@ -122,7 +117,7 @@ class Eventboard extends Component{
             <div className="split-right right">  
             <div className="events">          
                 <h2 style = {{marginTop:'40px', marginLeft:'50px', color:"#61605d"}}>Events Calendar
-                <img style = {{marginLeft:'5px'}} src={calendar} width="30" height="26" alt="calendarIcon"/>
+                <img style = {{marginLeft:'7px'}} src={calendar} width="23" height="23" alt="calendarIcon"/>
                 </h2>
                 {events}
            </div>
