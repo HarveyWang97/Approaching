@@ -29,7 +29,7 @@ class Layer extends Component {
      * @param {Function} goBack - a function passed from the parent component, {@link Itemboard},
      * going to the parent layer.
      * @param {String} className - specify css style class name.
-     * @returns {html} Return an html object of a layer card.
+     * @returns {html} Returns an html object of a layer card.
      */
     render() {
         const { content, offset, enable, changeLayer, goBack, className } = this.props;

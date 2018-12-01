@@ -11,8 +11,7 @@ var today = new Date();
 var todayISO = today.toISOString().slice(0,16);
 var todayDateISO = today.toISOString().slice(0,10);
 /**
- * @classdesc Called by Popup to construct a pair of one Icon and one content field. 
- * 
+ * @classdesc Called by Popup to construct a pair of one Icon and one content field.
  */
 class Row extends Component {
     /**

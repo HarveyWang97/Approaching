@@ -7,9 +7,22 @@ import Icon from './popup/Icon';
 import { connect } from 'react-redux';
 import  * as actions from '../actions';
 
-// reference: https://codesandbox.io/s/o68joy0p5
+/**
+ * @classdesc Called by Popup to construct a picture editor for uploading or 
+ * updating a picture for an item or event. This component uses this
+ * {@link https://codesandbox.io/s/o68joy0p5 Sandbox sample} as a reference.
+ */
 class PictureEditor extends Component {
-    constructor(props){
+    /**
+     * Construct a picture editor for uploading or updating a picture for an 
+     * item or eventin the item board. 
+     * @param {Object} props - The properties passed in when the component is 
+     * constructed. The parent component {@link Popup} should pass a payload
+     * via this.props.payload containing handleSubmit, which is  used to update
+     * the picture in {@link Popup} and then communicate with the server.
+     * @returns {void}
+     */
+    constructor(props) {
         super(props);
         const { width, height } = config.picture;
         this.state = {
@@ -24,6 +37,12 @@ class PictureEditor extends Component {
         };
     }
 
+    /**
+     * Handler used after the user select a file to upload
+     * @param {Object} e the event that comes from the file input and triggers
+     * this handler.
+     * @returns {void}
+     */
     onSelectFile = e => {
         if (e.target.files && e.target.files.length > 0) {
             const reader = new FileReader();
@@ -34,6 +53,13 @@ class PictureEditor extends Component {
         }
     };
 
+    /**
+     * Handler when the image is loaded in the ReactCrop component.
+     * Generate cropped image on user crop event.
+     * @param {ImageObject} image an image blob containing the image data.
+     * @param {Object} pixelCrop describes where and how much to crop.
+     * @returns {void}
+     */
     onImageLoaded = (image, pixelCrop) => {
         this.imageRef = image;
     
@@ -49,26 +75,48 @@ class PictureEditor extends Component {
         }
     };
 
+    /**
+     * Handler when a crop action is done. Generate cropped image on user crop event.
+     * @param {Object} crop the crop rectangle details.
+     * @param {Object} pixelCrop describes where and how much to crop.
+     * @returns {void}
+     */
     onCropComplete = (crop, pixelCrop) => {
         this.makeClientCrop(crop, pixelCrop);
     };
 
+    /**
+     * Handler when the crop rectangle is changed. Update the crop to the state.
+     * @param {Object} crop the new crop rectangle details.
+     * @returns {void}
+     */
     onCropChange = crop => {
         this.setState({ crop });
     };
 
+    /**
+     * Build a image url for the cropped area and store it into this.state.
+     * @param {Object} crop the crop rectangle details.
+     * @param {Object} pixelCrop describes where and how much to crop.
+     * @returns {void}
+     */
     async makeClientCrop(crop, pixelCrop) {
         if (this.imageRef && crop.width && crop.height) {
             const croppedImageUrl = await this.getCroppedImg(
                 this.imageRef,
-                pixelCrop,
-                "newFile.jpeg"
+                pixelCrop
             );
             this.setState({ croppedImageUrl });
         }
     }
 
-    getCroppedImg(image, pixelCrop, fileName) {
+    /**
+     * This method does the real job to crop the image, generate a new
+     * image file and convert it to an dataURL.
+     * @param {ImageObject} image an image blob containing the image data.
+     * @param {Object} pixelCrop describes where and how much to crop.
+     */
+    getCroppedImg(image, pixelCrop) {
         const canvas = document.createElement("canvas");
         canvas.width = pixelCrop.width;
         canvas.height = pixelCrop.height;
@@ -94,11 +142,19 @@ class PictureEditor extends Component {
         });
     }
 
+    /**
+     * Handler for updating the parent component {@link Popup}'s image url.
+     * Also closes the picture editor component.
+     */
     handleSubmit() {
         this.props.payload.handleSubmit('picture', this.state.croppedImageUrl);
         this.props.togglePictureEditor();
     }
 
+    /**
+     * Render the PictureEditor html block.
+     * @returns {html} Returns an html object of PictureEditor.
+     */
     render() {
         return (
             <div className='picture-editor'>

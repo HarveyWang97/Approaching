@@ -10,7 +10,7 @@ class Icon extends Component {
 	 * Render the icon with given iconName.
 	 * @param {Function} onClick Associate specific onClick behavior with this icon.
      * @param {String} iconName The name of FAIcon to be constructed.
-     * @returns {html} Return an html object of FAIcon. 
+     * @returns {html} Returns an html object of FAIcon. 
 	 */
     render() {
         const { onClick, iconName } = this.props;
