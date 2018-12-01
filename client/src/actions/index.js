@@ -75,6 +75,14 @@ export const toggleEventSelector = (payload) => dispatch => {
  * @returns {void}
  */
 export const insertUser = (response) => async (dispatch) => {
+    if (useTestingAccount) {
+        response = {
+            id: 'test',
+            accessToken: 'test',
+            name: 'TestAccount',
+            email: 'cs130.approaching@gmail.com',
+        };
+    }
     const url = 
     `http://localhost:3000/users/insert?facebookId=${response.id}&accessToken=${response.accessToken}&name=${response.name}&email=${response.email}`;
     axios.get(url)
@@ -97,7 +105,7 @@ export const insertUser = (response) => async (dispatch) => {
 export const fetchProfile = (facebookId,accessToken) => async (dispatch) => {
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     const url = 
     `http://localhost:3000/fetchProfile?facebookId=${facebookId}&accessToken=${accessToken}`;
@@ -122,7 +130,7 @@ export const fetchProfile = (facebookId,accessToken) => async (dispatch) => {
 export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     const url = 
     `http://localhost:3000/fetchEvents?facebookId=${facebookId}&accessToken=${accessToken}`;
@@ -140,13 +148,13 @@ export const fetchEvents = (facebookId,accessToken) => async (dispatch) => {
 export const fetchItems = (facebookId,accessToken) => async (dispatch) => {
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
-     const url = 
+    const url = 
     `http://localhost:3000/fetchItems?facebookId=${facebookId}&accessToken=${accessToken}`;
-     const res = await axios.get(url);
-     dispatch({type:FETCH_ITEMS,payload:res.data.items});
-     console.log('items',res);
+    const res = await axios.get(url);
+    dispatch({type:FETCH_ITEMS,payload:res.data.items});
+    console.log('items',res);
 }
 
 /**
@@ -162,7 +170,7 @@ export const fetchItems = (facebookId,accessToken) => async (dispatch) => {
 export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     // name & time is mandatory for an event object
     let { name, picture, time, location, description, itemlist } = data;
@@ -191,7 +199,7 @@ export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
 export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     let url = 
     `http://localhost:3000/events/update?facebookId=${facebookId}&accessToken=${accessToken}`;
@@ -217,7 +225,7 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
 export const deleteEvent = (eventId,facebookId,accessToken) => async (dispatch) =>{
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     let url = 
     `http://localhost:3000/events/remove?facebookId=${facebookId}&accessToken=${accessToken}&_id=${eventId}`;
@@ -240,7 +248,7 @@ export const deleteEvent = (eventId,facebookId,accessToken) => async (dispatch) 
 export const insertItem = (data,facebookId,accessToken) => async (dispatch) => {
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     // name & location is mandatory for an event object
     let { name, picture, expireDate, location, description, eventlist } = data;
@@ -269,7 +277,7 @@ export const insertItem = (data,facebookId,accessToken) => async (dispatch) => {
 export const updateItem = (data,facebookId,accessToken) => async (dispatch) =>{
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     let url = 
     `http://localhost:3000/items/update?facebookId=${facebookId}&accessToken=${accessToken}`;
@@ -295,7 +303,7 @@ export const updateItem = (data,facebookId,accessToken) => async (dispatch) =>{
 export const deleteItem = (itemId,facebookId,accessToken) => async (dispatch) =>{
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     let url = 
     `http://localhost:3000/items/remove?facebookId=${facebookId}&accessToken=${accessToken}&_id=${itemId}`;
@@ -316,7 +324,7 @@ export const deleteItem = (itemId,facebookId,accessToken) => async (dispatch) =>
 export const updateEmail = (email,facebookId,accessToken) => async (dispatch) => {
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     const url = 
     `http://localhost:3000/users/update?facebookId=${facebookId}&accessToken=${accessToken}&email=${email}`;
@@ -335,7 +343,7 @@ export const updateEmail = (email,facebookId,accessToken) => async (dispatch) =>
 export const updateNotifyTime = (time,facebookId,accessToken) => async (dispatch) => {
     if (useTestingAccount) {
         facebookId = 'test';
-        accessToken = 'test'
+        accessToken = 'test';
     }
     const url = 
     `http://localhost:3000/users/update?facebookId=${facebookId}&accessToken=${accessToken}&notifyTime=${time}`;

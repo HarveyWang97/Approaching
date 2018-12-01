@@ -22,6 +22,7 @@
     font-size: 40px;
     top: -5px;
     color: #eae7dc;
+    cursor: default;
 }
 
 .header-user {

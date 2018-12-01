@@ -33,7 +33,7 @@ class PictureEditor extends Component {
             reader.readAsDataURL(e.target.files[0]);
         }
     };
-    
+
     onImageLoaded = (image, pixelCrop) => {
         this.imageRef = image;
     
@@ -48,15 +48,15 @@ class PictureEditor extends Component {
             this.makeClientCrop(crop, pixelCrop);
         }
     };
-    
+
     onCropComplete = (crop, pixelCrop) => {
         this.makeClientCrop(crop, pixelCrop);
     };
-    
+
     onCropChange = crop => {
         this.setState({ crop });
     };
-    
+
     async makeClientCrop(crop, pixelCrop) {
         if (this.imageRef && crop.width && crop.height) {
             const croppedImageUrl = await this.getCroppedImg(
@@ -67,7 +67,7 @@ class PictureEditor extends Component {
             this.setState({ croppedImageUrl });
         }
     }
-    
+
     getCroppedImg(image, pixelCrop, fileName) {
         const canvas = document.createElement("canvas");
         canvas.width = pixelCrop.width;
