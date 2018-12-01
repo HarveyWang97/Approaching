@@ -123,7 +123,7 @@ class Eventboard extends Component{
      */
 
     renderDay(month,year,day,eventsData){
-        // console.log('day', eventsData);
+        console.log('day', eventsData);
         const events = eventsData.map(event => {
             return this.renderItem(event._id,event.name,event.time);
         }); // iterate an array
