@@ -4,11 +4,33 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 /**
- * Class representing a layer card in the Item dashboard
+ * Class representing a layer card in the item board
  * 
  * @class
  */
 class Layer extends Component {
+    /**
+     * Render a layer card in the item board. Some data and functions are 
+     * passed into this component and used in the render function through
+     * this.props from its parent component, {@link Itemboard}. The related fields
+     * in this.props are:
+     * @param {Object} content - an object for all the data used to render the layer.
+     * content.name is the current location name, rendered at the top. 
+     * content.sublayers and content.items are rendered in the middle and are 
+     * lists of sublayers and items respectively.
+     * @param {Object} offset - used to set a position offset with respect to the default
+     * position to show the effect of overlapping at most three layers in the
+     * item board.
+     * @param {Boolean} enable - indicate whether or not all actions should be active.
+     * enable is set to true for the top layer and false for the rest layers.
+     * @param {Function} changeLayer - a function passed from the parent component, 
+     * {@link Itemboard}, asking the {@link Itemboard} to update its state of 
+     * current location.
+     * @param {Function} goBack - a function passed from the parent component, {@link Itemboard},
+     * going to the parent layer.
+     * @param {String} className - specify css style class name.
+     * @returns {html} Return an html object of a layer card.
+     */
     render() {
         const { content, offset, enable, changeLayer, goBack, className } = this.props;
         let sublayers;

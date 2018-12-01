@@ -343,7 +343,7 @@ class Row extends Component {
      * @param {Boolean} editing Whether the Popup is in editing mode.
      * @param {JsonObject} handleEditResult Pass handleEditResult behavior from Popup to this object.
      * 
-     * @return {html} Returns a html block of Popup component. 
+     * @return {html} Returns an html block of Popup component. 
 	 */
     render() {
         const { field, iconName, details, editing } = this.props;
