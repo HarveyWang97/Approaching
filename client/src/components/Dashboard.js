@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
-import Eventboard from './Eventboard';
+import Eventboard from './eventboard/Eventboard';
 import Popup from './popup/Popup';
 import Itemboard from './itemboard/Itemboard';
-import PictureEditor from './PictureEditor';
-import ItemSelector from './ItemSelector';
-import EventSelector from './EventSelector';
+import PictureEditor from './popup/PictureEditor';
+import ItemSelector from './popup/ItemSelector';
+import EventSelector from './popup/EventSelector';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import ls from 'local-storage';

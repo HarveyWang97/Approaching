@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import '../assets/styles/Header.css';
 import { Navbar} from 'reactstrap';
-import ProfilePopup from './popup/ProfilePopup';
-import Icon from './popup/Icon'
+import ProfilePopup from './profile/ProfilePopup';
+import Icon from './common/Icon'
 import {connect} from 'react-redux';
 import ls from 'local-storage';
 import  * as actions from '../actions';

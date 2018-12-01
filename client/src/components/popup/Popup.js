@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import swal from 'sweetalert2'
 import '../../assets/styles/Popup.css';
 import Row from './Row';
-import Icon from './Icon';
+import Icon from '../common/Icon';
 import config from '../../config';
 import {connect} from 'react-redux';
 import ls from 'local-storage';

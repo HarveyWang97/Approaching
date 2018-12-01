@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../assets/styles/Profile.css';
 import ProfileRow from './ProfileRow';
-import Icon from './Icon';
+import Icon from '../common/Icon';
 import {connect} from 'react-redux';
 import  * as actions from '../../actions';
 import ls from 'local-storage';

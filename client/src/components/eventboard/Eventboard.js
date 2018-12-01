@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import Event from './Event';
-import "../assets/styles/Dashboard.css";
-import calendar from '../assets/images/eventCalendar.png';
+import "../../assets/styles/Dashboard.css";
+import calendar from '../../assets/images/eventCalendar.png';
 import {connect} from 'react-redux';
 import ls from 'local-storage';
-import  * as actions from '../actions';
+import  * as actions from '../../actions';
 import { lchown } from 'fs';
 
 

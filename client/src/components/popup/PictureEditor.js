@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import '../assets/styles/PictureEditor.css';
-import config from '../config';
-import Icon from './popup/Icon';
+import '../../assets/styles/PictureEditor.css';
+import config from '../../config';
+import Icon from '../common/Icon';
 import { connect } from 'react-redux';
-import  * as actions from '../actions';
+import  * as actions from '../../actions';
 
 /**
  * @classdesc Called by Popup to construct a picture editor for uploading or 
