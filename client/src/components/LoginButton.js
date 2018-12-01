@@ -42,10 +42,12 @@ class LoginButton extends Component{
          ls.set('facebookId',response.userID);
           
         this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken, name:response.name, email:response.email});
-        this.props.fetchItems(response.userID,response.accessToken)
+       this.props.fetchItems(response.userID,response.accessToken)
         .then(() => this.props.fetchEvents(response.userID,response.accessToken))
         .then(() => this.props.history.push('/dashboard'));
-                
+       /* this.props.fetchItems(response.userID,response.accessToken);
+        this.props.fetchEvents(response.userID,response.accessToken);
+        this.props.history.push('/dashboard');*/
     });
         
 

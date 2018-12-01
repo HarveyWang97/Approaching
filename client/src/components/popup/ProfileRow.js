@@ -26,6 +26,12 @@ class ProfileRow extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.details !== this.props.details){
+            this.setState({item:nextProps.details});
+        }
+    }
+
     /**
 	 * This method set the value of this row's item to the new input value.
 	 * 

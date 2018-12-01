@@ -19,7 +19,7 @@ class Profile extends Component {
             validReminder: true,
             title: 'Account Settings',
             email: this.props.userProfile.email, 
-            reminder: this.props.userProfile.notifyTime
+            reminder: this.convertMstoHours(this.props.userProfile.notifyTime)
         };
     }
 
@@ -29,7 +29,7 @@ class Profile extends Component {
         }
 
         if(nextProps.userProfile.notifyTime !== this.props.userProfile.notifyTime){
-            this.setState({reminder:nextProps.userProfile.notifyTime});
+            this.setState({reminder:this.convertMstoHours(nextProps.userProfile.notifyTime)});
         }
     }
 
@@ -145,6 +145,10 @@ class Profile extends Component {
 
     convertHourstoMs(hour){
         return parseFloat(hour) * 3600000
+    }
+
+    convertMstoHours(sec){
+        return parseFloat(sec) / 3600000
     }
 
 
