@@ -42,8 +42,8 @@ module.exports = () => {
           picture: 'picture',
           expireDate: 'expireDate',
           location: 'location',
-          quantity: 'quantity',
-          description: 'description'
+          description: 'description',
+          eventList: 'eventList',
         })).isValid(), true);
         assert.strictEqual((new InsertQuery('Item', {
           facebookId: 'facebookId',
@@ -52,7 +52,7 @@ module.exports = () => {
           photo: 'photo',
           expireDate: 'expireDate',
           place: 'place',
-          description: 'description'
+          description: 'description',
         })).isValid(), false);
         assert.strictEqual((new InsertQuery('Item', {
           facebookId: 'facebookId',
@@ -70,7 +70,8 @@ module.exports = () => {
           picture: 'picture',
           time: 'time',
           location: 'location',
-          description: 'description'
+          description: 'description',
+          itemList: 'itemList',
         })).isValid(), true);
         assert.strictEqual((new InsertQuery('Event', {
           facebookId: 'facebookId',

@@ -300,7 +300,11 @@ class Database {
                   }})
                 }
                 if (itemList.length > 0 || eventList.length > 0){
-                  utils.sendNotification(itemList, eventList, userName, userEmail);
+                  utils.sendNotification(itemList, eventList, userName, userEmail, (err, message) => {
+                    if (err){
+                      console.log(err);
+                    }
+                  });
                 }
               });
             }

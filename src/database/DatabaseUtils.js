@@ -252,7 +252,7 @@ class DatabaseUtils {
    * @param {string} name - User name
    * @param {string} email - User email
    */
-  static sendNotification(itemList, eventList, name, email){
+  static sendNotification(itemList, eventList, name, email, callback = () => {}) {
     let detail = "Hello " + name + ",\n\n";
     // itemList is not empty
     if (itemList.length > 0) {
@@ -284,7 +284,7 @@ class DatabaseUtils {
       subject:	"Expiration Notification from Approaching",
     };
 
-    smtp.send(message, function(err, message) { console.log(err || message); });
+    smtp.send(message, callback);
   }
 }
 
