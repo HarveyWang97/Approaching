@@ -45,8 +45,7 @@ class Profile extends Component {
     }
 
     validateReminder(time){
-        //return !isNaN(time)
-        return true;
+        return (!isNaN(time)) && (parseFloat(time) >= 0);
     }
 
     /**
