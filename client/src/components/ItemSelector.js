@@ -5,13 +5,17 @@ import { connect } from 'react-redux';
 import  * as actions from '../actions';
 import MultiSelect from "@kenshooui/react-multi-select";
 
+/**
+ * Class representing the ItemSelector section in Event list
+ * @class
+ */
 class ItemSelector extends Component {
     componentDidMount(){
         let arr = [];
         if(this.props.rawItems !== null && this.props.rawItems !== undefined) {
-        for(var i=0;i<this.props.rawItems.length;i++){
-            arr.push({label:this.props.rawItems[i].name,id:this.props.rawItems[i]._id});
-        }
+            for(var i=0;i<this.props.rawItems.length;i++){
+                arr.push({label:this.props.rawItems[i].name,id:this.props.rawItems[i]._id});
+            }
         }
         this.setState({items:arr});
         this.setState({selectedItems:this.props.payload.formatted_details});
@@ -26,6 +30,13 @@ class ItemSelector extends Component {
         };
       }
     
+    /**
+     * This function helps to submit the changes in selectedItems
+     * @function
+     * @param {Array<item>} selectedItems 
+     * @return {void}
+     * 
+     */
     handleChange(selectedItems) {
         this.setState({ selectedItems });
     }
