@@ -1,11 +1,8 @@
 import {FETCH_EVENTS,INSERT_EVENT} from '../../actions/types.js';
 import {fetchEvents,insertEvent} from '../../actions';
 
-import configureMockStore from "redux-mock-store";
-import thunk from "redux-thunk";
-import {getAction} from '../../utils/getAction';
-
-export const mockStore = configureMockStore([thunk]);
+import {getAction} from '../../__testutils__/getAction';
+import mockStore from '../../__testutils__/mockStore';
 
 describe("test fetch events",() => {
     it("handle fetch events",async() => {

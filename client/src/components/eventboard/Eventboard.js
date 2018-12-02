@@ -5,7 +5,6 @@ import calendar from '../../assets/images/eventCalendar.png';
 import {connect} from 'react-redux';
 import ls from 'local-storage';
 import  * as actions from '../../actions';
-import { lchown } from 'fs';
 
 
 
@@ -162,7 +161,7 @@ class Eventboard extends Component{
 
     render(){
         let events;
-        if (this.props.events === {} || this.props.events == undefined || this.props.events === false){
+        if (this.props.events === {} || this.props.events === undefined || this.props.events === false){
             events = null;
         } else {
             events = Object.keys(this.props.events).map(key => {

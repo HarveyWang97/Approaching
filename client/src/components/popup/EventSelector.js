@@ -45,6 +45,10 @@ class EventSelector extends Component {
         this.props.toggleEventSelector();
     }
 
+    /**
+     * Render the eventSelector html block.
+     * @returns {html} Returns an html object of eventSelector.
+     */
     render() {
         const { items, selectedItems } = this.state;
         console.log("items", selectedItems);
