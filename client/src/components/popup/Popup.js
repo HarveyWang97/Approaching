@@ -267,7 +267,7 @@ function mapStateToProps(state){
         user: state.auth,
         payload: state.popup.payload,
         events: state.events.rawEvents,
-        rawItems:state.items['rawItems']
+        rawItems: state.items.rawItems
     }
 }
 

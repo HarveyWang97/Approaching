@@ -5,11 +5,9 @@ import {
     TOGGLE_ITEM_SELECTOR,
     TOGGLE_EVENT_SELECTOR
 } from '../../actions/types.js';
-import configureMockStore from "redux-mock-store";
-import thunk from "redux-thunk";
-import {getAction} from '../../utils/getAction';
 
-export const mockStore = configureMockStore([thunk]);
+import {getAction} from '../../__testutils__//getAction';
+import mockStore from '../../__testutils__//mockStore';
 
 describe("test toggle functions",() => {
     it("handles changing toggles", async () => {
