@@ -68,7 +68,6 @@ module.exports = () => {
           picture: 'picture',
           expireDate: 'expireDate',
           location: 'location',
-          quantity: 'quantity',
           description: 'description'
         })).isValid(), true);
         assert.strictEqual((new UpdateQuery('Item', {
