@@ -94,7 +94,11 @@ class Row extends Component {
         this.handleChange(e);
     }
 
-
+    /**
+     * Convert the unix timestamp into a time display string of format like "Dec 1 2018 10:00"
+     * @param {number} UNIX_timestamp 
+     * @return {string} formatted string with given unix timestamp
+     */
     timeConverter(UNIX_timestamp){
         var a = new Date(UNIX_timestamp*1);
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -107,6 +111,11 @@ class Row extends Component {
         return time;
     }
 
+    /**
+     * Convert the unix timestamp into a date display string of format like "Dec 1 2018"
+     * @param {number} UNIX_timestamp 
+     * @return {string} formatted string with given unix timestamp
+     */
     dateConverter(UNIX_timestamp){
         var a = new Date(UNIX_timestamp*1);
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];

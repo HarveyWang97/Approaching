@@ -71,7 +71,7 @@ class Eventboard extends Component{
      * @function
      * @param {number} year 
      * @param {Object} eventsData 
-     * @returns {Array<Array<Event>>} return all events in one year
+     * @returns {Array<Array<Array<Event>>>} return all events in one year
      */
     renderYear(year,eventsData){
         const events = Object.keys(eventsData).map(key=> {
@@ -99,6 +99,13 @@ class Eventboard extends Component{
         12:"December"
     }
 
+    /**
+     * @function
+     * @param {number} month 
+     * @param {Object} eventsData 
+     * @param {Year} year
+     * @returns {Array<Array<Event>>} return all events in one year
+     */
     renderMonth(month,eventsData,year){
         const events = Object.keys(eventsData).map(key => {
             return this.renderDay(month,year,key,eventsData[key]);
