@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import config from '../../config';
 import '../../assets/styles/Profile.css';
 import ls from 'local-storage';
-import Icon from './Icon';
+import Icon from '../common/Icon';
 import { lstat } from 'fs';
 
 /**

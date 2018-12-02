@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import swal from 'sweetalert2'
 import '../../assets/styles/Popup.css';
 import Row from './Row';
-import Icon from './Icon';
+import Icon from '../common/Icon';
 import config from '../../config';
 import {connect} from 'react-redux';
 import ls from 'local-storage';
 import  * as actions from '../../actions';
-
 
 
 /**
@@ -16,16 +15,19 @@ import  * as actions from '../../actions';
  */
 class Popup extends Component {
     /**
-     * Currently we manually construct datas for popup to display since we do not have communication with others.
-     * Initialize the state variables with corresponding input data.
-     * (TO BE DONE) Communication with other front-end components and server.
+     * Initialize the state variables based on payload object passed through 
+     * this.prop. 
 	 * @constructor 
-	 * @param {None}
-	 * @return {void} 
+	 * @param {Object} props The properties passed in when the component is 
+     * constructed. The component which invokes the popup should pass a payload
+     * via this.props.payload, which contains contentType, isAdd, id, and
+     * currentLocation which is used to decide what content is used for 
+     * rendering. id is used as a key to search the item or event list in reducers to
+     * get the details of that item or event.
+	 * @returns {void} 
 	 */
     constructor(props){
         super(props);
-
 
         const { contentType, isAdd, id, currentLocation } = this.props.payload;        
         if (isAdd) {
@@ -33,45 +35,35 @@ class Popup extends Component {
                 editing: true,
                 payload: contentType === 'event' ? {} : {
                     location: currentLocation
-            } }
+                }
+            }
         } else {
             // set event popup data
-            if(contentType === 'event'){
+            if (contentType === 'event'){
                 const payload = this.props.events.filter(event => event._id === id)[0];
-                this.state =  {
+                this.state = {
                     editing: false,
                     payload: payload
                 };
             }
 
             // set item popup data
-            else if(contentType === 'item'){
+            else if (contentType === 'item'){
                 const payload = this.props.rawItems.filter(item => item._id === id)[0];
                 console.log("item payload",payload);
-                this.state =  {
+                this.state = {
                     editing: false,
                     payload: payload
                 };
-            }         
+            }
         }
-          
-    }
-
-    componentDidMount(){
-    }
-
-    componentWillReceiveProps(nextProps){
-        
-        
     }
 
     /**
-	 * This method flips the current editing state.
-	 * either from editing to not-editing, or vice versa.
-     * 
+	 * This method flips the current editing state (editing v.s. not editing) 
+     * and set the middle area of the popup to scroll to its top.
 	 * @param {None}
-	 * @return {void} 
-	 *
+	 * @returns {void}
 	 */
     changeEditingState(){
         ReactDOM.findDOMNode(this).getElementsByClassName('middle')[0].scrollTop = 0;
@@ -80,11 +72,11 @@ class Popup extends Component {
         });
     }
 
-     /**
-	 * This method set the value of name to the new input value.
-	 * 
-	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
-	 * @return {void} 
+    /**
+	 * This method sets the value of name to the new input value.
+	 * @param {JsonObject} event a specific event that invokes this method, 
+     * e.g. editing the input form.
+	 * @returns {void} 
 	 */
     handleChange(event) {
         const payload = this.state.payload;
@@ -95,22 +87,16 @@ class Popup extends Component {
     }
 
     /**
-	 * This method invokes the changeEditingState() on clicking of submit button.
-     * In the future it will send the changed data to server and reducer.
-	 * 
+	 * This method handles the onClic of the submit button in edit mode.
+     * If the current inputs of all fields are valid, this method sends an
+     * insert/update item/event request to the server, based on the type of
+     * popup and whether or not it's invoked by an item/event board add button.
+     * It also toggles the editing state. If any input is invalid, the editing
+     * state won't change, and a warning alert appears.
 	 * @param {None}
-	 * @return {void}
+	 * @returns {void}
 	 */
     handleSubmit() {
-        /**
-         * if this.props.payload.isAdd === true, send an insert item/event 
-         * request to server.
-         */
-        /**
-         * if this.props.payload.isAdd === false, send an update item/event 
-         * request to server.
-         */
-
         const facebookId = ls.get('facebookId');
         const accessToken = ls.get('accessToken');
         const { contentType, isAdd } = this.props.payload;
@@ -160,10 +146,9 @@ class Popup extends Component {
     }
 
     /**
-	 * This method delete the current item/event when invoked.
-	 * 
+	 * This method asks the server to delete the current item/event.
 	 * @param {None}
-	 * @return {void}
+	 * @returns {void}
 	 */
     handleDelete() {
         const facebookId = ls.get('facebookId');
@@ -184,25 +169,25 @@ class Popup extends Component {
     }
 
     /**
-	 * This method set the value of each key to the new given value.
-	 * 
-	 * @param {String} key a specific event that invokes this method, e.g. editing the iput form.
-	 * @param {String} value the given new value.
-     * @return {void} 
+	 * This method is used to be passed to Popup's child components to give
+     * them the ability to update the this.state.payload of Popup after being
+     * editted.
+	 * @param {String} key the target in this.state.payload that shuold be updated
+	 * @param {String} value the new value.
+     * @returns {void} 
 	 */
     handleEditResult(key, value) {
         const payload = this.state.payload;
         payload[key] = value;
         this.setState({
             payload: payload
-        })
+        });
     }
 
     /**
 	 * Render the popup based on input data type and value. 
-     * 
 	 * @param {none}
-     * @return {html} Returns a html block of Popup component. 
+     * @returns {html} Returns an html block of Popup component. 
 	 */
     render() {
         const { payload } = this.state;
@@ -229,7 +214,6 @@ class Popup extends Component {
                             <div
                                 className='upload-picture-guide'
                                 onClick={() => this.props.togglePictureEditor({
-                                    id: payload._id,
                                     handleSubmit: this.handleEditResult.bind(this)
                                 })}
                             >

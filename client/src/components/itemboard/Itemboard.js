@@ -9,7 +9,6 @@ import * as actions from '../../actions';
 
 /**
  * Class representing the Item dashboard
- * 
  * @class
  */
 class Itemboard extends Component {
@@ -67,20 +66,12 @@ class Itemboard extends Component {
 
     formatLocation(location){
         return JSON.parse(location).join(' / ');
-
-      /*  const temp = location.replace(/\s+/, "").substring(1,location.length-2);
-        const arr = temp.split(", ");
-        let res = "";
-        for(var i=0;i<arr.length;i++){
-            res+=arr[i].replace(/"/gi,"")+"->";
-        }
-        return res.substring(0,res.length-2);*/
     }
 
     renderSearchResult(){
-        const input_item_name =  document.getElementById("search").value;
+        const input_item_name =  document.getElementById("search").value.toLowerCase();
        // const payload = this.props.rawItems.filter(item => item.name === input_item_name);
-       const payload = this.props.rawItems.filter(item => item.name.includes(input_item_name));
+       const payload = this.props.rawItems.filter(item => item.name.toLowerCase().includes(input_item_name));
         if(payload.length === 0){
             return (
                 <h3 className='no-item-found-prompt'>

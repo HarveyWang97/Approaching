@@ -1,32 +1,37 @@
 import React,{Component} from 'react';
-import Eventboard from './Eventboard';
+import Eventboard from './eventboard/Eventboard';
 import Popup from './popup/Popup';
 import Itemboard from './itemboard/Itemboard';
-import PictureEditor from './PictureEditor';
-import ItemSelector from './ItemSelector';
-import EventSelector from './EventSelector';
+import PictureEditor from './popup/PictureEditor';
+import ItemSelector from './popup/ItemSelector';
+import EventSelector from './popup/EventSelector';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import ls from 'local-storage';
 import "../assets/styles/Dashboard.css";
 
+/**
+ * @classdesc This class renders the dashboard page which contains six components: 
+ * Itemboard, Eventboard, Popup, PictureEditor, ItemSelector, EventSelector.
+ * Only Itemboard and Eventboard will be displayed all the time,
+ * other components will have their corresponding switches to set display on and off.
+ */
 class Dashboard extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            showPopup: true
-        };
-    }
-
+    /**
+     * Override the React function to redirect to login page during didMount stage.
+     * @return {void}
+     */
     componentDidMount(){
-        
         if(ls.get('username') === null || ls.get('username') === undefined){
             this.props.history.push('/');
         }
     }
 
+    /**
+     * Render the dashboard page.
+     * @return {html} Return html block for dashboard page.
+     * */
     render() {
-        
         return (
             <div className='dashboard'>
                 <Itemboard />

@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import Event from './Event';
-import "../assets/styles/Dashboard.css";
-import calendar from '../assets/images/eventCalendar.png';
+import "../../assets/styles/Dashboard.css";
+import calendar from '../../assets/images/eventCalendar.png';
 import {connect} from 'react-redux';
 import ls from 'local-storage';
-import  * as actions from '../actions';
+import  * as actions from '../../actions';
 import { lchown } from 'fs';
 
 
@@ -59,12 +59,12 @@ class Eventboard extends Component{
    /* }*/
 
     componentDidMount(){
-       //this.props.fetchEvents('test','test');
-       const facebookId = ls.get('facebookId');
-       const accessToken = ls.get('accessToken');
-       console.log("ls",facebookId);
-       console.log("ls token",accessToken);
-       this.props.fetchEvents(facebookId,accessToken);
+        //this.props.fetchEvents('test','test');
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
+        console.log("ls",facebookId);
+        console.log("ls token",accessToken);
+        this.props.fetchEvents(facebookId,accessToken);
     }
 
     /**

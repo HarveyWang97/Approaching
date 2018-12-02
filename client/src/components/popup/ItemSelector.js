@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import '../assets/styles/ItemSelector.css';
-import Icon from './popup/Icon';
+import '../../assets/styles/ItemSelector.css';
+import Icon from '../common/Icon';
 import { connect } from 'react-redux';
-import  * as actions from '../actions';
+import  * as actions from '../../actions';
 import MultiSelect from "@kenshooui/react-multi-select";
 
 /**
