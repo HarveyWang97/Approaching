@@ -4,4 +4,4 @@ const routers = require('./routers');
 
 database();
 queries();
-routers();
+//routers();

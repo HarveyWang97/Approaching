@@ -1,6 +1,7 @@
 const Database = require('../../src/database/Database').getTestInstance();
 const models = require('../../src/database/models');
 const testDatabaseUtils = require('./testDatabaseUtils');
+const testDatabase = require('./testDatabase');
 const testModels = require('./testModels');
 
 module.exports = () => {
@@ -18,7 +19,8 @@ module.exports = () => {
   });
 
   describe('Database', function() {
-    testDatabaseUtils();
     testModels();
+    testDatabaseUtils();
+    testDatabase();
   });
 }

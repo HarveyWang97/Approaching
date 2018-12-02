@@ -193,6 +193,30 @@ module.exports = () => {
       });
     });
 
+    describe('#getProfile(owner, callback)', function() {
+      it('get all settings under a given user account', function(done) {
+        const user = { 
+          facebookId: 'test',
+          accessToken: 'test',
+          name: 'test user',
+          email: 'sample@email.com',
+          notifyTime: 'time'};
+        utils.insert(User, user, res => {
+          const resId = res.id.toString();
+          utils.getProfile(user.facebookId, res => {
+            assert.strictEqual(res.success, true);
+            assert.notStrictEqual(res.userProfile, null);
+            assert.strictEqual(res.userProfile._id.toString(), resId);
+            const resName = res.userProfile.name;
+            const resEmail = res.userProfile.email;
+            const resTime = res.userProfile.notifyTime;
+            assert.strictEqual(arrayEqual([resName, resEmail, resTime], [user.name, user.email, user.notifyTime]), true);
+            User.deleteMany({}, () => done());
+          });
+        });
+      });
+    });
+
     describe('#getItems(owner, callback)', function() {
       it('get all items for a given user', function(done) {
         const item1 = { name: 'item 1', location: JSON.stringify(['home']), owner: 'test user'};
@@ -295,23 +319,3 @@ module.exports = () => {
     });
   });
 }
-
-/*
-assert.strictEqual(arrayEqual(Object.keys(res.events), ['2018', '2019']), true);
-assert.strictEqual(arrayEqual(Object.keys(res.events['2018']), ['6', '10']), true);
-assert.strictEqual(arrayEqual(Object.keys(res.events['2018']['6']), ['26']), true);
-assert.strictEqual(res.events['2018']['6']['26'].length, 1);
-const resId1 = res.events['2018']['6']['26'][0]._id.toString();
-assert.strictEqual(resId1, id1);
-assert.strictEqual(arrayEqual(Object.keys(res.events['2018']['10']), ['19']), true);
-assert.strictEqual(res.events['2018']['10']['19'].length, 1);
-const resId2 = res.events['2018']['10']['19'][0]._id.toString();
-assert.strictEqual(resId2, id2);
-assert.strictEqual(arrayEqual(Object.keys(res.events['2019']), ['2']), true);
-assert.strictEqual(arrayEqual(Object.keys(res.events['2019']['2']), ['12']), true);
-assert.strictEqual(res.events['2019']['2']['12'].length, 2);
-const resId3 = res.events['2019']['2']['12'][0]._id.toString();
-const resId4 = res.events['2019']['2']['12'][1]._id.toString();
-assert.strictEqual(resId3, id3);
-assert.strictEqual(resId4, id4);
- */
