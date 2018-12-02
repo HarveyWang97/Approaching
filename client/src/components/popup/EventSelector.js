@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import  * as actions from '../../actions';
 import MultiSelect from "@kenshooui/react-multi-select";
 
+/**
+ * Class representing the EventSelector section in Item list
+ * @class
+ */
 class EventSelector extends Component {
     componentDidMount(){
         let arr = [];
@@ -26,6 +30,12 @@ class EventSelector extends Component {
         };
     }
 
+    /**
+     * @function
+     * @param {Array<item>} selectedItems 
+     * @return {void}
+     * This function helps to submit the changes in selectedItems
+     */
     handleChange(selectedItems) {
         this.setState({ selectedItems });
     }
@@ -35,6 +45,10 @@ class EventSelector extends Component {
         this.props.toggleEventSelector();
     }
 
+    /**
+     * Render the eventSelector html block.
+     * @returns {html} Returns an html object of eventSelector.
+     */
     render() {
         const { items, selectedItems } = this.state;
         console.log("items", selectedItems);

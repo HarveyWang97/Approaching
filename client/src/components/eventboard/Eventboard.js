@@ -5,7 +5,6 @@ import calendar from '../../assets/images/eventCalendar.png';
 import {connect} from 'react-redux';
 import ls from 'local-storage';
 import  * as actions from '../../actions';
-import { lchown } from 'fs';
 
 
 
@@ -71,7 +70,7 @@ class Eventboard extends Component{
      * @function
      * @param {number} year 
      * @param {Object} eventsData 
-     * @returns {Array<Array<Event>>} return all events in one year
+     * @returns {Array<Array<Array<Event>>>} return all events in one year
      */
     renderYear(year,eventsData){
         const events = Object.keys(eventsData).map(key=> {
@@ -99,6 +98,13 @@ class Eventboard extends Component{
         12:"December"
     }
 
+    /**
+     * @function
+     * @param {number} month 
+     * @param {Object} eventsData 
+     * @param {Year} year
+     * @returns {Array<Array<Event>>} return all events in one year
+     */
     renderMonth(month,eventsData,year){
         const events = Object.keys(eventsData).map(key => {
             return this.renderDay(month,year,key,eventsData[key]);
@@ -155,7 +161,7 @@ class Eventboard extends Component{
 
     render(){
         let events;
-        if (this.props.events === {} || this.props.events == undefined || this.props.events === false){
+        if (this.props.events === {} || this.props.events === undefined || this.props.events === false){
             events = null;
         } else {
             events = Object.keys(this.props.events).map(key => {
