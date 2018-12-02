@@ -5,16 +5,14 @@ import ls from 'local-storage';
 import Icon from '../common/Icon';
 
 /**
- * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
- * 
+ * @classdesc This class renders a row in the Profile.
  */
 class ProfileRow extends Component {
     /**
-	 * Currently we manually construct datas for popup to display since we do not have communication with others.
-     * Initialize the state variables with corresponding input data.
-     * (TO BE DONE) Communication with other front-end components and server.
+     * Initialize the state variables with corresponding input property data. 
+     * 
 	 * @constructor
-	 * @param {None}
+	 * @param {Object} props
 	 * @return {void} 
 	 */
     constructor(props) {
@@ -25,6 +23,11 @@ class ProfileRow extends Component {
         };
     }
 
+    /**
+     * If the component receives a new props object that is different from current one,
+     * replace the name state with the name in the new props object.
+     * @param {Object} nextProps The new props.
+     */
     componentWillReceiveProps(nextProps){
         if(nextProps.details !== this.props.details){
             this.setState({item:nextProps.details});
@@ -46,12 +49,13 @@ class ProfileRow extends Component {
     }
 
     /**
+	 * Render the row in profile based on the given input. 
+     * @param {Object} 
+     * @return {html} Returns a html block of Profile component. 
+	 */
+    /**
 	 * Render the row based on the given input. 
-     *
-     *  @param {String} field The data type of given text value, e.g. location, time.
-     * @param {String} iconName The name of FAIcon to be constructed.
-     * @param {Boolean} editing Whether the Popup is in editing mode.
-     * @param {JsonObject} handleEditResult Pass handleEditResult behavior from Popup to this object.
+     * @param {None} 
      * 
      * @return {html} Returns a html block of Popup component. 
 	 */
