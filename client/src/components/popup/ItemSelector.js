@@ -25,11 +25,11 @@ class ItemSelector extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-          items: [],
-          selectedItems: []
+            items: [],
+            selectedItems: []
         };
-      }
-    
+    }
+
     /**
      * This function helps to submit the changes in selectedItems
      * @function
