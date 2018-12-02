@@ -46,6 +46,10 @@ class ItemSelector extends Component {
         this.props.toggleItemSelector();
     }
 
+    /**
+     * Render the itemSelector html block.
+     * @returns {html} Returns an html object of itemSelector.
+     */
     render() {
         const { items, selectedItems } = this.state;
         console.log("items", selectedItems);

@@ -89,6 +89,11 @@ class Row extends Component {
         }
     }
 
+    /**
+     * Handle manually added items
+     * @param {item} e 
+     * @return {void}
+     */
     handleManuallyAddItem(e){
         e.preventDefault();
         this.handleChange(e);
@@ -97,7 +102,7 @@ class Row extends Component {
     /**
      * Convert the unix timestamp into a time display string of format like "Dec 1 2018 10:00"
      * @param {number} UNIX_timestamp 
-     * @return {string} formatted string with given unix timestamp
+     * @return {String} formatted string with given unix timestamp
      */
     timeConverter(UNIX_timestamp){
         var a = new Date(UNIX_timestamp*1);
@@ -114,7 +119,7 @@ class Row extends Component {
     /**
      * Convert the unix timestamp into a date display string of format like "Dec 1 2018"
      * @param {number} UNIX_timestamp 
-     * @return {string} formatted string with given unix timestamp
+     * @return {String} formatted string with given unix timestamp
      */
     dateConverter(UNIX_timestamp){
         var a = new Date(UNIX_timestamp*1);
@@ -126,10 +131,20 @@ class Row extends Component {
         return time;
     }
 
+    /**
+     * Show location in a formatted way
+     * @param {String} location 
+     * @return {String}
+     */
     reformatItemLocation(location) {
         return location ? JSON.parse(location).join(' / ') : '';
     }
 
+    /**
+     * Get Event/Item description from server and render them in edit/display mode
+     * @param {Boolean} editing 
+     * @param {String} details 
+     */
     renderDescription(editing, details) {
         console.log(this.state.description);
         return (
@@ -149,6 +164,12 @@ class Row extends Component {
         );
     }
 
+    /**
+     * Handle event time picker, including setting default time and choosing new time
+     * @param {Boolean} editing 
+     * @param {number} details 
+     * 
+     */
     renderTime(editing, details) {
         const showTime = this.timeConverter(details);
         const dTime = details ? new Date(details*1-28800000).toISOString().slice(0,16) : null;
@@ -169,6 +190,12 @@ class Row extends Component {
         );
     }
 
+    /**
+     * Handle expireDate picker, including setting default date, date is NaN and choosing new date
+     * @param {Boolean} editing 
+     * @param {number} details 
+     * 
+     */
     renderDate(editing, details) {
         const showTime = details && !isNaN(details) ? this.dateConverter(details*1+86400000) : "";
         const dTime = details !== undefined && details.length>0 && !isNaN(details) ? new Date(details*1-28800000+86400000).toISOString().slice(0,10) : null;
@@ -189,6 +216,11 @@ class Row extends Component {
         );
     }
 
+    /**
+     * Render selected items or events in edit mode
+     * @param {Array<item>} items 
+     * @return {Array<String>}
+     */
     renderRemovable(items) {
         let formatted_items;
         let output;
@@ -208,6 +240,11 @@ class Row extends Component {
         return output;
     }
 
+    /**
+     * Render item location part in item detail in editing/non-editing mode
+     * @param {Boolean} editing 
+     * @param {String} details 
+     */
     renderLocation(editing, details) {
         const { contentType, items } = this.props;
         const className = 'popup-field-content-row popup-location-field-content-row';
@@ -273,6 +310,11 @@ class Row extends Component {
     }
 
     // the itemList is in the format [{lable:xxx,id:xxx}.....] 
+    /**
+     * Render the itemList and item selection in event detail in editing/non-editing mode
+     * @param {Boolean} editing 
+     * @param {Array<item>} details 
+     */
     renderItemList(editing, details) {
         let output;
         let formatted_details;
@@ -315,6 +357,11 @@ class Row extends Component {
         ) : <div>{output}</div>;
     }
 
+    /**
+     * Render the eventList and event selection in item detail in editing/non-editing mode
+     * @param {Boolean} editing 
+     * @param {Array<event>} details 
+     */
     renderEventList(editing, details) {
         let output;
         let formatted_details;
