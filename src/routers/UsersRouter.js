@@ -16,9 +16,9 @@ class UsersRouter extends Router {
    */
   constructor() {
     super();
-    this.get('/insert', insertUser);
-    this.get('/update', updateUser);
-    this.get('/remove', removeUser);
+    this.get('/insert', UsersRouter.insertUser);
+    this.get('/update', UsersRouter.updateUser);
+    this.get('/remove', UsersRouter.removeUser);
   }
 
   /**
@@ -28,7 +28,7 @@ class UsersRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  insertUser(req, res, next) {
+  static insertUser(req, res, next) {
     const query = new InsertQuery('User', req.query);
     if (query.isValid()) {
       Database.insert(query, response => res.send(response));
@@ -45,7 +45,7 @@ class UsersRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  updateUser(req, res, next) {
+  static updateUser(req, res, next) {
     const query = new UpdateQuery('User', req.query);
     if (query.isValid()) {
       Database.update(query, response => res.send(response));
@@ -62,7 +62,7 @@ class UsersRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  removeUser(req, res, next) {
+  static removeUser(req, res, next) {
     const query = new RemoveQuery('User', req.query);
     if (query.isValid()) {
       Database.remove(query, response => res.send(response));
@@ -73,4 +73,4 @@ class UsersRouter extends Router {
   }
 }
 
-module.exports = new UsersRouter();
+module.exports = UsersRouter;

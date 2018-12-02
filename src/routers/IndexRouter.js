@@ -13,9 +13,9 @@ class IndexRouter extends Router {
    */
   constructor() {
     super();
-    this.get('/fetchProfile', fetchProfile);
-    this.get('/fetchItems', fetchItems);
-    this.get('/fetchEvents', fetchEvents);
+    this.get('/fetchProfile', IndexRouter.fetchProfile);
+    this.get('/fetchItems', IndexRouter.fetchItems);
+    this.get('/fetchEvents', IndexRouter.fetchEvents);
   }
 
   /**
@@ -25,7 +25,7 @@ class IndexRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  fetchProfile(req, res, next) {
+  static fetchProfile(req, res, next) {
     const query = new FetchQuery(null, req.query);
     if (query.isValid()) {
       Database.fetchProfile(query, response => res.send(response));
@@ -42,7 +42,7 @@ class IndexRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  fetchItems(req, res, next) {
+  static fetchItems(req, res, next) {
     const query = new FetchQuery(null, req.query);
     if (query.isValid()) {
       Database.fetchItems(query, response => res.send(response));
@@ -59,7 +59,7 @@ class IndexRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  fetchEvents(req, res, next) {
+  static fetchEvents(req, res, next) {
     const query = new FetchQuery(null, req.query);
     if (query.isValid()) {
       Database.fetchEvents(query, response => res.send(response));
@@ -70,4 +70,4 @@ class IndexRouter extends Router {
   }
 }
 
-module.exports = new IndexRouter();
+module.exports = IndexRouter;

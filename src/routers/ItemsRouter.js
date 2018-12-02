@@ -16,9 +16,9 @@ class ItemsRouter extends Router {
    */
   constructor() {
     super();
-    this.get('/insert', insertItem);
-    this.get('/update', updateItem);
-    this.get('/remove', removeItem);
+    this.get('/insert', ItemsRouter.insertItem);
+    this.get('/update', ItemsRouter.updateItem);
+    this.get('/remove', ItemsRouter.removeItem);
   }
 
   /**
@@ -28,7 +28,7 @@ class ItemsRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  insertItem(req, res, next) {
+  static insertItem(req, res, next) {
     const query = new InsertQuery('Item', req.query);
     if (query.isValid()) {
       Database.insert(query, response => res.send(response));
@@ -45,7 +45,7 @@ class ItemsRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  updateItem(req, res, next) {
+  static updateItem(req, res, next) {
     const query = new UpdateQuery('Item', req.query);
     if (query.isValid()) {
       Database.update(query, response => res.send(response));
@@ -62,7 +62,7 @@ class ItemsRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  removeItem(req, res, next) {
+  static removeItem(req, res, next) {
     const query = new RemoveQuery('Item', req.query);
     if (query.isValid()) {
       Database.remove(query, response => res.send(response));
@@ -73,4 +73,4 @@ class ItemsRouter extends Router {
   }
 }
 
-module.exports = new ItemsRouter();
+module.exports = ItemsRouter;

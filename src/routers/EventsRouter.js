@@ -16,9 +16,9 @@ class EventsRouter extends Router {
    */
   constructor() {
     super();
-    this.get('/insert', insertEvent);
-    this.get('/update', updateEvent);
-    this.get('/remove', removeEvent);
+    this.get('/insert', EventsRouter.insertEvent);
+    this.get('/update', EventsRouter.updateEvent);
+    this.get('/remove', EventsRouter.removeEvent);
   }
 
   /**
@@ -28,7 +28,7 @@ class EventsRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  insertEvent(req, res, next) {
+  static insertEvent(req, res, next) {
     const query = new InsertQuery('Event', req.query);
     if (query.isValid()) {
       Database.insert(query, response => res.send(response));
@@ -45,9 +45,10 @@ class EventsRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  updateEvent(req, res, next) {
+  static updateEvent(req, res, next) {
     const query = new UpdateQuery('Event', req.query);
     if (query.isValid()) {
+      console.log(">>>>>>");
       Database.update(query, response => res.send(response));
     } else {
       res.status(400);
@@ -62,7 +63,7 @@ class EventsRouter extends Router {
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  removeEvent(req, res, next) {
+  static removeEvent(req, res, next) {
     const query = new RemoveQuery('Event', req.query);
     if (query.isValid()) {
       Database.remove(query, response => res.send(response));
@@ -73,4 +74,4 @@ class EventsRouter extends Router {
   }
 }
 
-module.exports = new EventsRouter();
+module.exports = EventsRouter;
