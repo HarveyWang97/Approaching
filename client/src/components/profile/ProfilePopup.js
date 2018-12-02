@@ -9,8 +9,23 @@ import config from '../../config';
 import {Link} from 'react-router-dom';
 
 
-
+/**
+ * @classdesc Construct a Profile component that renders given data object. 
+ */
 class Profile extends Component {
+    /**
+     * Initialize the state variables used in constructing the Profile component. 
+     * The first four are manually set as flag and constant. The last two are retrieved 
+     * from this.prop to get user profile.
+	 * @constructor 
+	 * @param {Object} props The properties passed in when the component is 
+     * constructed. The component which invokes the popup should pass a payload
+     * via this.props.payload, which contains contentType, isAdd, id, and
+     * currentLocation which is used to decide what content is used for 
+     * rendering. id is used as a key to search the item or event list in reducers to
+     * get the details of that item or event.
+	 * @returns {void} 
+	 */
     constructor(props){
         super(props);
         this.state = {
@@ -23,6 +38,11 @@ class Profile extends Component {
         };
     }
 
+    /**
+     * If the component receives a new props object that is different from current one,
+     * replace the name state with the name in the new props object.
+     * @param {Object} nextProps The new props.
+     */
     componentWillReceiveProps(nextProps){
         if(nextProps.userProfile.email !== this.props.userProfile.email){
             this.setState({email:nextProps.userProfile.email});
@@ -33,17 +53,41 @@ class Profile extends Component {
         }
     }
 
+    /**
+     * Override the React function to fetch user profile from local storage during didMount stage.
+     * @return {void}
+     */
     componentDidMount(){
         const facebookId = ls.get('facebookId');
         const accessToken = ls.get('accessToken');
         this.props.fetchProfile(facebookId,accessToken);
     }
 
+    /**
+	 * Validate the format of email from the user input.
+	 *
+	 * @param {String} email
+	 * @return {Boolean} Returns whether the input email address is valid or not.
+	 *
+	 * @example
+	 *
+	 *     validateEmail("test@ucla.edu")
+	 */
     validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var re = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
+    /**
+	 * Validate the format of reminder time from the user input.
+	 *
+	 * @param {String} time The reminder time
+	 * @return {Boolean} Returns whether time is a non-negative floating number.
+	 *
+	 * @example
+	 *
+	 *     validateReminder("24.32")
+	 */
     validateReminder(time){
         return (!isNaN(time)) && (parseFloat(time) >= 0);
     }
@@ -59,7 +103,6 @@ class Profile extends Component {
 	 *
 	 *     changeEditingState()
 	 */
-
     changeEditingState(){
         this.setState(prevState => ({
             editing: !prevState.editing
@@ -68,7 +111,9 @@ class Profile extends Component {
 
     /**
 	 * The handleSubmit() invokes the changeEditingState() on user clicks and logs the change.
-	 *
+     * It also invokes the validation methods for email and reminder time and change the flag correspondingly.
+	 *It also connects with the backend to send updated data.
+     * 
 	 * @param {None}
 	 * @return {void} 
 	 *
@@ -80,26 +125,30 @@ class Profile extends Component {
     handleSubmit() {
         const facebookId = ls.get('facebookId');
         const accessToken = ls.get('accessToken');
+
+        let ve;
+        let vr;
         // check validity of email input
         if (this.validateEmail(this.state.email))
         {
-            //this.props.updateEmail(this.state.email, "test", "test");
+            ve = true;
             this.setState({validEmail: true});
         }
         else{
+            ve = false;
             this.setState({validEmail: false});
         }
 
         if (this.validateReminder(this.state.reminder)){
-            //this.props.updateNotifyTime(this.convertHourstoMs(this.state.reminder).toString(), "test", "test");
+            vr = true
             this.setState({validReminder: true});        
         }
         else{
+            vr = false;
             this.setState({validReminder: false}); 
         }
         
-        if (this.state.validEmail  && this.state.validReminder){
-
+        if (ve  && vr){
             this.props.updateEmail(this.state.email, facebookId, accessToken)
             .then(() => this.props.updateNotifyTime(this.convertHourstoMs(this.state.reminder).toString(), facebookId, accessToken))
             .then(() => this.props.fetchProfile(facebookId,accessToken))
@@ -123,55 +172,57 @@ class Profile extends Component {
     handleEditResult(key, value) {
         if (key === "email"){
             this.setState({email: value});
-            /*if (!this.validateEmail(value)){
-                this.setState({validEmail: false});
-            }
-            else{
-                this.setState({validEmail: true});
-            }*/
         } 
         if (key === "reminder"){
             this.setState({reminder: value});
-            /*if (!this.validateReminder(value)){
-                this.setState({validReminder: false});
-            }
-            else{
-                this.setState({validReminder: true});
-            }*/
         }         
         
     }
 
+    /**
+	 * Convert reminder time in hours to milliseconds for communication with backend.
+	 * @param {String} hour
+	 * @return {None} 
+	 *
+	 * @example
+	 *
+	 *     convertHourstoMs("24");
+	 */
     convertHourstoMs(hour){
         return parseFloat(hour) * 3600000
     }
 
+    /**
+	 * Convert reminder time in milliseconds to hours for communication with backend.
+	 * @param {String} sec
+	 * @return {None} 
+	 *
+	 * @example
+	 *
+	 *     convertMstoHours("3600000");
+	 */
     convertMstoHours(sec){
         return parseFloat(sec) / 3600000
     }
 
 
+    /**
+	 * Log out current user, clear local storage of that user, and close the profile popup.
+	 * @param {None} 
+	 * @return {None} 
+	 *
+	 */
     logout(){
         ls.clear();
-        
         this.props.closePopup();
     }
 
-    /*componentWillReceiveProps(nextProps){
-        if(nextProps.user !== this.props.user){
-            if (nextProps.user.email !== null){
-                this.setState({
-                    email: nextProps.user.email
-                }); 
-            }
-        }
-    }*/
-
+    /**
+     * Render the profile popup.
+     * @param {None}
+     * @return {html} Returns a html block of profile component. 
+     */
     render() {
-        const facebookId = ls.get('facebookId');
-        const accessToken = ls.get('accessToken');
-
-        
         const data = ["email", "reminder"];
 
         return (
@@ -204,7 +255,7 @@ class Profile extends Component {
                                 );
                             }
                             
-                            if (key === 'reminder') {
+                            else {
                                 return (
                                     <ProfileRow 
                                          key={key} 
