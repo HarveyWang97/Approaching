@@ -7,19 +7,20 @@ import {getAction} from '../../utils/getAction';
 
 export const mockStore = configureMockStore([thunk]);
 
-describe("test insert and fetch events",() => {
+describe("test fetch events",() => {
     it("handle fetch and insert events",async() => {
         const store = mockStore();
-        const data = {
+       /* const data = {
             name:"Appfolio phone call",
             location:"Santa babara",
             description:"xxx",
             time:"15550000000"
-        };
-        await insertEvent(data,"test1","test1");
-        await store.dispatch(fetchEvents('test1','test1'));
+        };*/
+        store.dispatch(fetchEvents('test','test'));
         const returnValue = await getAction(store,FETCH_EVENTS);
-        expect(returnValue.payload.events.rawEvents.length === 1);
+        expect(returnValue.payload.rawEvents.length).toEqual(15);
+        expect(returnValue.payload.rawEvents.filter(item => (item.name === "Appfolio phone call")).length).toEqual(1);
+       // expect(returnValue.payload.rawEvents[0].name).toEqual( "Appfolio phone call");
       /*  expect(await getAction(store, FETCH_EVENTS).toEqual({
             type:FETCH_EVENTS,
 
