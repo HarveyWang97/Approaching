@@ -219,6 +219,7 @@ class Profile extends Component {
 
     /**
      * Render the profile popup.
+     * @param {None}
      * @return {html} Returns a html block of profile component. 
      */
     render() {

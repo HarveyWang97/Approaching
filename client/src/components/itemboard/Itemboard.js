@@ -20,11 +20,24 @@ class Itemboard extends Component {
         };
     }
 
+    /**
+     * @function
+     * @param 
+     * @return {void}
+     * This function helps to change the events to the form of [{id:xxx,label:xxx}...]
+     */
+
     componentDidMount(){
         //this.props.fetchItems('test','test');
         this.props.fetchItems(ls.get('facebookId'),ls.get('accessToken'));
     }
 
+    /**
+     * @function
+     * @param {Object} nextProps
+     * @return {void}
+     * This function will help rerender the layer given the new props received 
+     */
     componentWillReceiveProps(nextProps){
         if(nextProps.structuredItems !== this.props.structuredItems){
             this.setState({
@@ -33,6 +46,12 @@ class Itemboard extends Component {
         }
     }
 
+    /**
+     * @function
+     * @param
+     * @return {void}
+     * This function will pop off the up layer and thus achieve the effect that the itemboard goes back to the previous layer
+     */
     go_back(){
         if(this.state.layerStack.length > 1 ){
             this.setState(prevState => ({
@@ -51,12 +70,21 @@ class Itemboard extends Component {
         }));
     }
 
+    /**
+     * to enter/leave the search mode
+     * @return {void}
+     */
+
     handleSearch(){
         this.setState((prevState) => {
             return {searchMode:!prevState.searchMode};
         });
     }
 
+    /**
+     * @return {void}
+     * close the search results window
+     */
     handleClose(){
         this.setState((prevState) => {
             return {searchMode:!prevState.searchMode};
@@ -64,9 +92,20 @@ class Itemboard extends Component {
         document.getElementById("search").value="";
     }
 
+    /**
+     * change the JsonData to displayable string
+     * @param {JsonObject} location
+     * @return {string} return the parsed string
+     */
     formatLocation(location){
         return JSON.parse(location).join(' / ');
     }
+
+    /**
+     * this function goes through all the items and check whehter it contains substring same as the input
+     * If it does, it will be listed in the result
+     * @return {html} the search results
+     */
 
     renderSearchResult(){
         const input_item_name =  document.getElementById("search").value.toLowerCase();
@@ -103,6 +142,14 @@ class Itemboard extends Component {
         }
     }
 
+
+    /**
+     * This function renders all the items layer by layer. When the user tries to search for
+     * specific items, it will search through raw items to find if there are any matches
+     * @param {Array[item]} rawItems - the items in an array
+     * @param {Object} structuredItems - the items in an object of the form layer by layer
+     * @return {html} the itemboard either in search mode or normal dispay mode
+     */
     render() {
         const { layerStack } = this.state;
         const layerStackNames = [];

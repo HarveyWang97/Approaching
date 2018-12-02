@@ -4,6 +4,11 @@ import  * as actions from '../../actions';
 import "../../assets/styles/Dashboard.css";
 
 
+/**
+ * Class representing each event in Eventboard
+ * 
+ * @class
+ */
 class Event extends Component{
     render() {
         const { id, name, time, togglePopup } = this.props;

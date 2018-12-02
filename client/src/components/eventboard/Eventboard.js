@@ -22,40 +22,7 @@ class Eventboard extends Component{
             events:props.events
         };
     }
-
-
-
     
-
-   /* componentWillReceiveProps(nextProps){
-        if(this.props.events === undefined && nextProps.events !== undefined){
-            this.setState({events:nextProps.events});
-            return;
-        }
-        if(nextProps.events !== this.props.events){
-            this.setState({events:nextProps.events});
-        }
-    }*/
-
-  /* componentWillReceiveProps(nextProps){
-       // if(this.props.events === undefined){
-         //   this.setState({events:nextProps.events});
-        //}
-
-        if(nextProps.events === undefined){
-
-        }
-        
-        else if(nextProps.events !== this.props.events){
-            this.setState({events:nextProps.events});
-        }
-        
-        console.log("now",this.props.events);
-        console.log("next",nextProps.events);
-       /* if(!Object.is(this.props.events,nextProps.events)){
-            this.setState({events:nextProps.events});
-        }*/
-   /* }*/
 
     componentDidMount(){
         //this.props.fetchEvents('test','test');

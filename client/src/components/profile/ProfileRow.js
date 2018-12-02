@@ -48,15 +48,10 @@ class ProfileRow extends Component {
         ls.set(this.props.field,event.target.value)
     }
 
+
     /**
-	 * Render the row in profile based on the given input. 
-     * @param {Object} 
-     * @return {html} Returns a html block of Profile component. 
-	 */
-    /**
-	 * Render the row based on the given input. 
+	 * Render the row based on the given input.
      * @param {None} 
-     * 
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {

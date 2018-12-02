@@ -7,7 +7,7 @@
     "server": "NODE_ENV=dev DEBUG='server:*' node ./src/bin/www",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "test-server": "mocha",
+    "test-server": "mocha --timeout 5000",
     "test-react": "cd client &&  npm run test && cd ..",
     "doc": "rm -rf doc && ./node_modules/.bin/jsdoc -r src client/src -a all -d doc"
   },

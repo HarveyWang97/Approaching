@@ -396,11 +396,12 @@ class Row extends Component {
     }
 
     /**
-	 * Render the row based on the given input. 
-     * @param {String} field The data type of given text value, e.g. location, time.
-     * @param {String} iconName The name of FAIcon to be constructed.
-     * @param {Boolean} editing Whether the Popup is in editing mode.
-     * @param {Object} handleEditResult Pass handleEditResult behavior from Popup to this object.
+	 * Render the row based on the given input. The information needed is:
+     * field: String. field The data type of given text value, e.g. location, time.
+     * iconName: String. iconName The name of FAIcon to be constructed.
+     * editing: Boolean. editing Whether the Popup is in editing mode.
+     * handleEditResult: Object. handleEditResult Pass handleEditResult behavior from Popup to this object.
+     * @param {None}
      * @return {html} Returns a html block of Popup component. 
 	 */
     render() {
