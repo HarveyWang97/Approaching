@@ -239,7 +239,7 @@ class Popup extends Component {
                                 (
                                 <div className='editModeIcon'>
                                     <Icon iconName='save' onClick={this.handleSubmit.bind(this)} />
-                                </div>    
+                                </div>
                                 ) :
                                 ( 
                                 <React.Fragment>
@@ -264,7 +264,6 @@ class Popup extends Component {
 
 function mapStateToProps(state){
     return {
-        user: state.auth,
         payload: state.popup.payload,
         events: state.events.rawEvents,
         rawItems: state.items.rawItems
