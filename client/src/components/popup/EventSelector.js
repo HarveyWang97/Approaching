@@ -10,6 +10,13 @@ import MultiSelect from "@kenshooui/react-multi-select";
  * @class
  */
 class EventSelector extends Component {
+    /**
+     * @function
+     * @param 
+     * @return {void}
+     * This function helps to change the events to the form of [{id:xxx,label:xxx}...]
+     */
+
     componentDidMount(){
         let arr = [];
         if(this.props.rawItems !== null && this.props.rawItems !== undefined) {
@@ -31,15 +38,19 @@ class EventSelector extends Component {
     }
 
     /**
-     * @function
+     * This function helps to submit the changes in selectedItems
      * @param {Array<item>} selectedItems 
      * @return {void}
-     * This function helps to submit the changes in selectedItems
      */
     handleChange(selectedItems) {
         this.setState({ selectedItems });
     }
 
+
+    /**
+     * This function helps to submit the selected items and close the pop up window
+     * @return {void} 
+     */
     handleSubmit() {
         this.props.payload.handleSubmit(this.state.selectedItems);
         this.props.toggleEventSelector();
