@@ -3,7 +3,6 @@ import config from '../../config';
 import '../../assets/styles/Profile.css';
 import ls from 'local-storage';
 import Icon from '../common/Icon';
-import { lstat } from 'fs';
 
 /**
  * @classdesc Called by Popup to construct a pair of one Icon and one text value. 
