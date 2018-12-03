@@ -1,5 +1,5 @@
 import React from 'react';
-import mockStore from '../../__testutils__//mockStore';
+import mockStore from '../../__testutils__/mockStore';
 import {shallow} from 'enzyme';
 
 

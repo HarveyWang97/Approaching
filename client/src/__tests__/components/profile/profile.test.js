@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactShallowRenderer from 'react-test-renderer/shallow';
-import mockStore from '../../../__testutils__//mockStore';
+import mockStore from '../../../__testutils__/mockStore';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });

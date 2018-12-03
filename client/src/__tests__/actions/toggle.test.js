@@ -6,8 +6,8 @@ import {
     TOGGLE_EVENT_SELECTOR
 } from '../../actions/types.js';
 
-import {getAction} from '../../__testutils__//getAction';
-import mockStore from '../../__testutils__//mockStore';
+import {getAction} from '../../__testutils__/getAction';
+import mockStore from '../../__testutils__/mockStore';
 
 describe("test toggle functions",() => {
     it("handles changing toggles", async () => {

@@ -1,8 +1,8 @@
 import {FETCH_USER} from '../../actions/types.js';
 import {fetchUser, updateEmail, updateNotifyTime} from '../../actions';
 
-import {getAction} from '../../__testutils__//getAction';
-import mockStore from '../../__testutils__//mockStore';
+import {getAction} from '../../__testutils__/getAction';
+import mockStore from '../../__testutils__/mockStore';
 
 describe("test fetch user function",() => {
     it("handles fetch user", async () => {

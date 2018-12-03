@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactShallowRenderer from 'react-test-renderer/shallow';
-import mockStore from '../../__testutils__//mockStore';
+import mockStore from '../../__testutils__/mockStore';
 import {shallow} from 'enzyme';
 
 import Header from '../../components/Header';
