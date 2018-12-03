@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Icon</title>
+    <title>JSDoc: Class: ProfileRow</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Icon</h1>
+    <h1 class="page-title">Class: ProfileRow</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Icon<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>ProfileRow<span class="signature">(props)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Construct a FontAwesonIcon.</div>
+            <div class="class-description">This class renders a row in the Profile.</div>
         
     
 </header>
@@ -45,19 +45,72 @@
     
 
     
-    <h4 class="name" id="Icon"><span class="type-signature"></span>new Icon<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="ProfileRow"><span class="type-signature"></span>new ProfileRow<span class="signature">(props)</span><span class="type-signature"></span></h4>
     
 
     
 
 
 
+<div class="description">
+    Initialize the state variables with corresponding input property data.
+</div>
 
 
 
 
 
 
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>props</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -93,7 +146,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_common_Icon.js.html">client/src/components/common/Icon.js</a>, <a href="client_src_components_common_Icon.js.html#line8">line 8</a>
+        <a href="client_src_components_profile_ProfileRow.js.html">client/src/components/profile/ProfileRow.js</a>, <a href="client_src_components_profile_ProfileRow.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -147,7 +200,7 @@
     
 
     
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">(onClick, iconName)</span><span class="type-signature"> &rarr; {html}</span></h4>
+    <h4 class="name" id="componentWillReceiveProps"><span class="type-signature"></span>componentWillReceiveProps<span class="signature">(nextProps)</span><span class="type-signature"></span></h4>
     
 
     
@@ -155,7 +208,8 @@
 
 
 <div class="description">
-    Render the icon with given iconName.
+    If the component receives a new props object that is different from current one,
+replace the name state with the name in the new props object.
 </div>
 
 
@@ -191,13 +245,13 @@
 
         <tr>
             
-                <td class="name"><code>onClick</code></td>
+                <td class="name"><code>nextProps</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">Object</span>
 
 
             
@@ -207,30 +261,7 @@
 
             
 
-            <td class="description last">Associate specific onClick behavior with this icon.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>iconName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of FAIcon to be constructed.</td>
+            <td class="description last">The new props.</td>
         </tr>
 
     
@@ -271,7 +302,291 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_common_Icon.js.html">client/src/components/common/Icon.js</a>, <a href="client_src_components_common_Icon.js.html#line15">line 15</a>
+        <a href="client_src_components_profile_ProfileRow.js.html">client/src/components/profile/ProfileRow.js</a>, <a href="client_src_components_profile_ProfileRow.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="handleChange"><span class="type-signature"></span>handleChange<span class="signature">(event)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This method set the value of this row's item to the new input value.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JsonObject</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a specific event that invokes this method, e.g. editing the iput form</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_profile_ProfileRow.js.html">client/src/components/profile/ProfileRow.js</a>, <a href="client_src_components_profile_ProfileRow.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"> &rarr; {html}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Render the row based on the given input.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">None</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_profile_ProfileRow.js.html">client/src/components/profile/ProfileRow.js</a>, <a href="client_src_components_profile_ProfileRow.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -298,7 +613,7 @@
 
         
 <div class="param-desc">
-    Returns an html object of FAIcon.
+    Returns a html block of Popup component.
 </div>
 
 

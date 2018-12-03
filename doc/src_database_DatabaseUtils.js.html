@@ -29,6 +29,17 @@
             <pre class="prettyprint source linenums"><code>const debug = require('debug')('server:database');
 const mongoose = require('mongoose');
 const models = require('./models');
+const email = require("../../node_modules/emailjs/email");
+const smtp = email.server.connect({
+   user: "cs130.approaching@gmail.com",
+   password: "CS130Approaching",
+   host: "smtp.gmail.com",
+   ssl: true,
+   tls: false,
+   port: 465
+});
+const defaultNotifyTime = 86400000; // one day
+
 
 /**
  * @classdesc Utility class for {@link Database}.
@@ -64,7 +75,7 @@ class DatabaseUtils {
     models.User.findOne(conditions, (err, doc) => {
       if (err || !doc || doc.accessToken !== user.accessToken) {
         callback(this.failure('Authorization failed.'));
-      } else {        
+      } else {
         onSuccess();
       }
     });
@@ -103,13 +114,36 @@ class DatabaseUtils {
         callback(this.failure(err));
       } else if (doc) {
         for (let field in object) {
-          if (object.hasOwnProperty(field)) {
+          if (object.hasOwnProperty(field) &amp;&amp; field !== 'email') {
             doc[field] = object[field];
           }
         }
-        this._save(doc, callback);
+        this._save(doc, res => {
+          if (!(res.success)) {
+            callback(res);
+          } else {
+            callback({
+              success: res.success,
+              id: res.id,
+              email: doc.email,
+              notifyTime: doc.notifyTime
+            })
+          }
+        });
       } else {
-        this.insert(model, object, callback);
+        object.notifyTime = defaultNotifyTime;
+        this.insert(model, object, res => {
+          if (!(res.success)) {
+            callback(res);
+          } else {
+            callback({
+              success: res.success,
+              id: res.id,
+              email: object.email,
+              notifyTime: object.notifyTime
+            })
+          }
+        });
       }
     });
   }
@@ -147,6 +181,8 @@ class DatabaseUtils {
    * If the object already exists in the model, remove that record from the 
    * database, and then call the callback on the successful response. 
    * Otherwise, call the callback on the failure response.
+   * Note that the primary key is supposed to be unique, so there should be
+   * at most 1 such document found in a specific collection.
    * @param {mongoose.Model} model - The database model that the operation 
    * targets on.
    * @param {string} primaryKey - The key used to match the object to the
@@ -163,6 +199,19 @@ class DatabaseUtils {
         callback(this.failure(err ? err : "Entry not found."));
       } else {
         callback(this.success(doc._id));
+      }
+    });
+  }
+
+  static getProfile(owner, callback = () => {}) {
+    models.User.findOne({ facebookId: owner }, (err, userProfile) => {
+      if (err) {
+        callback({ success: false });
+      } else {
+        callback({
+          success: true,
+          userProfile: userProfile
+        });
       }
     });
   }
@@ -201,37 +250,10 @@ class DatabaseUtils {
       } else {
         callback({
           success: true,
-          events: this.reformatEvents(events)
+          events: events
         });
       }
     });
-  }
-
-  /**
-   * Reformat an array of events for client-side use.
-   * @param {Object[]} events - An array of event objects.
-   * @returns {Object}
-   */
-  static reformatEvents(events) {
-    events.sort((a, b) => (a.time > b.time));
-    const result = {};
-
-    for (let event of events) {
-      const time = new Date(Number(event.time));
-      const year = time.getFullYear();
-      const month = time.getMonth() + 1;
-      const date = time.getDate();
-      if (!(year in result))              { result[year] = {}; }
-      if (!(month in result[year]))       { result[year][month] = {}; }
-      if (!(date in result[year][month])) { result[year][month][date] = []; }
-      const hour = time.getHours();
-      const minute = time.getMinutes();
-      const hourMinute = `${hour > 9 ? hour : `0${hour}`}:${minute > 9 ? minute : `0${minute}`}`;      
-      event.time = hourMinute;
-      result[year][month][date].push(event);
-    }
-
-    return result;
   }
 
   /**
@@ -249,6 +271,49 @@ class DatabaseUtils {
       }
     });
   }
+
+  /**
+   * Send an expiration notification email to the user, email contains 
+   * all approaching expiration items and all approaching deadline events.
+   * @param {Array} itemList - An array of approaching expiration items
+   * @param {Array} eventList - An array of approaching deadline events
+   * @param {string} name - User name
+   * @param {string} email - User email
+   */
+  static sendNotification(itemList, eventList, name, email, callback = () => {}) {
+    let detail = "Hello " + name + ",\n\n";
+    // itemList is not empty
+    if (itemList.length > 0) {
+      detail += "Some items in your home are approaching expiration dates: \n";
+      for (let i of itemList){
+        const loc_arr = JSON.parse(i.location);
+        detail += "\t" + i.name + " stored at " + loc_arr.join('/') + "\n";
+      }
+      detail += "\n";
+    }
+    // eventList is not empty
+    if (eventList.length > 0) {
+      detail += "Some events are approaching their deadlines: \n";
+      for (let e of eventList){
+        if (e.location){
+          detail += "\t" + e.name + " at " + e.location + "\n";
+        } else {
+          detail += "\t" + e.name +  "\n";
+        }
+      } 
+    }
+
+    detail += "\nBest Regards,\nTeam Chaoz - Project Approaching"
+
+    let message	= {
+      text:	detail,
+      from:	"Team Chaoz &lt;cs130.approaching@gmail.com>",
+      to: `&lt;${email}>`,
+      subject:	"Expiration Notification from Approaching",
+    };
+
+    smtp.send(message, callback);
+  }
 }
 
 module.exports = DatabaseUtils;
@@ -262,13 +327,13 @@ module.exports = DatabaseUtils;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Event.html">Event</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventSelector.html">EventSelector</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchQuery.html">FetchQuery</a></li><li><a href="Header.html">Header</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemSelector.html">ItemSelector</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="Layer.html">Layer</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="PictureEditor.html">PictureEditor</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Profile.html">Profile</a></li><li><a href="ProfileRow.html">ProfileRow</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deleteEvent">deleteEvent</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#fetchEvents">fetchEvents</a></li><li><a href="global.html#fetchItems">fetchItems</a></li><li><a href="global.html#fetchProfile">fetchProfile</a></li><li><a href="global.html#fetchUser">fetchUser</a></li><li><a href="global.html#insertEvent">insertEvent</a></li><li><a href="global.html#insertItem">insertItem</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li><li><a href="global.html#toggleEventSelector">toggleEventSelector</a></li><li><a href="global.html#toggleItemSelector">toggleItemSelector</a></li><li><a href="global.html#togglePictureEditor">togglePictureEditor</a></li><li><a href="global.html#togglePopup">togglePopup</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateEvent">updateEvent</a></li><li><a href="global.html#updateItem">updateItem</a></li><li><a href="global.html#updateNotifyTime">updateNotifyTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 17:21:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

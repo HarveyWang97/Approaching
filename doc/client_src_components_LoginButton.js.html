@@ -28,57 +28,75 @@
         <article>
             <pre class="prettyprint source linenums"><code>import React,{Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
-import '../css/Header.css';
-import autumn from './autumn.jpg';
-import {insertUser} from '../Request.js';
+import '../assets/styles/Header.css';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
+import ls from 'local-storage';
 
  /**
   * @classdesc Create a login button that get user logged in with facebook.
   */
 class LoginButton extends Component{
+    /**
+     * Initialize the state of responseFacebook.
+     * @constructor
+     * @param {Object} props No props needed.
+     */
     constructor(props){
         super(props);
         this.responseFacebook = this.responseFacebook.bind(this);
     }
 
     /**
-     * This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page
-     * @param {JsonObject} response response sent back by facebook, contains information such as userId,email,name....
+     * Override the React function to redirect to dashboard during didMount stage.
+     * @return {void}
+     */
+    componentDidMount(){
+        if(ls.get('username') !== undefined &amp;&amp; ls.get('username') !== null){
+            this.props.history.push('/dashboard');
+        }
+    }
+
+    /**
+     * This function gets the response from the facebook, stores user information in Redux, and redirect to the dashboard page.
+     * @param {Object} response response sent back by facebook, contains user information (e.g. userId, email, name).
      * @return {void}
      */
     responseFacebook (response)  {
-        console.log(response);
-        this.setState({
-            isLoggedIn:true,
-            userId:response.userID,
-            name:response.name,
-            email:response.email,
-            accessToken:response.accessToken
-        });
-        insertUser(response);
-        this.props.fetchUser({userId:response.userID,name:response.name,email:response.email});
-        this.props.history.push('/dashboard?id=catdog');
+        this.props.insertUser(response)
+        .then(() => {
+            // record the user information in the local storage
+        ls.set('username',response.name);
+
+         //default reminder time manually set to 24 hours
+         ls.set('reminder', "24");
+ 
+         ls.set('accessToken',response.accessToken);
+         ls.set('facebookId',response.userID);
+          
+        this.props.fetchUser({facebookId:response.userID,accessToken:response.accessToken, name:response.name, email:response.email});
+       this.props.fetchItems(response.userID,response.accessToken)
+        .then(() => this.props.fetchEvents(response.userID,response.accessToken))
+        .then(() => this.props.history.push('/dashboard'));
+    });
     }
 
+    /**
+     * Render the login page with facebook login button.
+     * @return {html} Returns a html block of login component. 
+     */
     render(){
-        let content;
-        if(this.props.user != null &amp;&amp; this.props.user != null){
-            content = this.props.user.email;
-        }
-
-        const dashboardStyle = {backgroundImage:`url(${autumn})`};
-
-        return (         
-                &lt;div className="login" >
-                    &lt;FacebookLogin
-                        appId="300879247180866"
-                        autoLoad={false}
-                        fields="name,email,picture"
-                        callback={this.responseFacebook}
-                    />
-                &lt;/div>
+        return (                 
+                    &lt;div className="login">
+                        &lt;div className="login-btn">                                           
+                            &lt;FacebookLogin
+                                appId="300879247180866"
+                                autoLoad={false}
+                                fields="name,email,picture"
+                                callback={this.responseFacebook}
+                            />
+                        &lt;/div>
+                    &lt;/div>                
         );
     }
 }
@@ -91,26 +109,7 @@ function mapStateToProps(state){
 
 export default connect(mapStateToProps,actions)(LoginButton);
 
-/*let content;
-        if(this.props.user != null &amp;&amp; this.props.user!=false){
-            content = (
-                &lt;div className="login">
-                    &lt;FacebookLogin
-                        appId="300879247180866"
-                        autoLoad
-                        fields="name,email,picture"
-                        callback={this.responseFacebook}
-                    />
-                &lt;/div>
-            );
-        }
-        else{
-            content = (
-                &lt;div style={{textAlign:'center'}}>
-                    Welcome back
-                &lt;/div>
-            );
-        }*/</code></pre>
+</code></pre>
         </article>
     </section>
 
@@ -120,13 +119,13 @@ export default connect(mapStateToProps,actions)(LoginButton);
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Event.html">Event</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventSelector.html">EventSelector</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchQuery.html">FetchQuery</a></li><li><a href="Header.html">Header</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemSelector.html">ItemSelector</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="Layer.html">Layer</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="PictureEditor.html">PictureEditor</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Profile.html">Profile</a></li><li><a href="ProfileRow.html">ProfileRow</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deleteEvent">deleteEvent</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#fetchEvents">fetchEvents</a></li><li><a href="global.html#fetchItems">fetchItems</a></li><li><a href="global.html#fetchProfile">fetchProfile</a></li><li><a href="global.html#fetchUser">fetchUser</a></li><li><a href="global.html#insertEvent">insertEvent</a></li><li><a href="global.html#insertItem">insertItem</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li><li><a href="global.html#toggleEventSelector">toggleEventSelector</a></li><li><a href="global.html#toggleItemSelector">toggleItemSelector</a></li><li><a href="global.html#togglePictureEditor">togglePictureEditor</a></li><li><a href="global.html#togglePopup">togglePopup</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateEvent">updateEvent</a></li><li><a href="global.html#updateItem">updateItem</a></li><li><a href="global.html#updateNotifyTime">updateNotifyTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 17:21:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

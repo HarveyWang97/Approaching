@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const Database = require('../database/Database').getInstance();
+const Database = require('../database/Database');
 const InsertQuery = require('../queries/InsertQuery');
 const RemoveQuery = require('../queries/RemoveQuery');
 const UpdateQuery = require('../queries/UpdateQuery');
@@ -16,22 +16,25 @@ class EventsRouter extends Router {
    */
   constructor() {
     super();
-    this.get('/insert', EventsRouter.insertEvent);
-    this.get('/update', EventsRouter.updateEvent);
-    this.get('/remove', EventsRouter.removeEvent);
+    const db = Database.getInstance();
+    this.get('/insert', (req, res, next) => EventsRouter.insertEvent(db, req, res, next));
+    this.get('/update', (req, res, next) => EventsRouter.updateEvent(db, req, res, next));
+    this.get('/remove', (req, res, next) => EventsRouter.removeEvent(db, req, res, next));
   }
 
   /**
    * Route the insert query on Events from front end to database.
+   * @param {Object} db - The database instance that is used for this insert query,
+   * created for testing purpose.
    * @param {Object} req - The request object.
    * @param {Object} res - The response object.
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  static insertEvent(req, res, next) {
+  static insertEvent(db, req, res, next) {
     const query = new InsertQuery('Event', req.query);
     if (query.isValid()) {
-      Database.insert(query, response => res.send(response));
+      db.insert(query, response => res.send(response));
     } else {
       res.status(400);
       res.send({ success: false, message: 'invalid parameters' });
@@ -40,16 +43,17 @@ class EventsRouter extends Router {
 
   /**
    * Route the update query on Events from front end to database.
+   * @param {Object} db - The database instance that is used for this update query,
+   * created for testing purpose.
    * @param {Object} req - The request object.
    * @param {Object} res - The response object.
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  static updateEvent(req, res, next) {
+  static updateEvent(db, req, res, next) {
     const query = new UpdateQuery('Event', req.query);
     if (query.isValid()) {
-      console.log(">>>>>>");
-      Database.update(query, response => res.send(response));
+      db.update(query, response => res.send(response));
     } else {
       res.status(400);
       res.send({ success: false, message: 'invalid parameters' });
@@ -58,15 +62,17 @@ class EventsRouter extends Router {
 
   /**
    * Route the remove query on Events from front end to database.
+   * @param {Object} db - The database instance that is used for this remove query,
+   * created for testing purpose.
    * @param {Object} req - The request object.
    * @param {Object} res - The response object.
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  static removeEvent(req, res, next) {
+  static removeEvent(db, req, res, next) {
     const query = new RemoveQuery('Event', req.query);
     if (query.isValid()) {
-      Database.remove(query, response => res.send(response));
+      db.remove(query, response => res.send(response));
     } else {
       res.status(400);
       res.send({ success: false, message: 'invalid parameters' });
