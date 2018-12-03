@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const Database = require('../database/Database').getInstance();
+const Database = require('../database/Database');
 const FetchQuery = require('../queries/FetchQuery');
 
 /**
@@ -13,22 +13,25 @@ class IndexRouter extends Router {
    */
   constructor() {
     super();
-    this.get('/fetchProfile', IndexRouter.fetchProfile);
-    this.get('/fetchItems', IndexRouter.fetchItems);
-    this.get('/fetchEvents', IndexRouter.fetchEvents);
+    const db = Database.getInstance();
+    this.get('/fetchProfile', (req, res, next) => IndexRouter.fetchProfile(db, req, res, next));
+    this.get('/fetchItems', (req, res, next) => IndexRouter.fetchItems(db, req, res, next));
+    this.get('/fetchEvents', (req, res, next) => IndexRouter.fetchEvents(db, req, res, next));
   }
 
   /**
    * Route the fetch user profile query from front end to database.
+   * @param {Object} db - The database instance that is used for this insert query,
+   * created for testing purpose.
    * @param {Object} req - The request object.
    * @param {Object} res - The response object.
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  static fetchProfile(req, res, next) {
+  static fetchProfile(db, req, res, next) {
     const query = new FetchQuery(null, req.query);
     if (query.isValid()) {
-      Database.fetchProfile(query, response => res.send(response));
+      db.fetchProfile(query, response => res.send(response));
     } else {
       res.status(400);
       res.send({ success: false, message: 'invalid parameters' });
@@ -37,15 +40,17 @@ class IndexRouter extends Router {
 
   /**
    * Route the fetch all items query from front end to database.
+   * @param {Object} db - The database instance that is used for this insert query,
+   * created for testing purpose.
    * @param {Object} req - The request object.
    * @param {Object} res - The response object.
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  static fetchItems(req, res, next) {
+  static fetchItems(db, req, res, next) {
     const query = new FetchQuery(null, req.query);
     if (query.isValid()) {
-      Database.fetchItems(query, response => res.send(response));
+      db.fetchItems(query, response => res.send(response));
     } else {
       res.status(400);
       res.send({ success: false, message: 'invalid parameters' });
@@ -54,15 +59,17 @@ class IndexRouter extends Router {
 
   /**
    * Route the fetch all events query from front end to database.
+   * @param {Object} db - The database instance that is used for this insert query,
+   * created for testing purpose.
    * @param {Object} req - The request object.
    * @param {Object} res - The response object.
    * @param {function} next - We do not have anything to do with next here, 
    * but it is a required input argument.
    */
-  static fetchEvents(req, res, next) {
+  static fetchEvents(db, req, res, next) {
     const query = new FetchQuery(null, req.query);
     if (query.isValid()) {
-      Database.fetchEvents(query, response => res.send(response));
+      db.fetchEvents(query, response => res.send(response));
     } else {
       res.status(400);
       res.send({ success: false, message: 'invalid parameters' });
