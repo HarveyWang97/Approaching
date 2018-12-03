@@ -44,6 +44,7 @@ class ItemSelector extends Component {
     handleSubmit() {
         this.props.payload.handleSubmit(this.state.selectedItems);
         this.props.toggleItemSelector();
+        console.log("show payload",this.props.payload);
     }
 
     /**
