@@ -51,15 +51,15 @@ class Row extends Component {
 
             const d = new Date(time.value);
             const mtime = d.getTime();
-            console.log('mtime', mtime);
+            // console.log('mtime', mtime);
             handleEditResult(field, mtime);
         }
         else if (field === 'expireDate') {
             const time = document.getElementById('datepicker');
-            console.log(time.value);
+            // console.log(time.value);
             const d = new Date(time.value);
             const mtime = d.getTime();
-            console.log('expire time', mtime);
+            // console.log('expire time', mtime);
             handleEditResult(field, mtime);
         }
         else if(field === 'itemList' || field === 'eventList'){
@@ -78,7 +78,6 @@ class Row extends Component {
                 else{
                     raw_data = JSON.parse(this.props.details);
                 }
-                console.log('new added',event.target.newItem.value);
                
                 raw_data.push({label:event.target.newItem.value,id:uuidv4()});
                 handleEditResult(field,JSON.stringify(raw_data));
@@ -146,7 +145,6 @@ class Row extends Component {
      * @param {String} details 
      */
     renderDescription(editing, details) {
-        console.log(this.state.description);
         return (
             <div className={'popup-field-content-row popup-description-field-content-row'}>
                 {editing ? (

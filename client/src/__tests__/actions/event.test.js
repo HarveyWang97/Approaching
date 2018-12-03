@@ -32,7 +32,7 @@ describe("test insert events",() => {
         store.dispatch(fetchEvents('test','test'));
         const returnValue = await getAction(store,FETCH_EVENTS);
         const payload = returnValue.payload.rawEvents.filter(item => (item.name === "JWC basketball"));
-        console.log(payload[0]);
+        // console.log(payload[0]);
         expect(payload[0].location).toEqual("John wooden center");
        // expect(returnValue.payload.rawEvents.filter(item => (item.name === "JWC basketball"))[0].location)
        // .toEqual("John wooden center");     

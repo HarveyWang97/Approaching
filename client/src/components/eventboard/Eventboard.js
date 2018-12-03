@@ -25,11 +25,11 @@ class Eventboard extends Component{
     
 
     componentDidMount(){
-        //this.props.fetchEvents('test','test');
+        // this.props.fetchEvents('test','test');
         const facebookId = ls.get('facebookId');
         const accessToken = ls.get('accessToken');
-        console.log("ls",facebookId);
-        console.log("ls token",accessToken);
+        // console.log("ls",facebookId);
+        // console.log("ls token",accessToken);
         this.props.fetchEvents(facebookId,accessToken);
     }
 
@@ -96,7 +96,7 @@ class Eventboard extends Component{
      */
 
     renderDay(month,year,day,eventsData){
-        console.log('day', eventsData);
+        // console.log('day', eventsData);
         const events = eventsData.map(event => {
             return this.renderItem(event._id,event.name,event.time);
         }); // iterate an array
@@ -134,10 +134,10 @@ class Eventboard extends Component{
             events = Object.keys(this.props.events).map(key => {
                 return this.renderYear(key, this.props.events[key]);
             });
-            console.log("events",this.props.events);
-           // console.log("rawEvents",this.state.rawEvents);
+            // console.log("events",this.props.events);
+            // console.log("rawEvents",this.state.rawEvents);
         }
-        console.log("state events",this.props.events);
+        // console.log("state events",this.props.events);
         return (
             <div className="split-right right">
             <div className="events">

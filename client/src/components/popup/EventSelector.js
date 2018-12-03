@@ -43,6 +43,7 @@ class EventSelector extends Component {
      * @return {void}
      */
     handleChange(selectedItems) {
+        // console.log('handleChange', selectedItems);
         this.setState({ selectedItems });
     }
 
@@ -62,7 +63,7 @@ class EventSelector extends Component {
      */
     render() {
         const { items, selectedItems } = this.state;
-        console.log("items", selectedItems);
+        // console.log("items", selectedItems);
         return (
             <div className="item-selector">
                 <div className='item-selector-inner'>

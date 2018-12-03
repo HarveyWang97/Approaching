@@ -189,9 +189,9 @@ class Popup extends Component {
 	 * @param {String} value the new value.
      * @returns {void} 
 	 */
-    handleEditResult(key, value) {
+    handleEditResult(key, value) {        
         const payload = this.state.payload;
-        payload[key] = value;
+        payload[key] = value;        
         this.setState({
             payload: payload
         });

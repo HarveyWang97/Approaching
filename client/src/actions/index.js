@@ -154,7 +154,6 @@ export const fetchItems = (facebookId,accessToken) => async (dispatch) => {
     `http://localhost:3000/fetchItems?facebookId=${facebookId}&accessToken=${accessToken}`;
     const res = await axios.get(url);
     dispatch({type:FETCH_ITEMS,payload:res.data.items});
-    console.log('items',res);
 }
 
 /**
@@ -173,16 +172,16 @@ export const insertEvent = (data,facebookId,accessToken) => async (dispatch) =>{
         accessToken = 'test';
     }
     // name & time is mandatory for an event object
-    let { name, picture, time, location, description, itemlist } = data;
+    let { name, picture, time, location, description, itemList } = data;
     picture = picture || "";
     location = location || "";
     description = description || "";
-    itemlist = itemlist || "";
+    itemList = itemList || "";
 
     const url = 
-    `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&time=${time}&location=${location}&description=${description}&itemList=${itemlist}`;
+    `http://localhost:3000/events/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&time=${time}&location=${location}&description=${description}&itemList=${itemList}`;
     const res = await axios.get(url);
-    if (!(res.success)) {
+    if (!(res.data.success)) {
         console.log("fail to insert event: ", res);
     }
 }
@@ -209,7 +208,7 @@ export const updateEvent = (data,facebookId,accessToken) => async (dispatch) =>{
         }
     }
     const res = await axios.get(url);
-    if (!(res.success)) {
+    if (!(res.data.success)) {
         console.log("fail to update event: ", res);
     }
 }
@@ -230,7 +229,7 @@ export const deleteEvent = (eventId,facebookId,accessToken) => async (dispatch) 
     let url = 
     `http://localhost:3000/events/remove?facebookId=${facebookId}&accessToken=${accessToken}&_id=${eventId}`;
     const res = await axios.get(url);
-    if (!(res.success)) {
+    if (!(res.data.success)) {
         console.log("fail to delete event: ", res);
     }
 }
@@ -251,16 +250,16 @@ export const insertItem = (data,facebookId,accessToken) => async (dispatch) => {
         accessToken = 'test';
     }
     // name & location is mandatory for an event object
-    let { name, picture, expireDate, location, description, eventlist } = data;
+    let { name, picture, expireDate, location, description, eventList } = data;
     picture = picture || "";
     expireDate = expireDate || "";
     description = description || "";
-    eventlist = eventlist || "";
+    eventList = eventList || "";
     
     const url = 
-    `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&expireDate=${expireDate}&location=${location}&description=${description}&eventList=${eventlist}`;
+    `http://localhost:3000/items/insert?facebookId=${facebookId}&accessToken=${accessToken}&name=${name}&picture=${picture}&expireDate=${expireDate}&location=${location}&description=${description}&eventList=${eventList}`;
     const res = await axios.get(url);
-    if (!(res.success)) {
+    if (!(res.data.success)) {
         console.log("fail to insert item: ", res);
     }
 }
@@ -287,7 +286,7 @@ export const updateItem = (data,facebookId,accessToken) => async (dispatch) =>{
         }
     }
     const res = await axios.get(url);
-    if (!(res.success)) {
+    if (!(res.data.success)) {
         console.log("fail to update item: ", res);
     }
 }
@@ -308,7 +307,7 @@ export const deleteItem = (itemId,facebookId,accessToken) => async (dispatch) =>
     let url = 
     `http://localhost:3000/items/remove?facebookId=${facebookId}&accessToken=${accessToken}&_id=${itemId}`;
     const res = await axios.get(url);
-    if (!(res.success)) {
+    if (!(res.data.success)) {
         console.log("fail to delete item: ", res);
     }
 }
@@ -329,7 +328,6 @@ export const updateEmail = (email,facebookId,accessToken) => async (dispatch) =>
     const url = 
     `http://localhost:3000/users/update?facebookId=${facebookId}&accessToken=${accessToken}&email=${email}`;
     const res = await axios.get(url);
-    //console.log('update email', res.data.userProfile.email);
 }
 
 /**

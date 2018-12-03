@@ -44,7 +44,7 @@ class ItemSelector extends Component {
     handleSubmit() {
         this.props.payload.handleSubmit(this.state.selectedItems);
         this.props.toggleItemSelector();
-        console.log("show payload",this.props.payload);
+        // console.log("show payload",this.props.payload);
     }
 
     /**
@@ -53,7 +53,7 @@ class ItemSelector extends Component {
      */
     render() {
         const { items, selectedItems } = this.state;
-        console.log("items", selectedItems);
+        // console.log("items", selectedItems);
         return (
             <div className="item-selector">
                 <div className='item-selector-inner'>
