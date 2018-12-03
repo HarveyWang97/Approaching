@@ -8,7 +8,7 @@ class Query {
    * @constructor
    * @param {string} target - Name of the database collection that the query
    * is targeted on.
-   * @param {*} object - The query parameters as a key-value object.
+   * @param {Object} object - The query parameters as a key-value object.
    */
   constructor(target, object) {
     this.target = target;
@@ -42,7 +42,7 @@ class Query {
 
   /**
    * Get the properties of the query that are used for the real work.
-   * @returns {Object}
+   * @returns {Object} Extract out properties of the query, drop Auth info.
    */
   getDetails() {
     if (this.target === 'User') {
@@ -59,17 +59,16 @@ class Query {
   }
 
   /**
-   * Return the original query object.
-   * @returns {Object}
+   * Get the original query object.
+   * @returns {Object} Returns an unmodified query object.
    */
   getQuery() {
     return this.query;
   }
 
   /**
-   * Return the name of the database collection that the query
-   * is targeted on.
-   * @returns {string}
+   * Get the name of the database collection that the query is targeted on.
+   * @returns {string} Returns 'User' or 'Item' or 'Event'.
    */
   getTarget() {
     return this.target;
@@ -78,7 +77,7 @@ class Query {
   /**
    * Check if the query contains all authorization informaion.
    * @private
-   * @returns {boolean}
+   * @returns {boolean} Return true if the query contains all authorization informaion.
    */
   _hasauth() {
     return this.query.hasOwnProperty('facebookId')

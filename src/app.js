@@ -8,10 +8,10 @@ const database = require('./database/Database');
 const timeInterval = 3600000; // one hour in miliseconds
 const notificationOn = false; // set notification on to enable email service
 
-const indexRouter = require('./routers/IndexRouter');
-const usersRouter = require('./routers/UsersRouter');
-const itemsRouter = require('./routers/ItemsRouter');
-const eventsRouter = require('./routers/EventsRouter');
+const IndexRouter = require('./routers/IndexRouter');
+const UsersRouter = require('./routers/UsersRouter');
+const ItemsRouter = require('./routers/ItemsRouter');
+const EventsRouter = require('./routers/EventsRouter');
 
 const app = express();
 
@@ -26,10 +26,10 @@ app.use(cookieParser());
 app.use(cors());
 app.set('json spaces', 2);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/items', itemsRouter);
-app.use('/events', eventsRouter);
+app.use('/', new IndexRouter());
+app.use('/users', new UsersRouter());
+app.use('/items', new ItemsRouter());
+app.use('/events', new EventsRouter());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

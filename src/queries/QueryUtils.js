@@ -4,8 +4,8 @@
 class QueryUtils {
   /**
    * Return whether or not arr1 and arr2 are two identical arrays.
-   * @param {*} arr1 
-   * @param {*} arr2 
+   * @param {Array} arr1 
+   * @param {Array} arr2 
    */
   static arrayEqual(arr1, arr2) {
     if (!arr1 || !Array.isArray(arr1)) return false;
@@ -24,8 +24,8 @@ class QueryUtils {
   /**
    * Return whether or not arr1 and arr2 are arrays and 
    * arr1 is a subset of arr2.
-   * @param {*} arr1 
-   * @param {*} arr2 
+   * @param {Array} arr1 
+   * @param {Array} arr2 
    */
   static arraySubsetOf(arr1, arr2) {
     if (!arr1 || !Array.isArray(arr1)) return false;
