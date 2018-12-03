@@ -50,7 +50,6 @@ class Popup extends Component {
             // set item popup data
             else if (contentType === 'item'){
                 const payload = this.props.rawItems.filter(item => item._id === id)[0];
-                console.log("item payload",payload);
                 this.state = {
                     editing: false,
                     payload: payload
@@ -60,13 +59,27 @@ class Popup extends Component {
     }
 
     /**
+     * Override the React componentDidMount function set a _isMounted to be 
+     * true. This is used to ensure that the action changeEditingState() that
+     * scrolls the 'middle' element to the top is being executed only when the
+     * component is mounted. In shallow render testing, the component won't 
+     * be mounted so the scrolling should never happen. 
+     * @return {void}
+     */
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    /**
 	 * This method flips the current editing state (editing v.s. not editing) 
      * and set the middle area of the popup to scroll to its top.
 	 * @param {None}
 	 * @returns {void}
 	 */
     changeEditingState(){
-        ReactDOM.findDOMNode(this).getElementsByClassName('middle')[0].scrollTop = 0;
+        if (this._isMounted) {
+            ReactDOM.findDOMNode(this).getElementsByClassName('middle')[0].scrollTop = 0;
+        }
         this.setState({
             editing: !this.state.editing
         });
@@ -83,7 +96,7 @@ class Popup extends Component {
         payload.name = event.target.value;
         this.setState({
             payload: payload
-        })
+        });
     }
 
     /**
@@ -124,7 +137,6 @@ class Popup extends Component {
         } else {
             if (name && time) {
                 this.changeEditingState();
-                console.log("payload time", time);
                 if (isAdd) {
                     this.props.insertEvent(this.state.payload, facebookId, accessToken).then(
                         () => this.props.fetchEvents(facebookId, accessToken)
@@ -166,6 +178,7 @@ class Popup extends Component {
             );
             this.props.togglePopup();
         }
+        this.setState();
     }
 
     /**
@@ -241,7 +254,7 @@ class Popup extends Component {
                                     <Icon iconName='save' onClick={this.handleSubmit.bind(this)} />
                                 </div>
                                 ) :
-                                ( 
+                                (
                                 <React.Fragment>
                                 <div className='left'>
                                     { this.state.editing ? 
