@@ -24,9 +24,14 @@
     "mongoose": "^5.3.9",
     "morgan": "~1.9.0",
     "npm": "^6.4.1",
-    "selenium-webdriver": "^4.0.0-alpha.1"
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "sinon": "^7.1.1"
   },
   "devDependencies": {
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   }

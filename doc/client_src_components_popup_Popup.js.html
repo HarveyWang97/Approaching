@@ -27,157 +27,262 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
-import '../../css/Popup.css';
+import ReactDOM from 'react-dom';
+import swal from 'sweetalert2'
+import '../../assets/styles/Popup.css';
 import Row from './Row';
-import Icon from './Icon';
+import Icon from '../common/Icon';
+import config from '../../config';
+import {connect} from 'react-redux';
+import ls from 'local-storage';
+import  * as actions from '../../actions';
+
 
 /**
  * @classdesc Construct a Popup component that renders given data object. 
  */
 class Popup extends Component {
     /**
-     * Currently we manually construct datas for popup to display since we do not have communication with others.
-     * Initialize the state variables with corresponding input data.
-     * (TO BE DONE) Communication with other front-end components and server.
+     * Initialize the state variables based on payload object passed through 
+     * this.prop. 
 	 * @constructor 
-	 * @param {None}
-	 * @return {void} 
+	 * @param {Object} props The properties passed in when the component is 
+     * constructed. The component which invokes the popup should pass a payload
+     * via this.props.payload, which contains contentType, isAdd, id, and
+     * currentLocation which is used to decide what content is used for 
+     * rendering. id is used as a key to search the item or event list in reducers to
+     * get the details of that item or event.
+	 * @returns {void} 
 	 */
     constructor(props){
         super(props);
 
-        this.fieldToIcon = {
-            description: 'file-alt',
-            time: 'clock',
-            location: 'map-marker-alt',
-            itemList: 'list-ul',
-            eventList: 'calendar-alt'
-        };
-        this.data = {
-            type: 'event',
-            editing: false,
-            data: {
-                title: 'Christmas Party',
-                description: 'xxxxx',
-                time: '18-12-09',
-                location: 'paris',
-                itemList: 'TBD'
+        const { contentType, isAdd, id, currentLocation } = this.props.payload;        
+        if (isAdd) {
+            this.state = {
+                editing: true,
+                payload: contentType === 'event' ? {} : {
+                    location: currentLocation
+                }
             }
-        };
-        // this.data = {
-        //     type: 'item',
-        //     editing: true,
-        //     data: {
-        //         title: 'Chocolate',
-        //         description: 'xxxxx',
-        //         location: 'Kitchen>Cupboard',
-        //         time: '18-12-09',
-        //         eventList: 'TBD'
-        //     }
-        // };
+        } else {
+            // set event popup data
+            if (contentType === 'event'){
+                const payload = this.props.events.filter(event => event._id === id)[0];
+                this.state = {
+                    editing: false,
+                    payload: payload
+                };
+            }
 
-        this.state = {
-            editing: this.data.editing,
-        };
-        for (let key in this.data.data) {
-            this.state[key] = this.data.data[key];
+            // set item popup data
+            else if (contentType === 'item'){
+                const payload = this.props.rawItems.filter(item => item._id === id)[0];
+                console.log("item payload",payload);
+                this.state = {
+                    editing: false,
+                    payload: payload
+                };
+            }
         }
     }
 
     /**
-	 * This method flips the current editing state.
-	 * either from editing to not-editing, or vice versa.
-     * 
+	 * This method flips the current editing state (editing v.s. not editing) 
+     * and set the middle area of the popup to scroll to its top.
 	 * @param {None}
-	 * @return {void} 
-	 *
+	 * @returns {void}
 	 */
     changeEditingState(){
+        ReactDOM.findDOMNode(this).getElementsByClassName('middle')[0].scrollTop = 0;
         this.setState({
             editing: !this.state.editing
         });
     }
 
-     /**
-	 * This method set the value of title to the new input value.
-	 * 
-	 * @param {JsonObject} event a specific event that invokes this method, e.g. editing the iput form
-	 * @return {void} 
+    /**
+	 * This method sets the value of name to the new input value.
+	 * @param {JsonObject} event a specific event that invokes this method, 
+     * e.g. editing the input form.
+	 * @returns {void} 
 	 */
-    handleChange(event){
+    handleChange(event) {
+        const payload = this.state.payload;
+        payload.name = event.target.value;
         this.setState({
-            title: event.target.value
+            payload: payload
+        })
+    }
+
+    /**
+	 * This method handles the onClic of the submit button in edit mode.
+     * If the current inputs of all fields are valid, this method sends an
+     * insert/update item/event request to the server, based on the type of
+     * popup and whether or not it's invoked by an item/event board add button.
+     * It also toggles the editing state. If any input is invalid, the editing
+     * state won't change, and a warning alert appears.
+	 * @param {None}
+	 * @returns {void}
+	 */
+    handleSubmit() {
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
+        const { contentType, isAdd } = this.props.payload;
+        const { name, location, time } = this.state.payload;
+        if (contentType === 'item') {
+            if (name &amp;&amp; location) {
+                this.changeEditingState();
+                if (isAdd) {
+                    this.props.insertItem(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchItems(facebookId, accessToken)
+                    );
+                    this.props.togglePopup();
+                } else {
+                    this.props.updateItem(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchItems(facebookId, accessToken)
+                    );
+                }
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    html: 'Please fill in the item &lt;b>name&lt;/b> and &lt;b>location&lt;/b>!'
+                });
+            }
+        } else {
+            if (name &amp;&amp; time) {
+                this.changeEditingState();
+                console.log("payload time", time);
+                if (isAdd) {
+                    this.props.insertEvent(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchEvents(facebookId, accessToken)
+                    );
+                    this.props.togglePopup();
+                } else {
+                    this.props.updateEvent(this.state.payload, facebookId, accessToken).then(
+                        () => this.props.fetchEvents(facebookId, accessToken)
+                    );
+                }
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    html: 'Please fill in the event &lt;b>name&lt;/b> and &lt;b>time&lt;/b>!'
+                });
+            }
+        }
+    }
+
+    /**
+	 * This method asks the server to delete the current item/event.
+	 * @param {None}
+	 * @returns {void}
+	 */
+    handleDelete() {
+        const facebookId = ls.get('facebookId');
+        const accessToken = ls.get('accessToken');
+        const { contentType } = this.props.payload;
+        const { _id } = this.state.payload;
+        if (contentType === 'item') {
+            this.props.deleteItem(_id, facebookId, accessToken).then(
+                () => this.props.fetchItems(facebookId, accessToken)
+            );
+            this.props.togglePopup();
+        } else {
+            this.props.deleteEvent(_id, facebookId, accessToken).then(
+                () => this.props.fetchEvents(facebookId, accessToken)
+            );
+            this.props.togglePopup();
+        }
+    }
+
+    /**
+	 * This method is used to be passed to Popup's child components to give
+     * them the ability to update the this.state.payload of Popup after being
+     * editted.
+	 * @param {String} key the target in this.state.payload that shuold be updated
+	 * @param {String} value the new value.
+     * @returns {void} 
+	 */
+    handleEditResult(key, value) {
+        const payload = this.state.payload;
+        payload[key] = value;
+        this.setState({
+            payload: payload
         });
     }
 
     /**
-	 * This method invokes the changeEditingState() on clicking of submit button.
-     * In the future it will send the changed data to server and reducer.
-	 * 
-	 * @param {None}
-	 * @return {void}
-	 */
-    handleSubmit() {
-        this.changeEditingState();
-    }
-
-    /**
-	 * This method set the value of each key to the new given value.
-	 * 
-	 * @param {String} key a specific event that invokes this method, e.g. editing the iput form.
-	 * @param {String} value the given new value.
-     * @return {void} 
-	 */
-    handleEditResult(key, value) {
-        this.state[key] = value;
-    }
-
-
-    /**
 	 * Render the popup based on input data type and value. 
-     * 
 	 * @param {none}
-     * @return {html} Returns a html block of Popup component. 
+     * @returns {html} Returns an html block of Popup component. 
 	 */
     render() {
-        const data = this.data.data;
+        const { payload } = this.state;
+        const displayPicture = (payload &amp;&amp; payload.picture &amp;&amp; payload.picture.startsWith('data:image')) ? {
+            backgroundImage: "url('" + payload.picture.replace(/(\r\n|\n|\r)/gm, "+") + "')"
+        } : null;
+
         return (
             &lt;div className='popup'>
                 &lt;div className='popup_inner'>
-                    &lt;div className='top'>
-                        &lt;span>
-                            &lt;Icon iconName='times' onClick={this.props.closePopup} />
-                            {this.state.editing? 
-                            (&lt;input className='title' type="text" value={this.state.title} placeholder="Input item name here"
-                            onChange={this.handleChange.bind(this)} />)
-                            : (&lt;div className='title'>{this.state.title}&lt;/div>)
+                    &lt;div className='top' id='top' style={displayPicture}>
+                        &lt;Icon iconName='times' onClick={() => this.props.togglePopup()} />
+                        &lt;div className='popup-name-bar'>
+                            { this.state.editing ? 
+                                (&lt;input className='popup-name' 
+                                        type="text"
+                                        value={payload.name} 
+                                        placeholder="Input item name here"
+                                        onChange={this.handleChange.bind(this)} />) : 
+                                (&lt;div className='popup-name'>{payload.name}&lt;/div>)
                             }
-                        &lt;/span>
+                        &lt;/div>
+                        { this.state.editing ? 
+                            &lt;div
+                                className='upload-picture-guide'
+                                onClick={() => this.props.togglePictureEditor({
+                                    handleSubmit: this.handleEditResult.bind(this)
+                                })}
+                            >
+                                Click Here to Upload a Picture ...
+                            &lt;/div> :
+                            null
+                        }
                     &lt;/div>
                     &lt;div className='middle'>
-                        {Object.keys(data).map(key => {
-                            if (key !== 'title') {
-                                return (
-                                    &lt;Row key={key} 
-                                         field={key}
-                                         iconName={this.fieldToIcon[key]}
-                                         details={this.state[key]}
-                                         editing={this.state.editing}
-                                         handleEditResult={this.handleEditResult.bind(this)} />
-                                );
-                            }
-                        })}
+                        { config.fields[this.props.payload.contentType].map(key => (
+                            &lt;Row
+                                key={key} 
+                                contentType={this.props.payload.contentType}
+                                field={key}
+                                iconName={config.icons[key]}
+                                details={payload[key]}
+                                editing={this.state.editing}
+                                handleEditResult={this.handleEditResult.bind(this)} />
+                        ))}
                     &lt;/div>
                     &lt;div className='bottom'>
-                        &lt;div className='left'>
-                            { this.state.editing ? 
-                            (&lt;Icon iconName='save' onClick={this.handleSubmit.bind(this)} />)
-                            : (&lt;Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
-                            }
-                        &lt;/div>
-                        &lt;div className='right'>
-                            &lt;Icon iconName='trash-alt' />
-                        &lt;/div>
+                        {   this.props.payload.isAdd?
+                                (
+                                &lt;div className='editModeIcon'>
+                                    &lt;Icon iconName='save' onClick={this.handleSubmit.bind(this)} />
+                                &lt;/div>
+                                ) :
+                                ( 
+                                &lt;React.Fragment>
+                                &lt;div className='left'>
+                                    { this.state.editing ? 
+                                        (&lt;Icon iconName='save' onClick={this.handleSubmit.bind(this)} />) : 
+                                        (&lt;Icon iconName='pen' onClick={this.changeEditingState.bind(this)}/>)
+                                    }
+                                &lt;/div>
+                                &lt;div className='right'>
+                                    &lt;Icon iconName='trash-alt' onClick={this.handleDelete.bind(this)} />
+                                &lt;/div>
+                                &lt;/React.Fragment>
+                                )
+                        }
                     &lt;/div>
                 &lt;/div>
             &lt;/div>
@@ -185,7 +290,16 @@ class Popup extends Component {
     }
 }
 
-export default Popup;</code></pre>
+function mapStateToProps(state){
+    return {
+        payload: state.popup.payload,
+        events: state.events.rawEvents,
+        rawItems: state.items.rawItems
+    }
+}
+
+export default connect(mapStateToProps, actions)(Popup);
+</code></pre>
         </article>
     </section>
 
@@ -195,13 +309,13 @@ export default Popup;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Event.html">Event</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventSelector.html">EventSelector</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchQuery.html">FetchQuery</a></li><li><a href="Header.html">Header</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemSelector.html">ItemSelector</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="Layer.html">Layer</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="PictureEditor.html">PictureEditor</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Profile.html">Profile</a></li><li><a href="ProfileRow.html">ProfileRow</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deleteEvent">deleteEvent</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#fetchEvents">fetchEvents</a></li><li><a href="global.html#fetchItems">fetchItems</a></li><li><a href="global.html#fetchProfile">fetchProfile</a></li><li><a href="global.html#fetchUser">fetchUser</a></li><li><a href="global.html#insertEvent">insertEvent</a></li><li><a href="global.html#insertItem">insertItem</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li><li><a href="global.html#toggleEventSelector">toggleEventSelector</a></li><li><a href="global.html#toggleItemSelector">toggleItemSelector</a></li><li><a href="global.html#togglePictureEditor">togglePictureEditor</a></li><li><a href="global.html#togglePopup">togglePopup</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateEvent">updateEvent</a></li><li><a href="global.html#updateItem">updateItem</a></li><li><a href="global.html#updateNotifyTime">updateNotifyTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 17:21:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
