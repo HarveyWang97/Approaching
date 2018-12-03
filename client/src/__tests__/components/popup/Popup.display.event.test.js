@@ -1,6 +1,5 @@
 import React from 'react';
 import mockStore from '../../../__testutils__/mockStore';
-import { getAction } from '../../../__testutils__/getAction';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
@@ -179,8 +178,4 @@ describe('(connected) Popup -- Display Event', () => {
             }
         });
     });
-
-
-    console.log('wrapper', wrapper.debug());
-    console.log('component', component.debug());
 });

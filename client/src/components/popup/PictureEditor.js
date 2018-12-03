@@ -185,12 +185,4 @@ class PictureEditor extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        // user: state.auth,
-        // payload: state.popup.payload,
-        // events: state.events.rawEvents
-    }
-}
-
-export default connect(mapStateToProps, actions)(PictureEditor);
+export default connect(null, actions)(PictureEditor);
