@@ -168,7 +168,7 @@ class Database {
           callback(events);
         } else {
           const rawEvents = events.events;
-          rawEvents.sort((a, b) => (a.time > b.time));
+          rawEvents.sort((a, b) => (Number(a.time) - Number(b.time)));
           const structuredEvents = {};
       
           for (let event of rawEvents) {

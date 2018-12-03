@@ -297,8 +297,8 @@ module.exports = () => {
                  [eventList[0].id, eventList[1].id, eventList[2].id, eventList[3].id]), true);
               const expectStructure = { 
                 '2018': { '12': { '25': [res.events.rawEvents[0], res.events.rawEvents[1]]}},
-                '2019': { '1': { '17': [res.events.rawEvents[3]] }, 
-                          '4': { '19': [res.events.rawEvents[2]] }
+                '2019': { '1': { '17': [res.events.rawEvents[2]] }, 
+                          '4': { '19': [res.events.rawEvents[3]] }
                         },
               }
               assert.deepStrictEqual(res.events.structuredEvents, expectStructure);
