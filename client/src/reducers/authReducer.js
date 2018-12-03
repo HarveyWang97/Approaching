@@ -11,6 +11,7 @@ export default (state = null,action) => {
         case FETCH_USER:
             return action.payload || false;
         
+            
         default:
             return state;
     }

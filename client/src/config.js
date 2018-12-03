@@ -29,5 +29,5 @@ module.exports = {
     height: 30
   },
   layerOffset: { x: -80, y: 15 },
-  useTestingAccount: true
+  useTestingAccount: false
 }

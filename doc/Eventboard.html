@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_Eventboard.js.html">client/src/components/Eventboard.js</a>, <a href="client_src_components_Eventboard.js.html#line18">line 18</a>
+        <a href="client_src_components_eventboard_Eventboard.js.html">client/src/components/eventboard/Eventboard.js</a>, <a href="client_src_components_eventboard_Eventboard.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -185,7 +185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_Eventboard.js.html">client/src/components/Eventboard.js</a>, <a href="client_src_components_Eventboard.js.html#line41">line 41</a>
+        <a href="client_src_components_eventboard_Eventboard.js.html">client/src/components/eventboard/Eventboard.js</a>, <a href="client_src_components_eventboard_Eventboard.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
@@ -213,7 +213,206 @@
     
 
     
-    <h4 class="name" id="renderItem"><span class="type-signature"></span>renderItem<span class="signature">(name, time, picture)</span><span class="type-signature"> &rarr; {EventItem}</span></h4>
+    <h4 class="name" id="renderDay"><span class="type-signature"></span>renderDay<span class="signature">(month, year, eventsData)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="Event.html">Event</a>>}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>month</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>year</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventsData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_eventboard_Eventboard.js.html">client/src/components/eventboard/Eventboard.js</a>, <a href="client_src_components_eventboard_Eventboard.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Events in one corresponding month
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="Event.html">Event</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderItem"><span class="type-signature"></span>renderItem<span class="signature">(name, time, picture)</span><span class="type-signature"> &rarr; {<a href="Event.html">Event</a>}</span></h4>
     
 
     
@@ -356,7 +555,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_Eventboard.js.html">client/src/components/Eventboard.js</a>, <a href="client_src_components_Eventboard.js.html#line87">line 87</a>
+        <a href="client_src_components_eventboard_Eventboard.js.html">client/src/components/eventboard/Eventboard.js</a>, <a href="client_src_components_eventboard_Eventboard.js.html#line122">line 122</a>
     </li></ul></dd>
     
 
@@ -383,7 +582,7 @@
 
         
 <div class="param-desc">
-    return the specified EventItem
+    return the specified Event
 </div>
 
 
@@ -394,7 +593,7 @@
     </dt>
     <dd>
         
-<span class="param-type">EventItem</span>
+<span class="param-type"><a href="Event.html">Event</a></span>
 
 
     </dd>
@@ -412,7 +611,7 @@
     
 
     
-    <h4 class="name" id="renderMonth"><span class="type-signature"></span>renderMonth<span class="signature">(month, year, items)</span><span class="type-signature"> &rarr; {Array.&lt;EventItem>}</span></h4>
+    <h4 class="name" id="renderMonth"><span class="type-signature"></span>renderMonth<span class="signature">(month, eventsData, year)</span><span class="type-signature"> &rarr; {Array.&lt;Array.&lt;<a href="Event.html">Event</a>>>}</span></h4>
     
 
     
@@ -475,13 +674,13 @@
 
         <tr>
             
-                <td class="name"><code>year</code></td>
+                <td class="name"><code>eventsData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Object</span>
 
 
             
@@ -498,13 +697,13 @@
 
         <tr>
             
-                <td class="name"><code>items</code></td>
+                <td class="name"><code>year</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;EventItem></span>
+<span class="param-type">Year</span>
 
 
             
@@ -555,7 +754,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_Eventboard.js.html">client/src/components/Eventboard.js</a>, <a href="client_src_components_Eventboard.js.html#line64">line 64</a>
+        <a href="client_src_components_eventboard_Eventboard.js.html">client/src/components/eventboard/Eventboard.js</a>, <a href="client_src_components_eventboard_Eventboard.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -582,7 +781,7 @@
 
         
 <div class="param-desc">
-    Events in one corresponding month
+    return all events in one year
 </div>
 
 
@@ -593,7 +792,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;EventItem></span>
+<span class="param-type">Array.&lt;Array.&lt;<a href="Event.html">Event</a>>></span>
 
 
     </dd>
@@ -611,7 +810,7 @@
     
 
     
-    <h4 class="name" id="renderYear"><span class="type-signature"></span>renderYear<span class="signature">(year, items)</span><span class="type-signature"> &rarr; {Array.&lt;Array.&lt;EventItem>>}</span></h4>
+    <h4 class="name" id="renderYear"><span class="type-signature"></span>renderYear<span class="signature">(year, eventsData)</span><span class="type-signature"> &rarr; {Array.&lt;Array.&lt;Array.&lt;<a href="Event.html">Event</a>>>>}</span></h4>
     
 
     
@@ -674,13 +873,13 @@
 
         <tr>
             
-                <td class="name"><code>items</code></td>
+                <td class="name"><code>eventsData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Array.&lt;EventItem>></span>
+<span class="param-type">Object</span>
 
 
             
@@ -731,7 +930,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_Eventboard.js.html">client/src/components/Eventboard.js</a>, <a href="client_src_components_Eventboard.js.html#line30">line 30</a>
+        <a href="client_src_components_eventboard_Eventboard.js.html">client/src/components/eventboard/Eventboard.js</a>, <a href="client_src_components_eventboard_Eventboard.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -769,7 +968,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;Array.&lt;EventItem>></span>
+<span class="param-type">Array.&lt;Array.&lt;Array.&lt;<a href="Event.html">Event</a>>>></span>
 
 
     </dd>
@@ -797,13 +996,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Event.html">Event</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventSelector.html">EventSelector</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchQuery.html">FetchQuery</a></li><li><a href="Header.html">Header</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemSelector.html">ItemSelector</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="Layer.html">Layer</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="PictureEditor.html">PictureEditor</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Profile.html">Profile</a></li><li><a href="ProfileRow.html">ProfileRow</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deleteEvent">deleteEvent</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#fetchEvents">fetchEvents</a></li><li><a href="global.html#fetchItems">fetchItems</a></li><li><a href="global.html#fetchProfile">fetchProfile</a></li><li><a href="global.html#fetchUser">fetchUser</a></li><li><a href="global.html#insertEvent">insertEvent</a></li><li><a href="global.html#insertItem">insertItem</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li><li><a href="global.html#toggleEventSelector">toggleEventSelector</a></li><li><a href="global.html#toggleItemSelector">toggleItemSelector</a></li><li><a href="global.html#togglePictureEditor">togglePictureEditor</a></li><li><a href="global.html#togglePopup">togglePopup</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateEvent">updateEvent</a></li><li><a href="global.html#updateItem">updateItem</a></li><li><a href="global.html#updateNotifyTime">updateNotifyTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 17:21:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

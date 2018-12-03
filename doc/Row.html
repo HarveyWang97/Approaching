@@ -30,7 +30,7 @@
     
         <h2><span class="attribs"><span class="type-signature"></span></span>Row<span class="signature">(props)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Called by Popup to construct a pair of one Icon and one text value.</div>
+            <div class="class-description">Called by Popup to construct a pair of one Icon and one content field.</div>
         
     
 </header>
@@ -53,9 +53,7 @@
 
 
 <div class="description">
-    Currently we manually construct datas for popup to display since we do not have communication with others.
-Initialize the state variables with corresponding input data.
-(TO BE DONE) Communication with other front-end components and server.
+    Initialize the state variables with given input data, input is passed from Popup component.
 </div>
 
 
@@ -92,6 +90,785 @@ Initialize the state variables with corresponding input data.
         <tr>
             
                 <td class="name"><code>props</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The properties passed in when the component is constructed.
+The input values are three strings (contentType, field, details). 
+contentType: Determine if the input is for an event object or an item object.
+field: Determine which field in the object is passed in, and handle different fields properly.
+details: The content to be rendered.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="dateConverter"><span class="type-signature"></span>dateConverter<span class="signature">(UNIX_timestamp)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Convert the unix timestamp into a date display string of format like "Dec 1 2018"
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>UNIX_timestamp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line124">line 124</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    formatted string with given unix timestamp
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="handleChange"><span class="type-signature"></span>handleChange<span class="signature">(event)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This method sets this row's field value to the new input value. 
+It handles different field differently.
+For time field (in event object), get input value from time picker.
+For expireDate field (in item object), get input value from date picker.
+For itemList or eventList field, parse input from item/event selector component.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A specific event that invokes this method, e.g. editing the input form.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line47">line 47</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="handleManuallyAddItem"><span class="type-signature"></span>handleManuallyAddItem<span class="signature">(e)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handle manually added items
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">item</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line97">line 97</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="reformatItemLocation"><span class="type-signature"></span>reformatItemLocation<span class="signature">(location)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Show location in a formatted way
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>location</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line139">line 139</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"> &rarr; {html}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Render the row based on the given input. The information needed is:
+field: String. field The data type of given text value, e.g. location, time.
+iconName: String. iconName The name of FAIcon to be constructed.
+editing: Boolean. editing Whether the Popup is in editing mode.
+handleEditResult: Object. handleEditResult Pass handleEditResult behavior from Popup to this object.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
 
             <td class="type">
@@ -148,384 +925,7 @@ Initialize the state variables with corresponding input data.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="handleChange"><span class="type-signature"></span>handleChange<span class="signature">(event)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This method set the value of this row's item to the new input value.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">JsonObject</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a specific event that invokes this method, e.g. editing the iput form</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line32">line 32</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">(field, iconName, editing, handleEditResult)</span><span class="type-signature"> &rarr; {html}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Render the row based on the given input.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>field</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The data type of given text value, e.g. location, time.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>iconName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of FAIcon to be constructed.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>editing</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Whether the Popup is in editing mode.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>handleEditResult</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">JsonObject</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Pass handleEditResult behavior from Popup to this object.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line48">line 48</a>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line407">line 407</a>
     </li></ul></dd>
     
 
@@ -576,6 +976,1264 @@ Initialize the state variables with corresponding input data.
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="renderDate"><span class="type-signature"></span>renderDate<span class="signature">(editing, details)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handle expireDate picker, including setting default date, date is NaN and choosing new date
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>editing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>details</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line199">line 199</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderDescription"><span class="type-signature"></span>renderDescription<span class="signature">(editing, details)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get Event/Item description from server and render them in edit/display mode
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>editing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>details</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line148">line 148</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderEventList"><span class="type-signature"></span>renderEventList<span class="signature">(editing, details)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Render the eventList and event selection in item detail in editing/non-editing mode
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>editing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>details</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;event></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line365">line 365</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderItemList"><span class="type-signature"></span>renderItemList<span class="signature">(editing, details)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Render the itemList and item selection in event detail in editing/non-editing mode
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>editing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>details</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;item></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line318">line 318</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderLocation"><span class="type-signature"></span>renderLocation<span class="signature">(editing, details)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Render item location part in item detail in editing/non-editing mode
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>editing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>details</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderRemovable"><span class="type-signature"></span>renderRemovable<span class="signature">(items)</span><span class="type-signature"> &rarr; {Array.&lt;String>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Render selected items or events in edit mode
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>items</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;item></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;String></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderTime"><span class="type-signature"></span>renderTime<span class="signature">(editing, details)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handle event time picker, including setting default time and choosing new time
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>editing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>details</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line173">line 173</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="timeConverter"><span class="type-signature"></span>timeConverter<span class="signature">(UNIX_timestamp)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Convert the unix timestamp into a time display string of format like "Dec 1 2018 10:00"
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>UNIX_timestamp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_components_popup_Row.js.html">client/src/components/popup/Row.js</a>, <a href="client_src_components_popup_Row.js.html#line107">line 107</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    formatted string with given unix timestamp
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -591,13 +2249,13 @@ Initialize the state variables with corresponding input data.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Event.html">Event</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventSelector.html">EventSelector</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchQuery.html">FetchQuery</a></li><li><a href="Header.html">Header</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemSelector.html">ItemSelector</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="Layer.html">Layer</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="PictureEditor.html">PictureEditor</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Profile.html">Profile</a></li><li><a href="ProfileRow.html">ProfileRow</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deleteEvent">deleteEvent</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#fetchEvents">fetchEvents</a></li><li><a href="global.html#fetchItems">fetchItems</a></li><li><a href="global.html#fetchProfile">fetchProfile</a></li><li><a href="global.html#fetchUser">fetchUser</a></li><li><a href="global.html#insertEvent">insertEvent</a></li><li><a href="global.html#insertItem">insertItem</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li><li><a href="global.html#toggleEventSelector">toggleEventSelector</a></li><li><a href="global.html#toggleItemSelector">toggleItemSelector</a></li><li><a href="global.html#togglePictureEditor">togglePictureEditor</a></li><li><a href="global.html#togglePopup">togglePopup</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateEvent">updateEvent</a></li><li><a href="global.html#updateItem">updateItem</a></li><li><a href="global.html#updateNotifyTime">updateNotifyTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 17:21:48 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

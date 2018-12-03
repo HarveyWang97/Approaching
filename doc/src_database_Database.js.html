@@ -35,57 +35,195 @@ const itemConfig = config.databaseModels.Item;
 const eventConfig = config.databaseModels.Event;
 const utils = require('./DatabaseUtils');
 
+const DatabaseStatus = {
+  DISCONNECTED: 'disconnected',
+  CONNECTING:   'connecting',
+  CONNECTED:    'connected',
+}
+
 /**
  * @classdesc Class representing the database.
+ * This class implements Singleton design pattern. At most one instance
+ * should exist during the runtime. Get a database instance with 
+ * `Database.getInstance()` or `Database.getTestInstance()` for testing.
+ * Avoid using `new Database(...)` outside the Database class.
+ * Note that NodeJS and ExpressJS are single threaded by default.
  */
 class Database {
   /**
    * The constructor initializes a connection to the MongoDB at the url
    * specified in configuration.
-   * @see config.js
+   * @private
+   * @param {boolean} isTest - Indicating whether or not the instance is
+   * constructed for testing. Used to decide which database to connect to
+   * and which status variables to update.
+   * @see config.js 
    */
-  constructor() {
-    // initialize connection status
-    this.connected = false;
-
+  constructor(isTest) {
+    const databaseUrl = isTest ? config.testDatabaseUrl : config.databaseUrl;
     // connect to db
-    mongoose.connect(config.databaseUrl, {
+    mongoose.connect(databaseUrl, {
       useCreateIndex: true,
       useNewUrlParser: true
     });
     this.db = mongoose.connection;
-    this.db.on('error', console.error.bind(console, 'connection error:'));
+    this.db.on('error', console.error.bind(console, 'connection error: '));
     this.db.once('open', () => {
       // set connection status to be successful
-      this.connected = true;
-      debug('connected to mongodb: ', config.databaseUrl);
+      if (isTest) {
+        this.testStatus = DatabaseStatus.CONNECTED;
+      } else  {
+        this.status = DatabaseStatus.CONNECTED;
+      }
+      debug('connected to mongodb: ', databaseUrl);
     });
   }
 
   /**
-   * Fetch and reformat Items and Events data for a given user from database.
+   * Get singleton database instance, initialize a new connection only when
+   * the database does not exist.
+   */
+  static getInstance() {
+    if (this.status === DatabaseStatus.DISCONNECTED) {
+      this.status = DatabaseStatus.CONNECTING;      
+      this.uniqueInstance = new Database(false);
+    }
+    while (this.uniqueInstance === null) ;
+    return this.uniqueInstance;
+  }
+
+  /**
+   * Get a test sandbox database instance, initialize a new connection only when
+   * the database does not exist.
+   */
+  static getTestInstance() {
+    if (this.testStatus === DatabaseStatus.DISCONNECTED) {
+      this.testStatus = DatabaseStatus.CONNECTING;      
+      this.uniqueTestInstance = new Database(true);
+    }
+    while (this.uniqueTestInstance === null) ;
+    return this.uniqueTestInstance;
+  }
+
+  /**
+   * Fetch the specific user profile from database with the given query.
    * @param {Query} query - The Query object wrapped from client request.
    * @param {DatabaseCallback} callback - Called after all other operations 
-   * are done.
    */
-  fetchData(query, callback = () => {}) {
+  fetchProfile(query, callback = () => {}) {
     const user = query.getAuth();
     utils.authorize(user, callback, () => {
-      utils.getItems(user.facebookId, itemsResult => {
-        if (!(itemsResult.success)) {
-          callback(itemsResult);
+      utils.getProfile(user.facebookId, callback);
+    });
+  }
+
+  /**
+   * Fetch all items stored under the given user from database with the given query.
+   * Return a raw item list (get directly from database) and a structured item list.
+   * The structured item list is in following structure:
+   * { name: {layer name},
+   *   sublayers: a list of {name, sublayers, items} object,
+   *   items: all items stored under this layer
+   * }
+   * @param {Query} query - The Query object wrapped from client request.
+   * @param {DatabaseCallback} callback - Called after all other operations
+   */
+  fetchItems(query, callback = () => {}) {
+    const user = query.getAuth();
+    utils.authorize(user, callback, () => {
+      utils.getItems(user.facebookId, items => {
+        // success: false, do nothing but return
+        if (!(items.success)) {
+          callback(items);
         } else {
-          utils.getEvents(user.facebookId, eventsResult => {
-            if (!(eventsResult.success)) {
-              callback(eventsResult);
-            } else {
-              callback({
-                success: true,
-                items: itemsResult.items,
-                events: eventsResult.events
-              });
+          const rawItems = items.items;
+          let structuredItems = {
+            name: 'home',
+            sublayers: [],
+            items: []};
+          // iterate through all items
+          for (let object of rawItems){
+            let current = structuredItems;
+            // iterate through location path
+            const loc_arr = JSON.parse(object.location);
+            for (let loc of loc_arr){
+              if (loc !== current.name){
+                // check if the location exists in sublayers
+                let exist = false;
+                for (let sub of current.sublayers){
+                  if (loc === sub.name){
+                    current = sub;
+                    exist = true;
+                  }
+                }
+                // the location doesn't exist in sublayers, create one
+                if (!exist) {
+                  let layer = {
+                    name: loc,
+                    sublayers: [],
+                    items: []};
+                  current.sublayers.push(layer);
+                  current = layer;
+                }
+              }
             }
-          })
+            current.items.push(object);
+          }
+          callback({
+            success: true,
+            items:{
+              rawItems: rawItems,
+              structuredItems: structuredItems
+            }
+          });
+        }
+      });
+    });
+  }
+
+  /**
+   * Fetch all events stored under the given user from database with the given query.
+   * Return a raw event list (get directly from database) and a structured event list.
+   * The structured event list stores all events in a 3D array with dimensions: year, month, date.
+   * @param {Query} query - The Query object wrapped from client request.
+   * @param {DatabaseCallback} callback - Called after all other operations 
+   */
+  fetchEvents(query, callback = () => {}) {
+    const user = query.getAuth();
+    utils.authorize(user, callback, () => {
+      utils.getEvents(user.facebookId, events => {
+        if (!(events.success)) {
+          callback(events);
+        } else {
+          const rawEvents = events.events;
+          rawEvents.sort((a, b) => (a.time > b.time));
+          const structuredEvents = {};
+      
+          for (let event of rawEvents) {
+            const time = new Date(Number(event.time));
+            const year = time.getFullYear();
+            const month = time.getMonth() + 1;
+            const date = time.getDate();
+            if (!(year in structuredEvents)) {
+              structuredEvents[year] = {};
+            }
+            if (!(month in structuredEvents[year])) {
+              structuredEvents[year][month] = {};
+            }
+            if (!(date in structuredEvents[year][month])) {
+              structuredEvents[year][month][date] = [];
+            }
+            
+            structuredEvents[year][month][date].push(event);
+          }
+  
+          callback({
+            success: true,
+            events: {
+              rawEvents: rawEvents,
+              structuredEvents: structuredEvents
+            }
+          });
         }
       });
     });
@@ -98,23 +236,21 @@ class Database {
    * are done.
    */
   insert(query, callback = () => {}) {
+    const user = query.getAuth();
+    const details = query.getDetails();
     switch (query.getTarget()) {
       case 'User':
         utils.insertIfNotExisting(models.User, userConfig.primaryKey, 
-          query.getQuery(), callback);
+          details, callback);
         break;
       case 'Item':
-        const user = query.getAuth();
-        const item = query.getDetails();
         utils.authorize(user, callback, () => {
-          utils.insert(models.Item, item, callback);
+          utils.insert(models.Item, details, callback);
         });
         break;
       case 'Event':
-        const user = query.getAuth();
-        const event = query.getDetails();
         utils.authorize(user, callback, () => {
-          utils.insert(models.Event, event, callback);
+          utils.insert(models.Event, details, callback);
         });
         break;
     }
@@ -131,6 +267,7 @@ class Database {
     const details = query.getDetails();
     const model = models[query.getTarget()];
     const primaryKey = config.databaseModels[query.getTarget()].primaryKey;
+    
     utils.authorize(user, callback, () => {
       utils.update(model, primaryKey, details, callback);
     });
@@ -148,14 +285,83 @@ class Database {
     const model = models[query.getTarget()];
     const primaryKey = config.databaseModels[query.getTarget()].primaryKey;
     utils.authorize(user, callback, () => {
-      utils.remove(models, primaryKey, details, callback);
+      utils.remove(model, primaryKey, details, callback);
+    });
+  }
+
+  /**
+   * Iterate through all users and find if they have expiring item/event.
+   * Send email to users who have expiring items or events according to their notification settings.
+   * @param {Integer} timeInterval - delay between two runs of checkExpiration in miliseconds
+   */
+  static checkExpiration(timeInterval) {
+    models.User.find( {}, (err, user) => {
+      if (!err &amp;&amp; user) {
+        user.forEach((element) => {
+          const userName = element.name;
+          const userEmail = element.email;
+          const notifyTime = element.notifyTime;
+          let itemList = [];
+          let eventList = [];
+          models.Item.find( {}, (err, item) => {
+            if (!err &amp;&amp; item) {
+              item.forEach((object) => {
+              if (object.owner === element.facebookId) {
+                // perform all date calculations in miliseconds
+                if (!isNaN(object.expireDate)) {
+                  const time_diff = Number(object.expireDate)-Number(new Date());
+                  if (time_diff >= 0 &amp;&amp; time_diff &lt;= notifyTime &amp;&amp; (!timeInterval || time_diff > (notifyTime-timeInterval))){
+                    itemList.push(object);
+                  }
+                }
+              }})
+              models.Event.find( {}, (err, event) => {
+                if (!err &amp;&amp; event) {
+                  event.forEach((object) => {
+                  if (object.owner === element.facebookId) {
+                    if (!isNaN(object.time)) {
+                      const time_diff = Number(object.time)-Number(new Date());
+                      if (time_diff >= 0 &amp;&amp; time_diff &lt;= notifyTime &amp;&amp; (!timeInterval || time_diff > (notifyTime-timeInterval))){
+                        eventList.push(object);
+                      }
+                    }
+                  }})
+                }
+                if (itemList.length > 0 || eventList.length > 0){
+                  utils.sendNotification(itemList, eventList, userName, userEmail, (err, message) => {
+                    if (err){
+                      console.log(err);
+                    }
+                  });
+                }
+              });
+            }
+          });
+        });
+      }
     });
   }
 }
 
-module.exports = new Database();
+/**
+ * initialize connection status.
+ * `status` is necessary because checking uniqueInstance is null or not is 
+ * not enough. When uniqueInstance = null and status = disconnect, we
+ * need to create a Database instance. When uniqueInstance = null and 
+ * status = connecting, we don't need to create a Database instance.
+ */
+Database.status = DatabaseStatus.DISCONNECTED;
+  
+Database.uniqueInstance = null;
+  
+/**
+ *  initialize connection status for test.
+ */
+Database.testStatus = DatabaseStatus.DISCONNECTED;
 
-</code></pre>
+Database.uniqueTestInstance = null;
+
+module.exports = Database;</code></pre>
         </article>
     </section>
 
@@ -165,13 +371,13 @@ module.exports = new Database();
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Event.html">Event</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventSelector.html">EventSelector</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchQuery.html">FetchQuery</a></li><li><a href="Header.html">Header</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemSelector.html">ItemSelector</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="Layer.html">Layer</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="PictureEditor.html">PictureEditor</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Profile.html">Profile</a></li><li><a href="ProfileRow.html">ProfileRow</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deleteEvent">deleteEvent</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#fetchEvents">fetchEvents</a></li><li><a href="global.html#fetchItems">fetchItems</a></li><li><a href="global.html#fetchProfile">fetchProfile</a></li><li><a href="global.html#fetchUser">fetchUser</a></li><li><a href="global.html#insertEvent">insertEvent</a></li><li><a href="global.html#insertItem">insertItem</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li><li><a href="global.html#toggleEventSelector">toggleEventSelector</a></li><li><a href="global.html#toggleItemSelector">toggleItemSelector</a></li><li><a href="global.html#togglePictureEditor">togglePictureEditor</a></li><li><a href="global.html#togglePopup">togglePopup</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateEvent">updateEvent</a></li><li><a href="global.html#updateItem">updateItem</a></li><li><a href="global.html#updateNotifyTime">updateNotifyTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 17:21:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

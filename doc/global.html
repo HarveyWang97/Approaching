@@ -94,107 +94,20 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
             
+<h4 class="name" id="deleteEvent"><span class="type-signature">(constant) </span>deleteEvent<span class="type-signature"></span></h4>
 
-    
-
-    
-    <h4 class="name" id="fetchData"><span class="type-signature"></span>fetchData<span class="signature">(facebookId, accessToken)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-
-    
 
 
 
 <div class="description">
-    Fetch user data from server, user is specified by facebookId and accessToken.
-Store user data to reducer(TO BE DONE).
-This should be called everytime user made changes to the front-end.
+    Construct a delete event query based on event Id, facebook Id and accessToken.
+Send it to backend in order to delete the corresponding event.
 </div>
 
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>facebookId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An ID that is received from facebook, unique for each user.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>accessToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The access token that is required to fetch user data, also recieved from facbook.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -230,7 +143,7 @@ This should be called everytime user made changes to the front-end.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_Request.js.html">client/src/Request.js</a>, <a href="client_src_Request.js.html#line33">line 33</a>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line225">line 225</a>
     </li></ul></dd>
     
 
@@ -246,31 +159,64 @@ This should be called everytime user made changes to the front-end.
 
 
 
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
         
+            
+<h4 class="name" id="deleteItem"><span class="type-signature">(constant) </span>deleteItem<span class="type-signature"></span></h4>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
 
 
-    </dd>
-</dl>
+<div class="description">
+    Construct a delete item query based on item Id, facebook Id and accessToken.
+Send it to backend in order to delete the corresponding item.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line303">line 303</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
 
 
 
@@ -278,14 +224,386 @@ This should be called everytime user made changes to the front-end.
 
         
             
+<h4 class="name" id="fetchEvents"><span class="type-signature">(constant) </span>fetchEvents<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct a fetch events query with input facebook Id and accessToken.
+Send it to backend in order to get all events stored under that user.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
 
     
 
     
-    <h4 class="name" id="insertUser"><span class="type-signature"></span>insertUser<span class="signature">(response)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="fetchItems"><span class="type-signature">(constant) </span>fetchItems<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct a fetch items query with input facebook Id and accessToken.
+Send it to backend in order to get all items stored under that user.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line148">line 148</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="fetchProfile"><span class="type-signature">(constant) </span>fetchProfile<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct a fetch user profile query with input facebook Id and accessToken.
+Send it to backend in order to get corresponding user configurations (email, 
+notification time).
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line105">line 105</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="fetchUser"><span class="type-signature">(constant) </span>fetchUser<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Store user profile fetched from facebook to reducer for further frontend usage.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="insertEvent"><span class="type-signature">(constant) </span>insertEvent<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct an insert event query based on facebook Id, accessToken and the new event object.
+Send it to backend in order to insert this new event under the corresponding user account.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line170">line 170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="insertItem"><span class="type-signature">(constant) </span>insertItem<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct an insert item query based on facebook Id, accessToken and the new item object.
+Send it to backend in order to insert this new item under the corresponding user account.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="insertUser"><span class="type-signature">(constant) </span>insertUser<span class="type-signature"></span></h4>
+
 
 
 
@@ -300,55 +618,63 @@ Check if server correctly handle this user, then fetch all user data from server
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The response from facebook that includes the account settings of that user.</td>
-        </tr>
+<dl class="details">
 
     
-    </tbody>
-</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line77">line 77</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="toggleEventSelector"><span class="type-signature">(constant) </span>toggleEventSelector<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Switch for the event selector component. When the event selector is set to display, 
+it will render all details in the given payload. Otherwise, the payload will be set to null.
+</div>
+
 
 
 
@@ -384,7 +710,7 @@ Check if server correctly handle this user, then fetch all user data from server
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="client_src_Request.js.html">client/src/Request.js</a>, <a href="client_src_Request.js.html#line10">line 10</a>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -400,35 +726,452 @@ Check if server correctly handle this user, then fetch all user data from server
 
 
 
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
         
+            
+<h4 class="name" id="toggleItemSelector"><span class="type-signature">(constant) </span>toggleItemSelector<span class="type-signature"></span></h4>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
 
 
-    </dd>
-</dl>
+<div class="description">
+    Switch for the item selector component. When the item selector is set to display, 
+it will render all details in the given payload. Otherwise, the payload will be set to null.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
 
 
 
+
+
+
+        
+            
+<h4 class="name" id="togglePictureEditor"><span class="type-signature">(constant) </span>togglePictureEditor<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Switch for the picture editor component. When the picture editor is set to display, 
+it will render all details in the given payload. Otherwise, the payload will be set to null.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="togglePopup"><span class="type-signature">(constant) </span>togglePopup<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Switch for the popup component. When the popup is set to display, it will render all details
+in the given payload. Otherwise, the payload will be set to null.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="updateEmail"><span class="type-signature">(constant) </span>updateEmail<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct an update user profile query based on the input email, facebook Id and accessToken.
+Send it to backend in order to update the email configuration under given user.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line324">line 324</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="updateEvent"><span class="type-signature">(constant) </span>updateEvent<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct a update event query based on facebook Id, accessToken and the input data object.
+Send it to backend in order to update corresponding event details.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line199">line 199</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="updateItem"><span class="type-signature">(constant) </span>updateItem<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct a update item query based on facebook Id, accessToken and the input data object.
+Send it to backend in order to update corresponding item details.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line277">line 277</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="updateNotifyTime"><span class="type-signature">(constant) </span>updateNotifyTime<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Construct an update user profile query based on the input notification time, facebook Id and accessToken.
+Send it to backend in order to update the notification time configuration under given user.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_src_actions_index.js.html">client/src/actions/index.js</a>, <a href="client_src_actions_index.js.html#line343">line 343</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
@@ -719,7 +1462,7 @@ Check if server correctly handle this user, then fetch all user data from server
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_queries_Query.js.html">src/queries/Query.js</a>, <a href="src_queries_Query.js.html#line23">line 23</a>
+        <a href="src_queries_Query.js.html">src/queries/Query.js</a>, <a href="src_queries_Query.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -842,7 +1585,7 @@ Check if server correctly handle this user, then fetch all user data from server
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_database_DatabaseUtils.js.html">src/database/DatabaseUtils.js</a>, <a href="src_database_DatabaseUtils.js.html#line17">line 17</a>
+        <a href="src_database_DatabaseUtils.js.html">src/database/DatabaseUtils.js</a>, <a href="src_database_DatabaseUtils.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -928,7 +1671,7 @@ Check if server correctly handle this user, then fetch all user data from server
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_database_DatabaseUtils.js.html">src/database/DatabaseUtils.js</a>, <a href="src_database_DatabaseUtils.js.html#line22">line 22</a>
+        <a href="src_database_DatabaseUtils.js.html">src/database/DatabaseUtils.js</a>, <a href="src_database_DatabaseUtils.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -970,13 +1713,13 @@ Check if server correctly handle this user, then fetch all user data from server
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchDataQuery.html">FetchDataQuery</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="Database.html">Database</a></li><li><a href="DatabaseUtils.html">DatabaseUtils</a></li><li><a href="Event.html">Event</a></li><li><a href="Eventboard.html">Eventboard</a></li><li><a href="EventSelector.html">EventSelector</a></li><li><a href="EventsRouter.html">EventsRouter</a></li><li><a href="FetchQuery.html">FetchQuery</a></li><li><a href="Header.html">Header</a></li><li><a href="Icon.html">Icon</a></li><li><a href="IndexRouter.html">IndexRouter</a></li><li><a href="InsertQuery.html">InsertQuery</a></li><li><a href="Itemboard.html">Itemboard</a></li><li><a href="ItemSelector.html">ItemSelector</a></li><li><a href="ItemsRouter.html">ItemsRouter</a></li><li><a href="Layer.html">Layer</a></li><li><a href="LoginButton.html">LoginButton</a></li><li><a href="PictureEditor.html">PictureEditor</a></li><li><a href="Popup.html">Popup</a></li><li><a href="Profile.html">Profile</a></li><li><a href="ProfileRow.html">ProfileRow</a></li><li><a href="Query.html">Query</a></li><li><a href="QueryUtils.html">QueryUtils</a></li><li><a href="RemoveQuery.html">RemoveQuery</a></li><li><a href="Row.html">Row</a></li><li><a href="UpdateQuery.html">UpdateQuery</a></li><li><a href="UsersRouter.html">UsersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deleteEvent">deleteEvent</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#fetchEvents">fetchEvents</a></li><li><a href="global.html#fetchItems">fetchItems</a></li><li><a href="global.html#fetchProfile">fetchProfile</a></li><li><a href="global.html#fetchUser">fetchUser</a></li><li><a href="global.html#insertEvent">insertEvent</a></li><li><a href="global.html#insertItem">insertItem</a></li><li><a href="global.html#insertUser">insertUser</a></li><li><a href="global.html#modelGenerator">modelGenerator</a></li><li><a href="global.html#toggleEventSelector">toggleEventSelector</a></li><li><a href="global.html#toggleItemSelector">toggleItemSelector</a></li><li><a href="global.html#togglePictureEditor">togglePictureEditor</a></li><li><a href="global.html#togglePopup">togglePopup</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateEvent">updateEvent</a></li><li><a href="global.html#updateItem">updateItem</a></li><li><a href="global.html#updateNotifyTime">updateNotifyTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 23:05:15 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 17:21:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
