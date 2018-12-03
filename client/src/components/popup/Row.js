@@ -264,8 +264,10 @@ class Row extends Component {
         
         const paths = [];
         const pathsSet = new Set([]);
-        
-        items.forEach(item => pathsSet.add(item.location));
+
+        if (items) {
+            items.forEach(item => pathsSet.add(item.location));
+        }
         pathsSet.forEach(path => paths.push(path));
         paths.forEach((path, index) => paths[index] = {
             label: this.reformatItemLocation(path),
