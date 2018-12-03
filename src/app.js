@@ -6,7 +6,7 @@ const cors = require('cors');
 const logger = require('morgan');
 const database = require('./database/Database');
 const timeInterval = 3600000; // one hour in miliseconds
-const notificationOn = false; // set notification on to enable email service
+const notificationOn = true; // set notification on to enable email service
 
 const IndexRouter = require('./routers/IndexRouter');
 const UsersRouter = require('./routers/UsersRouter');
