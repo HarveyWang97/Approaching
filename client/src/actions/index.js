@@ -329,7 +329,7 @@ export const updateEmail = (email,facebookId,accessToken) => async (dispatch) =>
     const url = 
     `http://localhost:3000/users/update?facebookId=${facebookId}&accessToken=${accessToken}&email=${email}`;
     const res = await axios.get(url);
-    console.log('update email', res.data.userProfile.email);
+    //console.log('update email', res.data.userProfile.email);
 }
 
 /**

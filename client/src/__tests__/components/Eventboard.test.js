@@ -54,11 +54,5 @@ describe("should render the eventboard correctly",() => {
         expect(wrapper.dive().find(Event).at(1).props().name).toEqual("hulu onsite");
     });
 
-    /*it("will trigger popup given the click on a single event item", () => {
-        expect(wrapper.dive().find(Popup)).toHaveLength(0);
-       // (wrapper.dive().find(Event).at(0)).simulate('click');
-        //expect(wrapper.dive().find(Popup)).toHaveLength(1);
-       // wrapper.dive().find(".footer i").simulate('click');
-
-    });*/
+    
 });

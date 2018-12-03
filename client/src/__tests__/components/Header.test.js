@@ -35,6 +35,5 @@ describe("test header",() => {
     it("popup after click",() => {
         wrapper.dive().find(".header-user").simulate('click');
         expect(wrapper.dive().state('showPopup')).toEqual(false);
-        expect(wrapper.dive().state('name')).toEqual("wang");
     });
 });

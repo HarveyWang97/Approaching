@@ -28,7 +28,8 @@ describe("should render test correctly",() => {
         expect(wrapper.dive().find('div span').at(0).text()).toEqual("birthday");
     });
 
-
-    
+    it("render the time correctly",() => {
+        expect(wrapper.dive().find('div span').at(1).text()).toEqual("16:26");
+    });
     
 });

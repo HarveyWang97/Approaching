@@ -41,10 +41,6 @@ describe("test insert events",() => {
     });
 });
 
-describe("describe delete events",() => {
-    it("handle delete events",async() => {
-        const store = mockStore();
-    });
-});
+
 
 
