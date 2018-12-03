@@ -137,6 +137,7 @@ class DatabaseUtils {
     conditions[primaryKey] = object[primaryKey];
     model.findOne(conditions, (err, doc) => {      
       if (err || !doc) {
+        debug("111000000", model);
         callback(this.failure(err ? err : "Entry not found."));
       } else {
         for (let field in object) {

@@ -73,7 +73,7 @@ class Header extends Component{
      */
     userLoggedIn()
     {
-        return (ls.get('username') !== undefined && ls.get('username') !== null)
+        return (ls.get('username') !== undefined && ls.get('username') !== null);
     }
 
 
@@ -89,7 +89,10 @@ class Header extends Component{
                         <span className='header-logo'>Approaching</span>
                         <div className='header-user' onClick={this.togglePopup.bind(this)}>
                             <Icon iconName='user-circle'/>
-                            <span className='header-user-name'>{ls.get('username')}</span>
+                            <span className='header-user-name'>
+                                {(ls.get('username') === undefined || ls.get('username') === null) ? "" : ls.get('username')}
+        </span>
+                            
                         </div>
                     </div>
                 </Navbar>

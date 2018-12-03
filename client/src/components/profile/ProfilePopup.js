@@ -182,7 +182,7 @@ class Profile extends Component {
     /**
 	 * Convert reminder time in hours to milliseconds for communication with backend.
 	 * @param {String} hour
-	 * @return {None} 
+	 * @return {Float} ms
 	 *
 	 * @example
 	 *
@@ -195,7 +195,7 @@ class Profile extends Component {
     /**
 	 * Convert reminder time in milliseconds to hours for communication with backend.
 	 * @param {String} sec
-	 * @return {None} 
+	 * @return {Float} hours
 	 *
 	 * @example
 	 *
