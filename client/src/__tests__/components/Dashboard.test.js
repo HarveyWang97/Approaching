@@ -93,10 +93,4 @@ describe("test the dashboard", () => {
         initialState.eventSelector.show = true;
         expect(wrapper.dive().find(EventSelector)).toHaveLength(1);
     });
-
-
-     
-    
-
-    
 });
